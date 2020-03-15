@@ -38,6 +38,7 @@
 <table class="table table-bordered">
     <thead>
         <tr>
+            <th width="60px"><b>No</b></th>
             <th><b>Nama</b></th>
             <th><b>Username</b></th>
             <th><b>Email</b></th>
@@ -47,26 +48,27 @@
         </tr>
     </thead>
     <tbody>
-        @foreach( $users as $user )
+        @foreach( $users as $index => $user )
         <tr>
-            <td>{{$user->name}}</td>
-            <td>{{$user->username}}</td>
-            <td>{{$user->email}}</td>
+            <td>{{ $index+1 }}</td>
+            <td>{{ $user->name }}</td>
+            <td>{{ $user->username }}</td>
+            <td>{{ $user->email }}</td>
             <td>
                 @if( $user->avatar )
-                <img src="{{ asset( 'storage/'.$user->avatar ) }}" width="70px" />
+                    <img src="{{ asset( 'storage/'.$user->avatar ) }}" width="70px" />
                 @else
-                sN/A
+                    Tidak Ada Foto
                 @endif
             </td>
             <td>
-                @if($user->status == "ACTIVE")
+                @if( $user->status == "ACTIVE" )
                 <span class="badge badge-success">
-                    {{$user->status}}
+                    {{ $user->status }}
                 </span>
                 @else
                 <span class="badge badge-danger">
-                    {{$user->status}}
+                    {{ $user->status }}
                 </span>
                 @endif
             </td>

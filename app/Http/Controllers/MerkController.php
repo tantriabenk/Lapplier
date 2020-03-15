@@ -51,9 +51,11 @@ class MerkController extends Controller
      */
     public function store(Request $request)
     {
+        $nama_merk = $request->get( 'nama_merk' );
+
         $new_merk = new \App\Merk;
-        $new_merk->nama_merk = $request->get( 'nama_merk' );
-        $new_merk->status = $request->get( 'status' );
+        $new_merk->nama_merk = $nama_merk;
+        $new_merk->slug = \Str::slug($nama_merk, '-');
         $new_merk->created_by = \Auth::user()->id;
 
         $new_merk->save();
@@ -96,7 +98,7 @@ class MerkController extends Controller
     {
         $merk = \App\Merk::findOrFail( $id );
         $merk->nama_merk = $request->get( 'nama_merk' );
-        $merk->status = $request->get( 'status' );
+        $merk->slug = $request->get( 'slug' );
         $merk->updated_by = \Auth::user()->id;
 
         $merk->save();
@@ -115,6 +117,24 @@ class MerkController extends Controller
         $merk = \App\Merk::findOrFail( $id );
         $merk->delete();
 
-        return redirect()->route( 'merks.index' )->with( 'status', 'Merk berhasil dihapus' );
+        return redirect()->route( 'merks.index' )->with( 'status', 'Merk berhasil di pindahkan ke tong sampah' );
+    }
+
+    public function trash(){
+        $deleted_merk = \App\Merk::onlyTrashed()->paginate( 10 );
+
+        return view( 'merks.trash', ['merks' => $deleted_merk] );
+    }
+
+    public function restore($id){
+        $merk = \App\Merk::withTrashed()->findOrFail($id);
+
+        if( $merk->trashed() ):
+            $merk->restore();
+        else:
+            return redirect()->route( 'merks.index' )->with( 'status', 'Merk tidak ada di tong sampah' );
+        endif;
+
+        return redirect()->route( 'merks.index' )->with( 'status', 'Merk berhasil di restore' );
     }
 }

@@ -28,4 +28,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource("users", "UserController");
 
 // Manage Merek
+Route::get('/merks/trash', 'MerkController@trash')->name('merks.trash');
+Route::get('/merks/{id}/restore', 'MerkController@restore')->name('merks.restore');
 Route::resource('merks', 'MerkController');

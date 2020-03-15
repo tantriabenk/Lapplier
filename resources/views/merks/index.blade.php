@@ -9,19 +9,27 @@
 @endif
 
 <div class="row">
+    <div class="col-md-12">
+        <h2>Master Merk</h2>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-md-6">
-        <form action="{{route('merks.index')}}">
+        <form action="{{ route( 'merks.index' ) }}">
             <div class="row">
                 <div class="col-md-6">
-                    <input value="{{Request::get('keyword')}}" name="keyword" class="form-control" type="text" placeholder="Masukan nama merk untuk filter..." />
+                    <input value="{{ Request::get( 'keyword' ) }}" name="keyword" class="form-control" type="text" placeholder="Masukan nama merk untuk filter..." />
                 </div>
                 <div class="col-md-6">
-                    <input {{Request::get('status') == 'ACTIVE' ? 'checked' : ''}} value="ACTIVE" name="status" type="radio" class="form-control" id="active">
-                    <label for="active">Active</label>
-
-                    <input {{Request::get('status') == 'INACTIVE' ? 'checked' : ''}} value="INACTIVE" name="status" type="radio" class="form-control" id="inactive">
-                    <label for="inactive">Inactive</label>
-                    <input type="submit" value="Filter" class="btn btn-primary">
+                <ul class="nav nav-pills card-header-pills">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ route( 'merks.index' ) }}">Published</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route( 'merks.trash' ) }}">Trash</a>
+                    </li>
+                </ul>
                 </div>
             </div>
         </form>
@@ -38,29 +46,21 @@
 <table class="table table-bordered">
     <thead>
         <tr>
+            <th width="60px"><b>No</b></th>
             <th><b>Nama Merk</b></th>
-            <th><b>Status</b></th>
+            <th><b>Slug</b></th>
             <th><b>Tindakan</b></th>
         </tr>
     </thead>
     <tbody>
-        @foreach( $merks as $merk )
+        @foreach( $merks as $index => $merk )
         <tr>
+            <td>{{ $index+1 }}</td>
             <td>{{ $merk->nama_merk }}</td>
-            <td>
-                @if($merk->status == "ACTIVE")
-                <span class="badge badge-success">
-                    {{ $merk->status }}
-                </span>
-                @else
-                <span class="badge badge-danger">
-                    {{ $merk->status }}
-                </span>
-                @endif
-            </td>
+            <td>{{ $merk->slug }}</td>
             <td>
                 <a class="btn btn-info text-white btn-sm" href="{{ route( 'merks.edit', [$merk->id] ) }}">Ubah</a>
-                <form onsubmit="return confirm('Hapus merk secara permanen?')" class="d-inline"
+                <form onsubmit="return confirm('Pindahkan data merk ke tong sampah?')" class="d-inline"
                     action="{{ route( 'merks.destroy', [$merk->id] ) }}" method="POST">
                     @csrf
                     <input type="hidden" name="_method" value="DELETE">
