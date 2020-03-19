@@ -17,7 +17,7 @@ class CreateMerksTable extends Migration
             $table->id();
             $table->string("nama_merk");
             $table->string("slug");
-            $table->integer("created_by");
+            $table->integer("created_by")->nullable();
             $table->integer("updated_by")->nullable();
             $table->integer("deleted_by")->nullable();
             $table->softDeletes();

@@ -14,7 +14,7 @@ class AdministratorSeeder extends Seeder
         $administrator = new \App\User;
         $administrator->username = "administrator";
         $administrator->name = "Site Administrator";
-        $administrator->email = "administrator@supplier.test";
+        $administrator->email = "admin@gmail.com";
         $administrator->roles = json_encode(["ADMIN"]);
         $administrator->password = \Hash::make("rahasia");
         $administrator->avatar = "";

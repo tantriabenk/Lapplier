@@ -31,3 +31,6 @@ Route::resource("users", "UserController");
 Route::get('/merks/trash', 'MerkController@trash')->name('merks.trash');
 Route::get('/merks/{id}/restore', 'MerkController@restore')->name('merks.restore');
 Route::resource('merks', 'MerkController');
+
+// Manage Customers
+Route::resource("customers", "CustomerController");

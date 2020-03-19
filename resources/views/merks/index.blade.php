@@ -14,27 +14,26 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-6">
-        <form action="{{ route( 'merks.index' ) }}">
-            <div class="row">
-                <div class="col-md-6">
-                    <input value="{{ Request::get( 'keyword' ) }}" name="keyword" class="form-control" type="text" placeholder="Masukan nama merk untuk filter..." />
-                </div>
-                <div class="col-md-6">
-                <ul class="nav nav-pills card-header-pills">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ route( 'merks.index' ) }}">Published</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route( 'merks.trash' ) }}">Trash</a>
-                    </li>
-                </ul>
-                </div>
-            </div>
-        </form>
+<form action="{{ route( 'merks.index' ) }}">
+    <div class="row">
+        <div class="col-md-3">
+            <input value="{{ Request::get( 'keyword' ) }}" name="keyword" class="form-control" type="text" placeholder="Masukan nama merk untuk filter..." />
+        </div>
+        <div class="col-md-1">
+            <input type="submit" value="Filter" class="btn btn-primary btn-block">
+        </div>
+        <div class="col-md-6">
+            <ul class="nav nav-pills card-header-pills">
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{ route( 'merks.index' ) }}">Published</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route( 'merks.trash' ) }}">Trash</a>
+                </li>
+            </ul>
+        </div>
     </div>
-</div>
+</form>
 
 <div class="row">
     <div class="col-md-12 text-right">
