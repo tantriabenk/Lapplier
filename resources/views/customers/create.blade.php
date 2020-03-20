@@ -24,16 +24,23 @@
 
         <form enctype="multipart/form-data" class="bg-white shadow-sm p-3" action="{{ route( 'customers.store' ) }}" method="POST">
             @csrf
+
             <label for="name">Nama</label>
-            <input class="form-control" placeholder="Nama" type="text" name="name" id="name" />
+            <input class="form-control @error( 'name' ) is-invalid @enderror" placeholder="Masukkan nama pemilik toko" type="text" name="name" id="name" value="{{ old( 'name' ) }}" />
+            @error( 'name' )
+                <span class="invalid">{{ $message }}</span>
+            @enderror
             <br>
 
             <label for="name">Nama Toko</label>
-            <input class="form-control" placeholder="Nama Toko" type="text" name="store_name" id="store_name" />
+            <input class="form-control" placeholder="Masukkan nama toko" type="text" name="store_name" id="store_name" value="{{ old( 'store_name' ) }}" />
+            @error( 'store_name' )
+                <span class="invalid">{{ $message }}</span>
+            @enderror
             <br>
 
             <label for="name">Nomor Handphone</label>
-            <input class="form-control" placeholder="Nomor Handphone" type="text" name="phone_number" id="phone_number" />
+            <input class="form-control" placeholder="Masukkan nomor handphone" type="text" name="phone_number" id="phone_number" />
             <br>
 
             <label for="status">Status</label>

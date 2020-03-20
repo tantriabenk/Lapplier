@@ -55,7 +55,7 @@
         @foreach( $merks as $index => $merk )
         <tr>
             <td>{{ $index+1 }}</td>
-            <td>{{ $merk->nama_merk }}</td>
+            <td>{{ $merk->merk_name }}</td>
             <td>{{ $merk->slug }}</td>
             <td>
                 <a class="btn btn-info text-white btn-sm" href="{{ route( 'merks.edit', [$merk->id] ) }}">Ubah</a>

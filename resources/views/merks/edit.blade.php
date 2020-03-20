@@ -26,7 +26,10 @@
             @csrf
             <input type="hidden" value="PUT" name="_method">
             <label for="name">Nama Merk</label>
-            <input class="form-control" placeholder="Nama Merk" type="text" name="nama_merk" id="nama_merk" value="{{ $merk->nama_merk }}" />
+            <input class="form-control @error('merk_name') is-invalid @enderror" placeholder="Nama Merk" type="text" name="merk_name" id="merk_name" value="{{ $merk->merk_name }}" />
+            @error('merk_name')
+                <span class="invalid">{{ $message }}</span>
+            @enderror
             <br>
 
             <label for="name">Slug</label>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\CustomerRequest;
 
 class CustomerController extends Controller
 {
@@ -17,7 +18,7 @@ class CustomerController extends Controller
         $filterKeyword = $request->get( 'keyword' );
 
         if( $filterKeyword ):
-            $customers = \App\Merk::where( 'nama_merk', 'LIKE', "%$filterKeyword%" )->paginate( 10 );
+            $customers = \App\Merk::where( 'name', 'LIKE', "%$filterKeyword%" )->paginate( 10 );
         endif;
 
         return view( 'customers.index', [ 'customers' => $customers ] );
@@ -39,7 +40,7 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CustomerRequest $request)
     {
         $name = $request->get( 'name' );
         $store_name = $request->get( 'store_name' );

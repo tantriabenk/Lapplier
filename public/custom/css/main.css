@@ -1,0 +1,21 @@
+.grid-highlight {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background-color: #5c6ac4;
+    border: 1px solid #202e78;
+    color: #fff;
+}
+
+hr {
+    margin: 6rem 0;
+}
+
+hr+.display-3,
+hr+.display-2+.display-3 {
+    margin-bottom: 2rem;
+}
+
+span.invalid{
+    color: red;
+    display: block;
+}

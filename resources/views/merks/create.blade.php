@@ -25,17 +25,13 @@
         <form enctype="multipart/form-data" class="bg-white shadow-sm p-3" action="{{ route( 'merks.store' ) }}" method="POST">
             @csrf
             <label for="name">Nama Merk</label>
-            <input class="form-control" placeholder="Nama Merk" type="text" name="nama_merk" id="nama_merk" />
+            <input class="form-control @error( 'merk_name' ) is-invalid @enderror" placeholder="Nama Merk" type="text" name="merk_name" id="merk_name" value="{{ old( 'merk_name' ) }}" />
+            @error('merk_name')
+                <span class="invalid">{{ $message }}</span>
+            @enderror
             <br>
 
-            <label for="status">Status</label>
-            <br>
-            <input checked value="ACTIVE" name="status" type="radio" class="form-control" id="active">
-            <label for="active">Active</label>
-            <input value="INACTIVE" name="status" type="radio" class="form-control" id="inactive">
-            <label for="inactive">Inactive</label>
-            <br><br>
-            <input class="btn btn-primary" type="submit" value="Save" />
+            <input class="btn btn-primary" type="submit" value="Simpan" />
         </form>
     </div>
 </div>

@@ -12,7 +12,7 @@ class MerkSeeder extends Seeder
     public function run()
     {
         $merk = new \App\Merk;
-        $merk->nama_merk = "Yamaha";
+        $merk->merk_name = "Yamaha";
         $merk->slug = "yamaha";
         $merk->save();
         $this->command->info("Merk berhasil diinsert");

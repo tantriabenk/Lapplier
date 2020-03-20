@@ -11,25 +11,7 @@
     <title>Lapplier @yield("title")</title>
     <link rel="stylesheet" href="{{ asset('polished/polished.min.css') }}">
     <link rel="stylesheet" href="{{ asset('polished/iconic/css/open-iconicbootstrap.min.css') }}">
-    <style>
-        .grid-highlight {
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-            background-color: #5c6ac4;
-            border: 1px solid #202e78;
-            color: #fff;
-        }
-
-        hr {
-            margin: 6rem 0;
-        }
-
-        hr+.display-3,
-        hr+.display-2+.display-3 {
-            margin-bottom: 2rem;
-        }
-
-    </style>
+    <link rel="stylesheet" href="{{ asset('custom/css/main.css') }}">
     <script type="text/javascript">
         document.documentElement.className = document.documentElement.className.replace('no-js', 'js') + (document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure ", "1.1 ") ? ' svg' : ' no-svg');
     </script>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\MerkRequest;
 
 class MerkController extends Controller
 {
@@ -49,12 +50,12 @@ class MerkController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MerkRequest $request)
     {
-        $nama_merk = $request->get( 'nama_merk' );
+        $nama_merk = $request->get( 'merk_name' );
 
         $new_merk = new \App\Merk;
-        $new_merk->nama_merk = $nama_merk;
+        $new_merk->merk_name = $nama_merk;
         $new_merk->slug = \Str::slug($nama_merk, '-');
         $new_merk->created_by = \Auth::user()->id;
 
@@ -94,10 +95,10 @@ class MerkController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MerkRequest $request, $id)
     {
         $merk = \App\Merk::findOrFail( $id );
-        $merk->nama_merk = $request->get( 'nama_merk' );
+        $merk->merk_name = $request->get( 'merk_name' );
         $merk->slug = $request->get( 'slug' );
         $merk->updated_by = \Auth::user()->id;
 
