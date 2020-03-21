@@ -24,7 +24,7 @@
 
         <form enctype="multipart/form-data" class="bg-white shadow-sm p-3" action="{{ route( 'customers.update', [$customer->id] ) }}" method="POST">
             @csrf
-            <input type="hidden" value="PUT" name="_method">
+            @method('PUT')
 
             <label for="name">Nama</label>
             <input class="form-control" placeholder="Nama" type="text" name="name" id="name" value="{{ $customer->name }}" />

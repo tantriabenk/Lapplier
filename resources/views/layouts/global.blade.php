@@ -80,9 +80,6 @@
                         </li>
                     </div>
                 </ul>
-                <div class="pl-3 d-none d-md-block position-fixed" style="bottom: 0px">
-                    <span class="oi oi-cog"></span> Setting
-                </div>
             </div>
             <div class="col-lg-10 col-md-9 p-4">
                 <div class="row ">

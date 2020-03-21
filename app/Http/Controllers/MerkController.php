@@ -21,11 +21,11 @@ class MerkController extends Controller
 
         if( $filterKeyword ):
             if( $status ):
-                $merks = \App\Merk::where( 'nama_merk', 'LIKE', "%$filterKeyword%" )
+                $merks = \App\Merk::where( 'merk_name', 'LIKE', "%$filterKeyword%" )
                     ->where( 'status', $status )
                     ->paginate( 10 );
             else:
-                $merks = \App\Merk::where( 'nama_merk', 'LIKE', "%$filterKeyword%" )->paginate( 10 );
+                $merks = \App\Merk::where( 'merk_name', 'LIKE', "%$filterKeyword%" )->paginate( 10 );
             endif;
         elseif( $status ):
             $merks = \App\Merk::where( 'status', $status )->paginate( 10 );
@@ -61,7 +61,7 @@ class MerkController extends Controller
 
         $new_merk->save();
 
-        return redirect()->route( 'merks.create' )->with( 'status', 'Merk berhasil disimpan' );
+        return redirect()->route( 'merks.index' )->with( 'status', 'Merk berhasil disimpan' );
     }
 
     /**
@@ -97,11 +97,12 @@ class MerkController extends Controller
      */
     public function update(MerkRequest $request, $id)
     {
+        $nama_merk = $request->get( 'merk_name' );
         $merk = \App\Merk::findOrFail( $id );
-        $merk->merk_name = $request->get( 'merk_name' );
-        $merk->slug = $request->get( 'slug' );
+        $merk->merk_name = $nama_merk;
+        $merk->slug = \Str::slug($nama_merk, '-');
         $merk->updated_by = \Auth::user()->id;
-
+ 
         $merk->save();
 
         return redirect()->route( 'merks.edit', [$id] )->with( 'status', 'Merk berhasil diubah' );

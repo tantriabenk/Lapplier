@@ -10,7 +10,8 @@
     @endif
     <form enctype="multipart/form-data" class="bg-white shadow-sm p-3" action="{{ route( 'users.update', [$user->id] ) }}" method="POST">
         @csrf
-        <input type="hidden" value="PUT" name="_method">
+        @method('PUT')
+        
         <label for="name">Nama</label>
         <input value="{{ $user->name }}" class="form-control" placeholder="Nama Lengkap" type="text" name="name" id="name" />
         <br>

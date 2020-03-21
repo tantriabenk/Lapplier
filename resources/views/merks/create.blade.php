@@ -4,14 +4,7 @@
 
 @section("content")
 
-<div class="row">
-    <div class="col-md-11">
-        <h2>Master Merk</h2>
-    </div>
-    <div class="col-md-1">
-        <a href="{{ route( 'merks.index' ) }}" class="btn btn-danger btn-block">Kembali</a>
-    </div>
-</div>
+@include( 'merks.filter' )
 
 <div class="row">
     <div class="col-md-12">

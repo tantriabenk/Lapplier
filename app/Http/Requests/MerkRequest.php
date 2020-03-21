@@ -34,7 +34,7 @@ class MerkRequest extends FormRequest
 
             case 'POST': {
                 return [
-                    'merk_name' => 'required|min:3'
+                    'merk_name' => 'required'
                 ];
             }
 
@@ -42,8 +42,7 @@ class MerkRequest extends FormRequest
             
             case 'PATCH': {
                 return [
-                    'id' => 'required|exists:merks,id',
-                    'merk_name' => 'required|min:10'
+                    'merk_name' => 'required',
                 ];
             }
 
@@ -62,7 +61,6 @@ class MerkRequest extends FormRequest
     {
         return [
             'merk_name.required' => 'Form nama merek tidak boleh kosong',
-            'merk_name.min'  => 'Form nama merek minimal memiliki :min kata',
         ];
     }
 }
