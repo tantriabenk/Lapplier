@@ -15,11 +15,22 @@ class CustomerController extends Controller
     public function index( Request $request )
     {
         $customers = \App\Customer::paginate( 10 );
+
         $filterKeyword = $request->get( 'keyword' );
+        $status = $request->get( 'status' );
 
         if( $filterKeyword ):
-            $customers = \App\Merk::where( 'name', 'LIKE', "%$filterKeyword%" )->paginate( 10 );
+            if( $status ):
+                $customers = \App\Customer::where( 'name', 'LIKE', "%$filterKeyword%" )
+                    ->where( 'status', $status )
+                    ->paginate( 10 );
+            else:
+                $customers = \App\Customer::where( 'name', 'LIKE', "%$filterKeyword%" )->paginate( 10 );
+            endif;
+        elseif( $status ):
+            $customers = \App\Customer::where( 'status', $status )->paginate( 10 );
         endif;
+
 
         return view( 'customers.index', [ 'customers' => $customers ] );
     }
@@ -46,17 +57,19 @@ class CustomerController extends Controller
         $store_name = $request->get( 'store_name' );
         $phone_number = $request->get( 'phone_number' );
         $status = $request->get( 'status' );
+        $address = $request->get( 'address' );
 
         $new_customer = new \App\Customer;
         $new_customer->name = $name;
         $new_customer->store_name = $store_name;
         $new_customer->phone_number = $phone_number;
         $new_customer->status = $status;
+        $new_customer->address = $address;
         $new_customer->created_by = \Auth::user()->id;
 
         $new_customer->save();
 
-        return redirect()->route( 'customers.create' )->with( 'status', 'Pelanggan berhasil disimpan' );
+        return redirect()->route( 'customers.index' )->with( 'status', 'Data pelanggan berhasil disimpan' );
     }
 
     /**
@@ -97,11 +110,12 @@ class CustomerController extends Controller
         $customer->store_name = $request->get( 'store_name' );
         $customer->phone_number = $request->get( 'phone_number' );
         $customer->status = $request->get( 'status' );
+        $customer->address = $request->get( 'address' );
         $customer->updated_by = \Auth::user()->id;
 
         $customer->save();
 
-        return redirect()->route( 'customers.edit', [$id] )->with( 'status', 'Pelanggan berhasil diubah' );
+        return redirect()->route( 'customers.edit', [$id] )->with( 'status', 'Data pelanggan berhasil diubah' );
     }
 
     /**
@@ -116,5 +130,23 @@ class CustomerController extends Controller
         $customer->delete();
 
         return redirect()->route( 'customers.index' )->with( 'status', 'Data pelanggan berhasil di pindahkan ke tong sampah' );
+    }
+
+    public function trash(){
+        $deleted_customers = \App\Customer::onlyTrashed()->paginate( 10 );
+
+        return view( 'customers.trash', ['customers' => $deleted_customers] );
+    }
+
+    public function restore($id){
+        $customer = \App\Customer::withTrashed()->findOrFail($id);
+
+        if( $customer->trashed() ):
+            $customer->restore();
+        else:
+            return redirect()->route( 'customers.index' )->with( 'status', 'Data pelanggan tidak ada di tong sampah' );
+        endif;
+
+        return redirect()->route( 'customers.index' )->with( 'status', 'Data pelanggan berhasil di restore' );
     }
 }

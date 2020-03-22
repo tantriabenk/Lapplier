@@ -9,14 +9,7 @@
 @endif
 
 @include( 'customers.filter' )
-
-<div class="row">
-    <div class="col-md-12 text-right">
-        <a href="{{ route( 'customers.create' ) }}" class="btn btn-success">Tambah pelanggan</a>
-    </div>
-</div>
-<br>
-
+<br/>
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -37,16 +30,7 @@
             <td>{{ $customer->phone_number }}</td>
             <td>{{ $customer->status }}</td>
             <td>
-                <a class="btn btn-info text-white btn-sm" href="{{ route( 'customers.edit', [$customer->id] ) }}">Ubah</a>
-
-                @if( $customer->status == "Inactive" )
-                    <form onsubmit="return confirm('Pindahkan data pelanggan ke tong sampah?')" class="d-inline"
-                        action="{{ route( 'customers.destroy', [$customer->id] ) }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="_method" value="DELETE">
-                        <input type="submit" value="Hapus" class="btn btn-danger btn-sm">
-                    </form>
-                @endif
+                <a href="{{ route( 'customers.restore', [$customer->id] ) }}" class="btn btn-success">Restore</a>
             </td>
         </tr>
         @endforeach

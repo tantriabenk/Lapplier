@@ -1,5 +1,5 @@
 @extends("layouts.global")
-@section("title") Merks list @endsection
+@section("title") Master Merk @endsection
 @section("content")
 
 @if( session( 'status' ) )

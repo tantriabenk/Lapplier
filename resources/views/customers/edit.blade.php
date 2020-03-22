@@ -38,6 +38,10 @@
             <input class="form-control" placeholder="Nomor Handphone" type="text" name="phone_number" value="{{ $customer->phone_number }}" id="phone_number" />
             <br>
 
+            <label for="address">Alamat</label>
+            <textarea class="form-control @error( 'address' ) is-invalid @enderror" placeholder="Masukkan alamat toko" name="address" id="address">{{ $customer->address }}</textarea>
+            <br>
+
             <label for="status">Status</label>
             <br>
             <input {{ $customer->status == "Active" ? "checked" : "" }} value="Active" name="status" type="radio" class="form-control" id="active">

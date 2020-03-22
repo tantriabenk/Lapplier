@@ -61,7 +61,7 @@ class MerkController extends Controller
 
         $new_merk->save();
 
-        return redirect()->route( 'merks.index' )->with( 'status', 'Merk berhasil disimpan' );
+        return redirect()->route( 'merks.index' )->with( 'status', 'Data merk berhasil disimpan' );
     }
 
     /**
@@ -105,7 +105,7 @@ class MerkController extends Controller
  
         $merk->save();
 
-        return redirect()->route( 'merks.edit', [$id] )->with( 'status', 'Merk berhasil diubah' );
+        return redirect()->route( 'merks.edit', [$id] )->with( 'status', 'Data merk berhasil diubah' );
     }
 
     /**
@@ -134,9 +134,9 @@ class MerkController extends Controller
         if( $merk->trashed() ):
             $merk->restore();
         else:
-            return redirect()->route( 'merks.index' )->with( 'status', 'Merk tidak ada di tong sampah' );
+            return redirect()->route( 'merks.index' )->with( 'status', 'Data merk tidak ada di tong sampah' );
         endif;
 
-        return redirect()->route( 'merks.index' )->with( 'status', 'Merk berhasil di restore' );
+        return redirect()->route( 'merks.index' )->with( 'status', 'Data merk berhasil di restore' );
     }
 }

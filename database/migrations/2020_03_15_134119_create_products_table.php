@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('product_name');
             $table->integer('stock')->default(0)->unsigned();
-            $table->enum('status', ['Publish', 'Draft']);
+            $table->enum('status', ['Active', 'Inactive']);
             $table->float('price_buy');
             $table->float('price_sell');
             $table->integer('created_by')->nullable();

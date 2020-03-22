@@ -18,6 +18,7 @@ class CreateCustomersTable extends Migration
             $table->string('name');
             $table->string('store_name');
             $table->string('phone_number');
+            $table->string('address');
             $table->enum('status', ['Active', 'Inactive']);
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();

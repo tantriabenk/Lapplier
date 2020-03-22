@@ -15,6 +15,7 @@ class CustomerSeeder extends Seeder
         $customer->name = "Joko";
         $customer->store_name = "Toko Nusantara";
         $customer->phone_number = "089231823";
+        $customer->address = "Jalan Raya Kuta";
         $customer->status = "Active";
         $customer->save();
         $this->command->info("Customer berhasil diinsert");

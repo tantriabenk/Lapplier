@@ -19,3 +19,19 @@ span.invalid{
     color: red;
     display: block;
 }
+
+.navbar{
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+    left: 0;
+}
+
+.container-fluid{
+    margin-top: 54px;
+}
+
+.polished-sidebar ul.polished-sidebar-menu li.current-menu-item {
+    background: #b3bcf5;
+    border: none;
+}

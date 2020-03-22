@@ -33,14 +33,21 @@
             <br>
 
             <label for="name">Nama Toko</label>
-            <input class="form-control" placeholder="Masukkan nama toko" type="text" name="store_name" id="store_name" value="{{ old( 'store_name' ) }}" />
+            <input class="form-control @error( 'store_name' ) is-invalid @enderror" placeholder="Masukkan nama toko" type="text" name="store_name" id="store_name" value="{{ old( 'store_name' ) }}" />
             @error( 'store_name' )
                 <span class="invalid">{{ $message }}</span>
             @enderror
             <br>
 
             <label for="name">Nomor Handphone</label>
-            <input class="form-control" placeholder="Masukkan nomor handphone" type="text" name="phone_number" id="phone_number" />
+            <input class="form-control @error( 'phone_number' ) is-invalid @enderror" placeholder="Masukkan nomor handphone" type="text" name="phone_number" id="phone_number" value="{{ old( 'phone_number' ) }}" />
+            @error( 'phone_number' )
+                <span class="invalid">{{ $message }}</span>
+            @enderror
+            <br>
+
+            <label for="address">Alamat</label>
+            <textarea class="form-control @error( 'address' ) is-invalid @enderror" placeholder="Masukkan alamat toko" name="address" id="address">{{ old( 'address' ) }}</textarea>
             <br>
 
             <label for="status">Status</label>

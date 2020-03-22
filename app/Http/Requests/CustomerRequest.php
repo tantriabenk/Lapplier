@@ -36,7 +36,7 @@ class CustomerRequest extends FormRequest
                 return [
                     'name' => 'required',
                     'store_name' => 'required',
-                    'phone_number' => 'numeric',
+                    'phone_number' => 'required|numeric',
                     'status' => 'required|in:Active,Inactive'
                 ];
             }
@@ -56,5 +56,16 @@ class CustomerRequest extends FormRequest
             default: 
                 break;
         }
+    }
+
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Form nama tidak boleh kosong',
+            'store_name.required' => 'Form nama toko tidak boleh kosong',
+            'phone_number.required' => 'Form nomor handphone tidak boleh kosong',
+            'phone_number.numeric' => 'Nomor handphone harus berupa angka',
+        ];
     }
 }
