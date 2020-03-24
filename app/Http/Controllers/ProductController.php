@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
@@ -40,7 +41,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view( 'products.create' );
     }
 
     /**
@@ -49,9 +50,19 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        //
+        $new_product = new \App\Product;
+        $new_product->product_name = $request->get( 'product_name' );
+        $new_product->stock = $request->get( 'stock' );
+        $new_product->status = $request->get( 'status' );
+        $new_product->price_buy = $request->get( 'price_buy' );
+        $new_product->price_sell = $request->get( 'price_sell' );
+        $new_product->created_by = \Auth::user()->id;
+
+        $new_product->save();
+
+        return redirect()->route( 'products.index' )->with( 'status', 'Data produk berhasil disimpan' );
     }
 
     /**
@@ -62,7 +73,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -73,7 +84,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = \App\Product::findOrFail( $id );
+
+        return view( 'products.edit', ['product' => $product] );
     }
 
     /**
@@ -85,7 +98,17 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $product = \App\Product::findOrFail( $id );
+        $product->product_name = $request->get( 'product_name' );
+        $product->stock = $request->get( 'stock' );
+        $product->status = $request->get( 'status' );
+        $product->price_buy = $request->get( 'price_buy' );
+        $product->price_sell = $request->get( 'price_sell' );
+        $product->updated_by = \Auth::user()->id;
+
+        $product->save();
+
+        return redirect()->route( 'products.edit', [$id] )->with( 'status', 'Data produk berhasil diubah' );
     }
 
     /**
@@ -96,6 +119,29 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = \App\Product::findOrFail( $id );
+        $product->delete();
+
+        return redirect()->route( 'products.index' )->with( 'status', 'Data produk berhasil dihapus' );
+    }
+
+    public function trash()
+    {
+        $deleted_products = \App\Product::onlyTrashed()->paginate( 10 );
+
+        return view( 'products.trash', ['products' => $deleted_products] );
+    }
+
+    public function restore($id)
+    {
+        $product = \App\Product::withTrashed()->findOrFail( $id );
+
+        if( $product->trashed() ):
+            $product->restore();
+        else:
+            return redirect()->route( 'products.index' )->with( 'status', 'Data produk tidak ada pada tabel hapus sementara' );
+        endif;
+
+        return redirect()->route( 'products.index' )->with( 'status', 'Data produk berhasil di restore' );
     }
 }

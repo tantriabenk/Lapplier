@@ -10,11 +10,6 @@
 
 @include( 'products.filter' )
 
-<div class="row">
-    <div class="col-md-12 text-right">
-        <a href="{{ route( 'products.create' ) }}" class="btn btn-success">Tambah Produk</a>
-    </div>
-</div>
 <br>
 
 <table class="table table-bordered">
@@ -39,13 +34,7 @@
             <td>@currency($product->price_buy)</td>
             <td>@currency($product->price_sell)</td>
             <td>
-                <a class="btn btn-info text-white btn-sm" href="{{ route( 'products.edit', [$product->id] ) }}">Ubah</a>
-                <form onsubmit="return confirm('Apakah yakin ingin menghapus data produk?')" class="d-inline"
-                    action="{{ route( 'products.destroy', [$product->id] ) }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="_method" value="DELETE">
-                    <input type="submit" value="Hapus" class="btn btn-danger btn-sm">
-                </form>
+                <a href="{{ route( 'products.restore', [$product->id] ) }}" class="btn btn-success">Restore</a>
             </td>
         </tr>
         @endforeach

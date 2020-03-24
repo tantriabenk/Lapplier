@@ -119,17 +119,19 @@ class MerkController extends Controller
         $merk = \App\Merk::findOrFail( $id );
         $merk->delete();
 
-        return redirect()->route( 'merks.index' )->with( 'status', 'Merk berhasil di pindahkan ke tong sampah' );
+        return redirect()->route( 'merks.index' )->with( 'status', 'Data merk berhasil dihapus' );
     }
 
-    public function trash(){
+    public function trash()
+    {
         $deleted_merk = \App\Merk::onlyTrashed()->paginate( 10 );
 
         return view( 'merks.trash', ['merks' => $deleted_merk] );
     }
 
-    public function restore($id){
-        $merk = \App\Merk::withTrashed()->findOrFail($id);
+    public function restore($id)
+    {
+        $merk = \App\Merk::withTrashed()->findOrFail( $id );
 
         if( $merk->trashed() ):
             $merk->restore();
