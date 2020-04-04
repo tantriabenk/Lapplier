@@ -31,7 +31,7 @@ class ProductController extends Controller
             $products = \App\Product::where( 'status', $status )->paginate( 10 );
         endif;
 
-        return view( 'products.index', [ 'products' => $products ] );
+        return view( 'master.products.index', [ 'products' => $products ] );
     }
 
     /**
@@ -41,7 +41,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view( 'products.create' );
+        return view( 'master.products.create' );
     }
 
     /**
@@ -86,7 +86,7 @@ class ProductController extends Controller
     {
         $product = \App\Product::findOrFail( $id );
 
-        return view( 'products.edit', ['product' => $product] );
+        return view( 'master.products.edit', ['product' => $product] );
     }
 
     /**
@@ -129,7 +129,7 @@ class ProductController extends Controller
     {
         $deleted_products = \App\Product::onlyTrashed()->paginate( 10 );
 
-        return view( 'products.trash', ['products' => $deleted_products] );
+        return view( 'master.products.trash', ['products' => $deleted_products] );
     }
 
     public function restore($id)

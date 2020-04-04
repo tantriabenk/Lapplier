@@ -8,7 +8,7 @@
     </div>
 @endif
 
-@include( 'customers.filter' )
+@include( 'master.customers.filter' )
 
 <div class="row">
     <div class="col-md-12 text-right">

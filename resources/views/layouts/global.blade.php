@@ -53,24 +53,29 @@
                     <li>
                         <a href="/home"><span class="oi oi-home"></span> Home</a>
                     </li>
-                    <li class="@if( request()->segment(1) == 'users' ) current-menu-item @endif">
+                    <li class="@if( request()->segment(2) == 'users' ) current-menu-item @endif">
                         <a href="{{ route( 'users.index' ) }}">
                             <span class="oi oi-people"></span> Master User
                         </a>
                     </li>
-                    <li class="@if( request()->segment(1) == 'customers' ) current-menu-item @endif">
+                    <li class="@if( request()->segment(2) == 'customers' ) current-menu-item @endif">
                         <a href="{{ route( 'customers.index' ) }}">
                             <span class="oi oi-people"></span> Master Pelanggan
                         </a>
                     </li>
-                    <li class="@if( request()->segment(1) == 'merks' ) current-menu-item @endif">
+                    <li class="@if( request()->segment(2) == 'merks' ) current-menu-item @endif">
                         <a href="{{ route( 'merks.index' ) }}">
                             <span class="oi oi-people"></span> Master Merk
                         </a>
                     </li>
-                    <li class="@if( request()->segment(1) == 'products' ) current-menu-item @endif">
+                    <li class="@if( request()->segment(2) == 'products' ) current-menu-item @endif">
                         <a href="{{ route( 'products.index' ) }}">
                             <span class="oi oi-people"></span> Master Produk
+                        </a>
+                    </li>
+                    <li class="@if( request()->segment(2) == 'sellings' ) current-menu-item @endif">
+                        <a href="{{ route( 'sellings.index' ) }}">
+                            <span class="oi oi-people"></span> Transaksi Penjualan
                         </a>
                     </li>
                     <div class="d-block d-md-none">

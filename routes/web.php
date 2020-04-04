@@ -25,21 +25,27 @@ Route::match(["GET", "POST"], "/register", function(){
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware'=>['auth']], function(){
-    // Manage Users
-    Route::resource("users", "UserController");
+    Route::group(['prefix' => 'master'], function(){
+        // Manage Users
+        Route::resource("users", "UserController");
 
-    // Manage Merek
-    Route::get('/merks/trash', 'MerkController@trash')->name('merks.trash');
-    Route::get('/merks/{id}/restore', 'MerkController@restore')->name('merks.restore');
-    Route::resource('merks', 'MerkController');
+        // Manage Merek
+        Route::get('/merks/trash', 'MerkController@trash')->name('merks.trash');
+        Route::get('/merks/{id}/restore', 'MerkController@restore')->name('merks.restore');
+        Route::resource('merks', 'MerkController');
 
-    // Manage Customers
-    Route::get('/customers/trash', 'CustomerController@trash')->name('customers.trash');
-    Route::get('/customers/{id}/restore', 'CustomerController@restore')->name('customers.restore');
-    Route::resource("customers", "CustomerController");
+        // Manage Customers
+        Route::get('/customers/trash', 'CustomerController@trash')->name('customers.trash');
+        Route::get('/customers/{id}/restore', 'CustomerController@restore')->name('customers.restore');
+        Route::resource("customers", "CustomerController");
 
-    // Manage Products
-    Route::get('/products/trash', 'ProductController@trash')->name('products.trash');
-    Route::get('/products/{id}/restore', 'ProductController@restore')->name('products.restore');
-    Route::resource("products", "ProductController");
+        // Manage Products
+        Route::get('/products/trash', 'ProductController@trash')->name('products.trash');
+        Route::get('/products/{id}/restore', 'ProductController@restore')->name('products.restore');
+        Route::resource("products", "ProductController");
+    });
+
+    Route::group(['prefix' => 'transactions'], function(){
+        Route::resource("sellings", "SellingController");
+    });
 });

@@ -2,7 +2,7 @@
 @section( 'title' ) Trashed Merks @endsection
 @section( 'content' )
 
-@include( 'merks.filter' )
+@include( 'master.merks.filter' )
 
 <br/>
 

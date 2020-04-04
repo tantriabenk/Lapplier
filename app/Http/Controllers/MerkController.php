@@ -31,7 +31,7 @@ class MerkController extends Controller
             $merks = \App\Merk::where( 'status', $status )->paginate( 10 );
         endif;
 
-        return view( 'merks.index', [ 'merks' => $merks ] );
+        return view( 'master.merks.index', [ 'merks' => $merks ] );
     }
 
     /**
@@ -41,7 +41,7 @@ class MerkController extends Controller
      */
     public function create()
     {
-        return view( 'merks.create' );
+        return view( 'master.merks.create' );
     }
 
     /**
@@ -85,7 +85,7 @@ class MerkController extends Controller
     {
         $merk = \App\Merk::findOrFail( $id );
 
-        return view( 'merks.edit', ['merk' => $merk] );
+        return view( 'master.merks.edit', ['merk' => $merk] );
     }
 
     /**
@@ -126,7 +126,7 @@ class MerkController extends Controller
     {
         $deleted_merk = \App\Merk::onlyTrashed()->paginate( 10 );
 
-        return view( 'merks.trash', ['merks' => $deleted_merk] );
+        return view( 'master.merks.trash', ['merks' => $deleted_merk] );
     }
 
     public function restore($id)

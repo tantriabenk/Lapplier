@@ -8,7 +8,7 @@
 </div>
 @endif
 
-@include( 'products.filter' )
+@include( 'master.products.filter' )
 
 <br>
 

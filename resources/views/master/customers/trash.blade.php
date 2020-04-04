@@ -8,7 +8,7 @@
     </div>
 @endif
 
-@include( 'customers.filter' )
+@include( 'master.customers.filter' )
 <br/>
 <table class="table table-bordered">
     <thead>

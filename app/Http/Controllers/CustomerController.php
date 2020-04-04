@@ -32,7 +32,7 @@ class CustomerController extends Controller
         endif;
 
 
-        return view( 'customers.index', [ 'customers' => $customers ] );
+        return view( 'master.customers.index', [ 'customers' => $customers ] );
     }
 
     /**
@@ -42,7 +42,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view( 'customers.create' );
+        return view( 'master.customers.create' );
     }
 
     /**
@@ -93,7 +93,7 @@ class CustomerController extends Controller
     {
         $customer = \App\Customer::findOrFail( $id );
 
-        return view( 'customers.edit', ['customer' => $customer] );
+        return view( 'master.customers.edit', ['customer' => $customer] );
     }
 
     /**
@@ -135,7 +135,7 @@ class CustomerController extends Controller
     public function trash(){
         $deleted_customers = \App\Customer::onlyTrashed()->paginate( 10 );
 
-        return view( 'customers.trash', ['customers' => $deleted_customers] );
+        return view( 'master.customers.trash', ['customers' => $deleted_customers] );
     }
 
     public function restore($id){

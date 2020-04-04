@@ -29,7 +29,7 @@ class UserController extends Controller
             $users = \App\User::where( 'status', $status )->paginate( 10 );
         endif;
 
-        return view( 'users.index', [ 'users' => $users ] );
+        return view( 'master.users.index', [ 'users' => $users ] );
     }
 
     /**
@@ -39,7 +39,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view( 'users.create' );
+        return view( 'master.users.create' );
     }
 
     /**
@@ -79,7 +79,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = \App\User::findOrFail($id);
-        return view('users.show', ['user' => $user]);
+        return view('master.users.show', ['user' => $user]);
     }
 
     /**
@@ -92,7 +92,7 @@ class UserController extends Controller
     {
         $user = \App\User::findOrFail( $id );
 
-        return view( 'users.edit', ['user' => $user] );
+        return view( 'master.users.edit', ['user' => $user] );
     }
 
     /**

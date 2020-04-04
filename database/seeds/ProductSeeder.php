@@ -12,7 +12,7 @@ class ProductSeeder extends Seeder
     public function run()
     {
         $product = new \App\Product;
-        $product->product_name = "Joko";
+        $product->product_name = "Spion";
         $product->stock = 10;
         $product->status = "Active";
         $product->price_buy = 100000;

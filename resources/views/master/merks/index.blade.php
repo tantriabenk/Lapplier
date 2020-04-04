@@ -8,7 +8,7 @@
 </div>
 @endif
 
-@include( 'merks.filter' )
+@include( 'master.merks.filter' )
 
 <div class="row">
     <div class="col-md-12 text-right">
