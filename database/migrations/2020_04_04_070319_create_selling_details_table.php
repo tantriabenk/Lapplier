@@ -17,9 +17,10 @@ class CreateSellingDetailsTable extends Migration
             $table->id();
             $table->bigInteger('selling_id')->unsigned()->nullable();
             $table->bigInteger('product_id')->unsigned()->nullable();
-            $table->float('price_sell');
+            $table->float('price_sell')->nullable();
             $table->integer('qty');
             $table->float('total');
+            $table->float('discount')->nullable();
             $table->timestamps();
 
             $table->foreign('selling_id')->references('id')->on('sellings');

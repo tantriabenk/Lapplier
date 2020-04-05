@@ -17,6 +17,7 @@ class SellingDetailSeeder extends Seeder
         $selling->price_sell = 100000;
         $selling->qty = 1;
         $selling->total = 100000;
+        $selling->discount = 5000;
         $selling->save();
         $this->command->info("Selling detail berhasil diinsert");
     }

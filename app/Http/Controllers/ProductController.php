@@ -144,4 +144,16 @@ class ProductController extends Controller
 
         return redirect()->route( 'products.index' )->with( 'status', 'Data produk berhasil di restore' );
     }
+
+    public function get_detail(Request $request)
+    {
+        $product_id = $request->get( 'product_id' );
+        $products = \App\Product::all()->where( 'id', $product_id )->first();
+
+        $price_sell = $products->price_sell;
+
+        $result['price_sell'] = $price_sell;
+
+        return json_encode($result);
+    }
 }

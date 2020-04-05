@@ -26,8 +26,17 @@ class SellingController extends Controller
     public function create()
     {
         $customers = \App\Customer::all()->where('deleted_at', '');
+        $products = \App\Product::all()->where('deleted_at', '');
+        $row_number = 0;
         
-        return view( 'transactions.sellings.create', [ 'customers' => $customers ] );
+        return view( 
+            'transactions.sellings.create', 
+            [ 
+                'customers' => $customers,
+                'products' => $products,
+                'row_number' => $row_number
+            ]
+        );
     }
 
     /**
@@ -84,5 +93,22 @@ class SellingController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function add_row(Request $request)
+    {
+        $products = \App\Product::all()->where( 'deleted_at', '' );
+        $row_number = $request->row_number;
+        $from = $request->from;
+
+        $datas['products'] = $products;
+        $datas['row_number'] = $row_number+1;
+
+        $returnHTML = view( 'transactions.sellings.row_transaction', $datas )->render();
+
+        $result['html'] = $returnHTML;
+        $result['row_number'] = $row_number+1;
+
+        return json_encode($result);
     }
 }
