@@ -6,17 +6,20 @@
 
 <div class="row">
     <div class="col-md-12">
-
-        @if( session( 'status' ) )
-            <div class="alert alert-success">
-                {{ session( 'status' ) }}
-            </div>
-        @endif
         
         <div class="bg-white shadow-sm p-3">
+
+            <div class="alert" id="response">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="alert-heading">Error!</h4>
+                <div class="box"></div>
+            </div>
+
             <h1 class="m-b-20">Transaksi Penjualan</h1>
 
-            <form enctype="multipart/form-data" method="POST">
+            <form method="POST" name="transactions">
                 @csrf
 
                 <div class="row m-b-20">
@@ -65,8 +68,17 @@
                                 </tr>
                             </thead>
                             <tbody>
+
                                 @include('transactions.sellings.row_transaction')
+
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="4" style="text-align: right;">Total</th>
+                                    <th>Rp <span class="total_transaction">0</span></th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                     <div class="col-md-2 offset-md-10">
@@ -79,109 +91,15 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <input class="btn btn-primary btn-block" type="button" value="Simpan Transaksi" />
+                        <input type="hidden" name="url_store_transaksi" value="{{ route( 'sellings.store' ) }}">
+                        <input type="hidden" name="url_index" value="{{ route( 'sellings.index' ) }}">
+                        <button class="btn btn-primary btn-block" type="submit">Simpan Transaksi</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
 @endsection
 
-@section('script')
-<script type="text/javascript">
-
-    //  Change Product on transactions
-    function change_product(){
-        $('.select-product').on("change", function(){
-            const productUrl = $('[name=url_get_product]').val();
-            const token = $('[name=_token]').val();
-            const product_id = $(this).val();
-            const parent_tr = $(this).parents('tr');
-
-            if(product_id != ""){
-                $.ajax({
-                    type: "post",
-                    url: productUrl,
-                    data: {
-                        _token: token,
-                        product_id: product_id,
-                    },
-                    success: function (result) {
-                        jQuery(parent_tr).find('.qty').val(1);
-                        var qty = jQuery(parent_tr).find('.qty').val();
-                        var discount = jQuery(parent_tr).find('.discount').val();
-                        var res = JSON.parse(result);
-                        var sub_total = ((qty*res.price_sell) - discount);
-                        jQuery(parent_tr).find('.product_price').text(res.price_sell);
-                        jQuery(parent_tr).find('.sub_total').text(sub_total);
-                    }
-                });
-            }
-        });
-    }
-
-    //  Change Qty on transactions
-    function change_qty(){
-        $('.qty').on("keyup", function(){
-            const parent_tr = $(this).parents('tr');
-            var product_sell = parseInt(jQuery(parent_tr).find('.product_price').text());
-            var qty = $(this).val();
-            var discount = $(parent_tr).find('.discount').val();
-            var sub_total = (qty*product_sell)-discount;
-            jQuery(parent_tr).find('.sub_total').text(sub_total);
-        });
-    }
-
-    //  Change discount on transactions
-    function change_discount(){
-        $('.discount').on("keyup", function(){
-            const parent_tr = $(this).parents('tr');
-            var product_sell = parseInt(jQuery(parent_tr).find('.product_price').text());
-            var discount = $(this).val();
-            var qty = $(parent_tr).find('.qty').val();
-            var sub_total = (qty*product_sell)-discount;
-            jQuery(parent_tr).find('.sub_total').text(sub_total);
-        });
-    }
-
-    jQuery(document).ready(function(){
-        change_product();
-        change_qty();
-        change_discount();
-
-        // Add Row
-        jQuery('.btn-add-row').on("click", function(){
-            const thaUrl = $('[name=url_add_row]').val();
-            const parent_table = $('.table-transactions');
-            const token = $('[name=_token]').val();
-            const row_number = $('[name=row_number]').val();
-
-            $.ajax({
-                type: "post",
-                url: thaUrl,
-                data: {
-                    _token: token,
-                    row_number: row_number,
-                },
-                success: function (result) {
-                    var res = JSON.parse(result);
-                    $('.table-transactions > tbody').append(res.html).ready(function () {
-                        $('[name=row_number]').val(res.row_number);
-                        change_product();
-                        change_qty();
-                    });
-                }
-            });
-        });
-
-        // Delete Row
-        jQuery('.btn-delete-row').on("click", function(){
-            const row = $(this).parents('tr');
-            $(row).remove();
-        });
-
-    });
-</script>
-@endsection
+@include('transactions.sellings.script')

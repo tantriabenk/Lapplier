@@ -9,6 +9,7 @@
     </td>
     <td>
         Rp <span class="product_price">0</span>
+        <input type="hidden" name="product_price[]" class="product_price_sell" value="0">
     </td>
     <td>
         <input type="text" name="qty[{{ $row_number }}]" class="form-control qty">
@@ -18,8 +19,9 @@
     </td>
     <td>
         Rp <span class="sub_total">0</span>
+        <input type="hidden" name="sub_total[]" class="sub_total_input" value="0">
     </td>
     <td>
-        <button class="btn btn-danger btn-delete-row">Hapus</button>
+        <button type="button" class="btn btn-danger btn-delete-row">Hapus</button>
     </td>
 </tr>

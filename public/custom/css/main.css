@@ -39,3 +39,10 @@ span.invalid{
 .m-b-20{
     margin-bottom: 20px;
 }
+
+#response{
+    display: none;
+}
+#response p{
+    margin-bottom: 5px!important;
+}
