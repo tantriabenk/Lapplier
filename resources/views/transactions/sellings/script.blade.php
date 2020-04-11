@@ -9,10 +9,13 @@
     
     //  Change Product on transactions
     function change_product(){
+        $(".select-product").unbind('change')
         $('.select-product').on("change", function(){
             const productUrl = $('[name=url_get_product]').val();
             const product_id = $(this).val();
             const parent_tr = $(this).parents('tr');
+            const qty = $(parent_tr).find('.qty').val();
+            const row_number = $(parent_tr).find('.row_number').val();
 
             if(product_id != ""){
                 jQuery.ajax({
@@ -20,9 +23,10 @@
                     url: productUrl,
                     data: {
                         product_id: product_id,
+                        qty: qty,
+                        row_number: row_number
                     },
                     success: function (result) {
-                        jQuery(parent_tr).find('.qty').val(1);
                         var qty = jQuery(parent_tr).find('.qty').val();
                         var discount = jQuery(parent_tr).find('.discount').val();
                         var res = JSON.parse(result);
@@ -30,7 +34,9 @@
                         jQuery(parent_tr).find('.sub_total_input').val(sub_total);
                         jQuery(parent_tr).find('.product_price_sell').val(res.price_sell);
                         jQuery(parent_tr).find('.product_price').text(addCommas(res.price_sell));
+                        jQuery(parent_tr).find('.stock').text(res.stock);
                         jQuery(parent_tr).find('.sub_total').text(addCommas(sub_total));
+                        jQuery(parent_tr).find('.field-qty').html(res.field_qty);
                         get_grand_total();
                     }
                 });
@@ -131,7 +137,6 @@
     // Store Transactions
     function form_transactions(){
         jQuery('[name=transactions]').submit(function(e){
-            
             e.preventDefault();
             
             $(this).find('.form-control').removeClass('is-invalid');
@@ -153,6 +158,7 @@
                     return false;
                 },
                 error: function(e){
+                    console.log(e);
                     if( e.status === 422 ) {
                         var errors = $.parseJSON(e.responseText);
                         $.each(errors, function (key, value) {

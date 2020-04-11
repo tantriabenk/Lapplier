@@ -3,7 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Rules\CustomProductTrans;
+use App\Rules\CheckDuplicateProducts;
+use App\Rules\CheckStockProducts;
 
 class SellingRequest extends FormRequest
 {
@@ -29,7 +30,8 @@ class SellingRequest extends FormRequest
                 return [
                     'customer' => 'required',
                     'date' => 'required',
-                    'product' => new CustomProductTrans
+                    'product' => new CheckDuplicateProducts,
+                    'qty' => new CheckStockProducts
                 ];
             }
         }

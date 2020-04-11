@@ -61,6 +61,7 @@
                                 <tr>
                                     <th width="25%">Produk</th>
                                     <th width="15%">Harga Produk</th>
+                                    <th width="10%">Stok</th>
                                     <th width="10%">Jumlah</th>
                                     <th>Potongan Harga</th>
                                     <th width="15%">Sub Total</th>

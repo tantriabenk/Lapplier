@@ -13,4 +13,15 @@ class ProductHelper
 
         return $product->product_name;
     }
+
+
+    /**
+     * Get Product stock By Product Id
+     */
+    public static function get_product_stock($id)
+    {
+        $product = \App\Product::select('stock')->where('id', $id)->first();
+
+        return $product->stock;
+    }
 }

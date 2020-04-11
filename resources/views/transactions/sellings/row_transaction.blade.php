@@ -12,7 +12,10 @@
         <input type="hidden" name="product_price[]" class="product_price_sell" value="0">
     </td>
     <td>
-        <input type="text" name="qty[{{ $row_number }}]" class="form-control qty">
+        <span class="stock">0</span>
+    </td>
+    <td>
+        <div class="field-qty"><input type="text" name="qty[{{ $row_number }}]" class="form-control qty" value="0"></div>
     </td>
     <td>
         <input type="text" name="discount[{{ $row_number }}]" class="form-control discount">
@@ -22,6 +25,7 @@
         <input type="hidden" name="sub_total[]" class="sub_total_input" value="0">
     </td>
     <td>
+        <input type="hidden" name="row_number[]" class="row_number" value="{{ $row_number }}" >
         <button type="button" class="btn btn-danger btn-delete-row">Hapus</button>
     </td>
 </tr>

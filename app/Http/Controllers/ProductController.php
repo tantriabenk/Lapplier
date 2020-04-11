@@ -148,11 +148,20 @@ class ProductController extends Controller
     public function get_detail(Request $request)
     {
         $product_id = $request->get( 'product_id' );
+        $qty = ($request->get( 'qty' ) == 0) ? 1 : $request->get( 'qty' );
+        $row_number = $request->get( 'row_number' );
+
         $products = \App\Product::all()->where( 'id', $product_id )->first();
 
-        $price_sell = $products->price_sell;
+        $result['price_sell'] = 0;
+        $result['stock'] = 0;
 
-        $result['price_sell'] = $price_sell;
+        if( !empty( $products ) ):
+            $result['price_sell'] = $products->price_sell;
+            $result['stock'] = $products->stock;
+        endif;
+
+        $result['field_qty'] = '<input type="text" name="qty['. $row_number .']['. $product_id .']" class="form-control qty" value="'. $qty .'">';
 
         return json_encode($result);
     }
