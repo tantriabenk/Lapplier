@@ -64,7 +64,7 @@
                                     <th width="10%">Stok</th>
                                     <th width="10%">Jumlah</th>
                                     <th>Potongan Harga</th>
-                                    <th width="15%">Sub Total</th>
+                                    <th width="20%">Sub Total</th>
                                     <th>Tindakan</th>
                                 </tr>
                             </thead>
@@ -75,8 +75,8 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th colspan="4" style="text-align: right;">Total</th>
-                                    <th>Rp <span class="total_transaction">0</span></th>
+                                    <th colspan="5" style="text-align: right;"><b class="total_transactions">Total</b></th>
+                                    <th><b class="total_transactions">Rp <span class="total_transaction">0</span></b></th>
                                     <th></th>
                                 </tr>
                             </tfoot>

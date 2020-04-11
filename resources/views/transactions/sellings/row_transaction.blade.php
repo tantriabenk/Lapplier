@@ -15,7 +15,7 @@
         <span class="stock">0</span>
     </td>
     <td>
-        <div class="field-qty"><input type="text" name="qty[{{ $row_number }}]" class="form-control qty" value="0"></div>
+        <div class="field-qty"><input type="text" name="qty[{{ $row_number }}]" class="form-control qty only_number" value="0"></div>
     </td>
     <td>
         <input type="text" name="discount[{{ $row_number }}]" class="form-control discount">

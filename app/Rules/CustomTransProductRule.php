@@ -5,9 +5,10 @@ namespace App\Rules;
 use Illuminate\Contracts\Validation\Rule;
 use ProductHelp;
 
-class CheckDuplicateProducts implements Rule
+class CustomTransProductRule implements Rule
 {
     private $product_id_array;
+    private $trans_empty;
     /**
      * Create a new rule instance.
      *
@@ -27,8 +28,15 @@ class CheckDuplicateProducts implements Rule
      */
     public function passes($attribute, $value)
     {
+        $empty_val = 0;
+        foreach( $value as $val ):
+            if( empty( $val ) ):
+                $empty_val++;
+            endif;
+        endforeach;
+
         $this->product_id_array = array();
-        if( !empty( $value[0] ) ):
+        if( empty( $empty_val ) ):
             $count_val = array_count_values( $value );
 
             foreach( $count_val as $product_id => $val ):
@@ -41,7 +49,8 @@ class CheckDuplicateProducts implements Rule
                 return false;
             endif;
         else:
-            return true;
+            $this->trans_empty = 1;
+            return false;
         endif;
     }
 
@@ -54,10 +63,16 @@ class CheckDuplicateProducts implements Rule
     {   
         $message = " ";
 
+        // Message Duplikat Data
         if( !empty( $this->product_id_array ) ):
             foreach( $this->product_id_array as $product ):
                 $message .= '<p>Nama Produk: <b>' . ProductHelp::get_product_name( $product ) . '</b> duplikat pada tabel transaksi</p>';       
             endforeach;
+        endif;
+
+        // Pesan jika product belum terisi pada tabel transaksi
+        if( $this->trans_empty ):
+            $message = '<p>Masih ada produk yang belum di pilih pada tabel transaksi</p>';
         endif;
 
         return $message;

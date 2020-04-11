@@ -15,6 +15,7 @@
             const product_id = $(this).val();
             const parent_tr = $(this).parents('tr');
             const qty = $(parent_tr).find('.qty').val();
+            const discount = $(parent_tr).find('.discount').val();
             const row_number = $(parent_tr).find('.row_number').val();
 
             if(product_id != ""){
@@ -27,10 +28,8 @@
                         row_number: row_number
                     },
                     success: function (result) {
-                        var qty = jQuery(parent_tr).find('.qty').val();
-                        var discount = jQuery(parent_tr).find('.discount').val();
                         var res = JSON.parse(result);
-                        var sub_total = ((qty*res.price_sell) - discount);
+                        var sub_total = (res.qty*res.price_sell)-discount;
                         jQuery(parent_tr).find('.sub_total_input').val(sub_total);
                         jQuery(parent_tr).find('.product_price_sell').val(res.price_sell);
                         jQuery(parent_tr).find('.product_price').text(addCommas(res.price_sell));
@@ -38,6 +37,7 @@
                         jQuery(parent_tr).find('.sub_total').text(addCommas(sub_total));
                         jQuery(parent_tr).find('.field-qty').html(res.field_qty);
                         get_grand_total();
+                        change_qty();
                     }
                 });
             }
@@ -50,6 +50,7 @@
             const parent_tr = $(this).parents('tr');
             var product_sell = jQuery(parent_tr).find('.product_price_sell').val();
             var qty = $(this).val();
+            console.log(qty);
             var discount = $(parent_tr).find('.discount').val();
             var sub_total = (qty*product_sell)-discount;
             jQuery(parent_tr).find('.sub_total').text(addCommas(sub_total));

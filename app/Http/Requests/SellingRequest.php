@@ -3,8 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Rules\CheckDuplicateProducts;
 use App\Rules\CheckStockProducts;
+use App\Rules\CustomTransProductRule;
 
 class SellingRequest extends FormRequest
 {
@@ -30,8 +30,8 @@ class SellingRequest extends FormRequest
                 return [
                     'customer' => 'required',
                     'date' => 'required',
-                    'product' => new CheckDuplicateProducts,
-                    'qty' => new CheckStockProducts
+                    'product' => new CustomTransProductRule,
+                    'qty' => new CheckStockProducts,
                 ];
             }
         }
@@ -40,8 +40,8 @@ class SellingRequest extends FormRequest
     public function messages()
     {
         return [
-            'customer.required' => 'Form pelanggan tidak boleh kosong',
-            'date.required' => 'Form tanggal tidak boleh kosong',
+            'customer.required' => 'Form <b>pelanggan</b> tidak boleh kosong',
+            'date.required' => 'Form <b>tanggal</b> tidak boleh kosong',
         ];
     }
 }
