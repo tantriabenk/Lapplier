@@ -15,9 +15,9 @@ class CreateSellingsTable extends Migration
     {
         Schema::create('sellings', function (Blueprint $table) {
             $table->id();
-            $table->string('nota_number');
+            $table->string('nota_number')->nullable();
             $table->date('date');
-            $table->float('total_selling');
+            $table->float('total_selling', 10, 2);
             $table->bigInteger('customer_id')->unsigned()->nullable();
             $table->timestamps();
 

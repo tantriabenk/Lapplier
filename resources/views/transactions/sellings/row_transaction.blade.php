@@ -1,6 +1,6 @@
 <tr class="row-{{ $row_number }}">
     <td>
-        <select name="product[{{ $row_number }}]" id="product" class="form-control select-product">
+        <select name="product[{{ $row_number }}]" id="product" class="form-control select-product product-{{ $row_number }}">
             <option value="">Pilih Produk</option>
             @foreach( $products as $product )
                 <option value="{{ $product->id }}">{{ $product->product_name }}</option>

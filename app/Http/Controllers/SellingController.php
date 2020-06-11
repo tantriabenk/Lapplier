@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\SellingRequest;
+use ProductHelp;
 
 class SellingController extends Controller
 {
@@ -48,11 +49,42 @@ class SellingController extends Controller
      */
     public function store(SellingRequest $request)
     {
-        $validated = $request->validated();
-        echo $validated;
-        exit;
-        // echo $request->message;
-        // exit;
+        $selling = new \App\Selling;
+        $selling->nota_number = $request->get( 'nota_no' );
+        $selling->date = date( "Y-m-d" );
+        $selling->total_selling = $request->get( 'total_trans' );
+        $selling->customer_id = $request->get( 'customer' );
+        
+        if( $selling->save() ):
+
+            // Selling Detail Request
+            $product = $request->get( 'product' );
+            $qty = $request->get( 'qty' );
+            $discount = $request->get( 'discount' );
+
+            if( !empty( $product ) ):
+
+                foreach( $product as $key => $value ):
+
+                    $product_id = $product[$key];
+                    $price_sell = ProductHelp::get_product_data( $product_id, 'price_sell' );
+                    $sub_total = $qty[ $key ] * $price_sell;
+
+                    $selling_detail = new \App\SellingDetail;
+                    $selling_detail->selling_id = $selling->id;
+                    $selling_detail->product_id = $product_id;
+                    $selling_detail->price_sell = $price_sell;
+                    $selling_detail->qty = $qty[ $key ];
+                    $selling_detail->total = $sub_total;
+                    $selling_detail->discount = $discount[ $key ];
+
+                    $selling_detail->save();
+
+                endforeach;
+
+            endif;
+
+        endif;
     }
 
     /**

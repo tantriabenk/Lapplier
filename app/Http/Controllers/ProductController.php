@@ -163,7 +163,8 @@ class ProductController extends Controller
 
         $result['qty'] = $qty;
 
-        $result['field_qty'] = '<input type="text" name="qty['. $row_number .']['. $product_id .']" class="form-control qty only_number" value="'. $qty .'">';
+        // $result['field_qty'] = '<input type="text" name="qty['. $row_number .']['. $product_id .']" class="form-control qty only_number" value="'. $qty .'">';
+        $result['field_qty'] = '<input type="text" name="qty['. $row_number .']" class="form-control qty only_number" value="'. $qty .'">';
 
         return json_encode($result);
     }

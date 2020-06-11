@@ -4,10 +4,11 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 use ProductHelp;
+use App\Http\Requests\SellingRequest;
 
 class CustomTransProductRule implements Rule
 {
-    private $product_id_array;
+    private $product_id_array = array();
     private $trans_empty;
     /**
      * Create a new rule instance.
@@ -28,6 +29,8 @@ class CustomTransProductRule implements Rule
      */
     public function passes($attribute, $value)
     {
+        print_r($attribute);
+        exit;
         $empty_val = 0;
         foreach( $value as $val ):
             if( empty( $val ) ):
@@ -35,8 +38,7 @@ class CustomTransProductRule implements Rule
             endif;
         endforeach;
 
-        $this->product_id_array = array();
-        if( empty( $empty_val ) ):
+        if( $empty_val == 0 ):
             $count_val = array_count_values( $value );
 
             foreach( $count_val as $product_id => $val ):
@@ -47,6 +49,8 @@ class CustomTransProductRule implements Rule
 
             if( !empty( $this->product_id_array ) ):
                 return false;
+            else:
+                $value = 1;
             endif;
         else:
             $this->trans_empty = 1;
@@ -66,7 +70,7 @@ class CustomTransProductRule implements Rule
         // Message Duplikat Data
         if( !empty( $this->product_id_array ) ):
             foreach( $this->product_id_array as $product ):
-                $message .= '<p>Nama Produk: <b>' . ProductHelp::get_product_name( $product ) . '</b> duplikat pada tabel transaksi</p>';       
+                $message .= '<p>Nama Produk: <b>' . ProductHelp::get_product_data( $product, 'product_name' ) . '</b> duplikat pada tabel transaksi</p>';       
             endforeach;
         endif;
 

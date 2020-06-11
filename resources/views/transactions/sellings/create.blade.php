@@ -36,7 +36,7 @@
                         <label for="no_nota">Tanggal</label>
                     </div>
                     <div class="col-md-4">
-                        <input type="date" name="date" value="" class="form-control">
+                        <input type="date" name="date" value="" class="form-control date">
                     </div>
                 </div>
 
@@ -45,7 +45,7 @@
                         <label for="no_nota">Pelanggan</label>
                     </div>
                     <div class="col-md-4">
-                        <select name="customer" id="customer" class="form-control">
+                        <select name="customer" id="customer" class="form-control customer">
                             <option value="">Pilih Pelanggan</option>
                             @foreach( $customers as $customer )
                                 <option value="{{ $customer->id }}">{{ $customer->name }}</option>
@@ -76,7 +76,10 @@
                             <tfoot>
                                 <tr>
                                     <th colspan="5" style="text-align: right;"><b class="total_transactions">Total</b></th>
-                                    <th><b class="total_transactions">Rp <span class="total_transaction">0</span></b></th>
+                                    <th>
+                                        <b class="total_transactions">Rp <span class="total_transaction">0</span></b>
+                                        <input type="hidden" name="total_trans" value="0" />
+                                    </th>
                                     <th></th>
                                 </tr>
                             </tfoot>

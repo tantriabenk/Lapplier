@@ -23,7 +23,7 @@
             <th><b>Tanggal</b></th>
             <th><b>Total</b></th>
             <th><b>Pelanggan</b></th>
-            <th><b>Tindakan</b></th>
+            <th><b>Aksi</b></th>
         </tr>
     </thead>
     <tbody>
@@ -34,13 +34,16 @@
                 <td>{{ $selling->date }}</td>
                 <td>@currency($selling->total_selling)</td>
                 <td>{{ $selling->customers->name }}</td>
-                <td></td>
+                <td>
+                    <a href="" class="btn btn-primary">Ubah</a>
+                </td>
             </tr>
         @endforeach
     </tbody>
     <tfoot>
         <tr>
             <td colspan=10>
+                
             </td>
         </tr>
     </tfoot>

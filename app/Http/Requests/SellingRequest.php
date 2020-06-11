@@ -25,23 +25,45 @@ class SellingRequest extends FormRequest
      */
     public function rules()
     {
+        $rules = array();
         switch( $this->method() ) {
             case 'POST': {
-                return [
+
+                $rules = [
                     'customer' => 'required',
                     'date' => 'required',
-                    'product' => new CustomTransProductRule,
-                    'qty' => new CheckStockProducts,
                 ];
+
+                foreach( $this->get( 'product' ) as $key => $val ):
+                    $rules[ 'product.' . $key ] = [ 'required' ];
+                endforeach;
+
+                foreach( $this->get( 'qty' ) as $key => $val ):
+                    $rules[ 'qty.' . $key ] = [ 'required' ];
+                endforeach;
             }
         }
+
+        return $rules;
     }
 
     public function messages()
     {
-        return [
+        $messages = [
             'customer.required' => 'Form <b>pelanggan</b> tidak boleh kosong',
             'date.required' => 'Form <b>tanggal</b> tidak boleh kosong',
         ];
+
+        foreach( $this->get( 'product' ) as $key => $val ):
+            $row = $key+1;
+            $messages[ 'product.' . $key . '.required' ] = 'Form produk pada baris ' .$row . ' belum dipilih';
+        endforeach;
+
+        foreach( $this->get( 'qty' ) as $key => $val ):
+            $row = $key+1;
+            $messages[ 'qty.' . $key . '.required' ] = 'Form jumlah pada baris ' .$row . ' belum dimasukkan';
+        endforeach;
+
+        return $messages;
     }
 }

@@ -33,7 +33,7 @@ class CheckStockProducts implements Rule
             foreach( $value as $row_number => $products ):
                 if( !empty( $products ) ):
                     foreach( $products as $product_id => $value ):
-                        $product_stock = ProductHelp::get_product_stock( $product_id );
+                        $product_stock = ProductHelp::get_product_data( $product_id, 'stock' );
                         if( $value > $product_stock ):
                             $this->product_id_array[] = $product_id;
                         endif;
@@ -60,7 +60,7 @@ class CheckStockProducts implements Rule
 
         if( !empty( $this->product_id_array ) ):
             foreach( $this->product_id_array as $product ):
-                $message .= '<p>Jumlah produk <b>' . ProductHelp::get_product_name( $product ) . '</b> yang di masukkan melebihi stok yang ada</p>';       
+                $message .= '<p>Jumlah produk <b>' . ProductHelp::get_product_data( $product, 'product_name' ) . '</b> yang di masukkan melebihi stok yang ada</p>';       
             endforeach;
         endif;
 

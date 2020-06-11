@@ -4,24 +4,10 @@ namespace App\Helpers;
 
 class ProductHelper
 {
-    /**
-     * Get Product Name By Product Id
-     */
-    public static function get_product_name($id)
+    public static function get_product_data($id, $field)
     {
-        $product = \App\Product::select('product_name')->where('id', $id)->first();
+        $product = \App\Product::select($field)->where('id', $id)->first();
 
-        return $product->product_name;
-    }
-
-
-    /**
-     * Get Product stock By Product Id
-     */
-    public static function get_product_stock($id)
-    {
-        $product = \App\Product::select('stock')->where('id', $id)->first();
-
-        return $product->stock;
+        return $product->$field;
     }
 }

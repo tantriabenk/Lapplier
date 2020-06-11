@@ -50,7 +50,6 @@
             const parent_tr = $(this).parents('tr');
             var product_sell = jQuery(parent_tr).find('.product_price_sell').val();
             var qty = $(this).val();
-            console.log(qty);
             var discount = $(parent_tr).find('.discount').val();
             var sub_total = (qty*product_sell)-discount;
             jQuery(parent_tr).find('.sub_total').text(addCommas(sub_total));
@@ -106,6 +105,7 @@
         }
 
         jQuery('.total_transaction').text(addCommas(grand_total));
+        jQuery('[name=total_trans]').val(grand_total);
     }
 
     // Add Row
@@ -139,6 +139,8 @@
     function form_transactions(){
         jQuery('[name=transactions]').submit(function(e){
             e.preventDefault();
+
+            $('#response').hide();
             
             $(this).find('.form-control').removeClass('is-invalid');
             $('#response').find("p").remove();
@@ -159,22 +161,23 @@
                     return false;
                 },
                 error: function(e){
-                    console.log(e);
                     if( e.status === 422 ) {
                         var errors = $.parseJSON(e.responseText);
+                        // console.log(errors);
                         $.each(errors, function (key, value) {
                             // console.log(key+ " " +value);
                             $('#response').addClass("alert-danger");
-
                             if($.isPlainObject(value)) {
                                 $.each(value, function (key, value) {
-                                    $('[name='+key+']').addClass('is-invalid');
+                                    var new_key = key.replace('.', '-');
+                                    $('.'+new_key).addClass('is-invalid');
                                     $('#response').show().find(".box").append("<p>"+value+"</p>");
                                 });
                                 scroll_to_response();
                             }
                         });
                     }
+                    return false;
                 }
             });
         });
