@@ -10,7 +10,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Lapplier @yield("title")</title>
     <link rel="stylesheet" href="{{ asset('polished/polished.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('polished/iconic/css/open-iconicbootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('custom/css/main.css') }}">
     <script type="text/javascript">
         document.documentElement.className = document.documentElement.className.replace('no-js', 'js') + (document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure ", "1.1 ") ? ' svg' : ' no-svg');

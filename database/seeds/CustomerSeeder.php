@@ -18,6 +18,15 @@ class CustomerSeeder extends Seeder
         $customer->address = "Jalan Raya Kuta";
         $customer->status = "Active";
         $customer->save();
+
+        $customer = new \App\Customer;
+        $customer->name = "Default";
+        $customer->store_name = "Default";
+        $customer->phone_number = "-";
+        $customer->address = "-";
+        $customer->status = "Active";
+        $customer->save();
+
         $this->command->info("Customer berhasil diinsert");
     }
 }

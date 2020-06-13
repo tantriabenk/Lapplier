@@ -189,13 +189,87 @@
         }, 700);
     }
 
+    function add_to_order(){
+        jQuery('.btn-add-order').on("click", function(e){
+            $('#response').hide().find(".box").html("");
+            $('.detail-transaksi .form-control').removeClass("is-invalid");
+
+            const token = $('[name=_token]').val();
+            const product = jQuery("[name=select_product]").val();
+            const qty = jQuery("[name=select_qty]").val();
+            const discount = jQuery("[name=select_discount]").val();
+            const urlPost = jQuery("[name=url_add_order]").val();
+            const total = $("[name=total_trans]").val();
+            
+            jQuery.ajax({
+                url: urlPost,
+                method: 'post',
+                data: {
+                    _token: token,
+                    product: product,
+                    qty: qty,
+                    discount: discount,
+                },
+                beforeSend: function () {
+
+                },
+                success: function(data){
+                    e.stopPropagation();
+                    const res = JSON.parse(data);
+                    const sub_total = res.sub_total;
+                    $('.table-transactions > tbody').append(res.html).ready(function () {
+                        const total_trans = parseInt(total)+parseInt(sub_total);
+                        $("[name=total_trans]").val(total_trans);
+
+                        // Reset Form order
+                        $("[name=select_product]").prop('selectedIndex',0);
+                        $("[name=select_qty]").val("0");
+                        $("[name=select_discount]").val("0");
+                        $('.total_transaction').text(addCommas(total_trans));
+                    });
+
+                    delete_row_order();
+                    return false;
+                },
+                error: function(e){
+                    if( e.status === 422 ) {
+                        var errors = $.parseJSON(e.responseText);
+                        // console.log(errors);
+                        $.each(errors, function (key, value) {
+                            // console.log(key+ " " +value);
+                            $('#response').addClass("alert-danger");
+                            if($.isPlainObject(value)) {
+                                $.each(value, function (key, value) {
+                                    var new_key = key.replace('.', '-');
+                                    $('.'+new_key).addClass('is-invalid');
+                                    $('#response').show().find(".box").append("<p>"+value+"</p>");
+                                });
+                            }
+                        });
+                    }
+                    return false;
+                }
+            });
+        });
+    }
+
+
+    function delete_row_order(){
+        jQuery('.delete_row_order').unbind("click").click(function(){
+            const row = $(this).parents('tr');
+            const current_total = $("[name=total_trans]").val();
+            const sub_total = $(row).find("[name=sub_total]").val();
+            const total_trans = current_total - sub_total;
+
+            $('.total_transaction').text(addCommas(total_trans));
+            $("[name=total_trans]").val(total_trans);
+            $(row).remove(); 
+        });
+    }
+
     jQuery(document).ready(function(){
-        change_product();
-        change_qty();
-        change_discount();
-        delete_row();
-        add_row();
         form_transactions();
+        add_to_order();
     });
 </script>
 @endsection

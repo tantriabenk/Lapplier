@@ -9,7 +9,10 @@
 @endif
 
 <div class="row">
-    <div class="col-md-12 text-right">
+    <div class="col-md-6">
+        <h2>Transaksi Penjualan</h2>
+    </div>
+    <div class="col-md-6 text-right">
         <a href="{{ route( 'sellings.create' ) }}" class="btn btn-success">Tambah Transaksi</a>
     </div>
 </div>
@@ -35,7 +38,8 @@
                 <td>@currency($selling->total_selling)</td>
                 <td>{{ $selling->customers->name }}</td>
                 <td>
-                    <a href="" class="btn btn-primary">Ubah</a>
+                    <a href="{{ route( 'sellings.edit', [$selling->id] ) }}" class="btn btn-primary">Ubah</a>
+                    <a href="" class="btn btn-info">Detail</a>
                 </td>
             </tr>
         @endforeach

@@ -3,10 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Rules\CheckStockProducts;
-use App\Rules\CustomTransProductRule;
 
-class SellingRequest extends FormRequest
+class SellingOrderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,12 +25,15 @@ class SellingRequest extends FormRequest
     {
         $rules = array();
         switch( $this->method() ) {
+
             case 'POST': {
                 $rules = [
-                    'customer' => 'required',
-                    'date' => 'required',
+                    'product' => 'required',
+                    'qty' => 'required|numeric|min:1',
+                    'discount' => 'numeric'
                 ];
             }
+            
         }
 
         return $rules;
@@ -41,10 +42,13 @@ class SellingRequest extends FormRequest
     public function messages()
     {
         $messages = [
-            'customer.required' => 'Form <b>pelanggan</b> tidak boleh kosong',
-            'date.required' => 'Form <b>tanggal</b> tidak boleh kosong',
+            'product.required' => 'Form <b>produk</b> tidak boleh kosong',
+            'qty.required' => 'Form <b>jumlah</b> tidak boleh kosong',
+            'qty.numeric' => 'Form <b>jumlah</b> hanya boleh berupa angka',
+            'qty.min' => 'Form <b>jumlah</b> minimal 1',
+            'discount.min' => 'Form <b>potongan harga</b> hanya boleh berupa angka',
         ];
-        
+
         return $messages;
     }
 }

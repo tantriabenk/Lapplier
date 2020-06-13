@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\SellingRequest;
+use App\Http\Requests\SellingOrderRequest;
 use ProductHelp;
 
 class SellingController extends Controller
@@ -106,7 +107,20 @@ class SellingController extends Controller
      */
     public function edit($id)
     {
-        //
+        $sellings = \App\Selling::findOrFail( $id );
+        $customers = \App\Customer::all()->where('deleted_at', '');
+        $products = \App\Product::all()->where('deleted_at', '');
+        $row_number = 0;
+        
+        return view( 
+            'transactions.sellings.create', 
+            [ 
+                'customers' => $customers,
+                'products' => $products,
+                'sellings' => $sellings,
+                'row_number' => $row_number
+            ]
+        );
     }
 
     /**
@@ -145,6 +159,28 @@ class SellingController extends Controller
 
         $result['html'] = $returnHTML;
         $result['row_number'] = $row_number+1;
+
+        return json_encode($result);
+    }
+
+    public function add_order(SellingOrderRequest $request){
+        $product_id = $request->product;
+        $qty = $request->qty;
+        $discount = $request->discount;
+
+        $products = \App\Product::findOrFail( $product_id );
+
+        $sub_total = ($products->price_sell*$qty) - $discount;
+
+        $datas['products'] = $products;
+        $datas['qty'] = $qty;
+        $datas['discount'] = $discount;
+        $datas['sub_total'] = $sub_total;
+
+        $returnHTML = view( 'transactions.sellings.row_order', $datas )->render();
+
+        $result['html'] = $returnHTML;
+        $result['sub_total'] = $sub_total;
 
         return json_encode($result);
     }

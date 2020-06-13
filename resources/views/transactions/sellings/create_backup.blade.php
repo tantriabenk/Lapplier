@@ -6,7 +6,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <h2 class="m-b-20">Transaksi Penjualan</h2>
+        <h1 class="m-b-20">Transaksi Penjualan</h1>
     </div>
 </div>
 
@@ -19,27 +19,29 @@
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h5 class="alert-heading">Terjadi kesalahan!</h5>
+                <h4 class="alert-heading">Error!</h4>
                 <div class="box"></div>
             </div>
 
             <form method="POST" name="transactions">
                 @csrf
 
-                <!-- Data Transaksi -->
                 <div class="row m-b-20">
                     <div class="col-md-12">
                         <h4>Data Transaksi</h4>
                     </div>
-                    <div class="col-md-3">
+                    
+                    <div class="col-md-4">
                         <label for="no_nota">Nomor Nota</label>
                         <input type="text" name="nota_no" value="" placeholder="Masukkan nomor nota" class="form-control">
                     </div>
-                    <div class="col-md-3">
+
+                    <div class="col-md-4">
                         <label for="date">Tanggal</label>
                         <input type="date" name="date" value="" class="form-control date">
                     </div>
-                    <div class="col-md-3">
+
+                    <div class="col-md-4">
                         <label for="customer">Pelanggan</label>
                         <select name="customer" id="customer" class="form-control customer">
                             <option value="">Pilih Pelanggan</option>
@@ -50,39 +52,33 @@
                     </div>
                 </div>
 
-
-                <!-- Detail Transaksi -->
-                <div class="row m-b-20 detail-transaksi">
+                <div class="row m-b-20">
                     <div class="col-md-12">
                         <h4>Detail Transaksi</h4>
                     </div>
-                    <div class="col-md-3">
+
+                    <div class="col-md-4">
                         <label for="select_product">Produk</label>
-                        <select name="select_product" id="select_product" class="form-control product">
+                        <select name="select_product" id="select_product" class="form-control select-product product">
                             <option value="">Pilih Produk</option>
                             @foreach( $products as $product )
                                 <option value="{{ $product->id }}">{{ $product->product_name }}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-3">
+
+                    <div class="col-md-4">
                         <label for="select_qty">Jumlah</label>
                         <input type="text" name="select_qty" class="form-control qty only_number" value="0">
                     </div>
-                    <div class="col-md-3">
+
+                    <div class="col-md-4">
                         <label for="select_discount">Potongan Harga</label>
-                        <input type="text" name="select_discount" class="form-control discount only_number" value="0">
+                        <input type="text" name="select_discount" class="form-control qty only_number" value="0">
                     </div>
-                </div>
-                <div class="row m-b-20">
-                    <div class="col-md-9">
-                        <input type="hidden" name="url_add_order" value="{{ route( 'sellings.add_order' ) }}">
-                        <button type="button" class="btn btn-info btn-block btn-add-order">Tambah Ke Detail Order</button>
-                    </div>
+
                 </div>
 
-
-                <!-- Detail Order -->
                 <div class="row m-b-20">
                     <div class="col-md-12">
                         <h4>Detail Order</h4>
@@ -94,14 +90,16 @@
                                 <tr>
                                     <th width="25%">Produk</th>
                                     <th width="15%">Harga Produk</th>
-                                    <th width="10%">Stok Produk</th>
+                                    <th width="10%">Stok</th>
                                     <th width="10%">Jumlah</th>
                                     <th>Potongan Harga</th>
-                                    <th width="15%">Sub Total</th>
+                                    <th width="20%">Sub Total</th>
                                     <th>Tindakan</th>
                                 </tr>
                             </thead>
                             <tbody>
+
+                                @include('transactions.sellings.row_transaction')
 
                             </tbody>
                             <tfoot>
@@ -113,19 +111,24 @@
                                     </th>
                                     <th></th>
                                 </tr>
-                                <tr>
-                                    <th colspan="5"></th>
-                                    <th colspan="2">
-                                        <input type="hidden" name="url_store_transaksi" value="{{ route( 'sellings.store' ) }}">
-                                        <input type="hidden" name="url_index" value="{{ route( 'sellings.index' ) }}">
-                                        <button class="btn btn-success btn-block" type="submit">SIMPAN TRANSAKSI</button>
-                                    </th>
-                                </tr>
                             </tfoot>
                         </table>
                     </div>
+                    <div class="col-md-2 offset-md-10">
+                        <input type="hidden" name="url_add_row" value="{{ route( 'sellings.add_row' ) }}">
+                        <input type="hidden" name="url_get_product" value="{{ route( 'product.get_detail' ) }}">
+                        <input type="hidden" name="row_number" value="{{ $row_number }}" />
+                        <button class="btn btn-success btn-block btn-add-row" type="button">Tambah Baris</button>
+                    </div>
                 </div>
 
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="hidden" name="url_store_transaksi" value="{{ route( 'sellings.store' ) }}">
+                        <input type="hidden" name="url_index" value="{{ route( 'sellings.index' ) }}">
+                        <button class="btn btn-primary btn-block" type="submit">Simpan Transaksi</button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
