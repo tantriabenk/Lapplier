@@ -50,6 +50,8 @@ class SellingController extends Controller
      */
     public function store(SellingRequest $request)
     {
+        $error = 0;
+
         $selling = new \App\Selling;
         $selling->nota_number = $request->get( 'nota_no' );
         $selling->date = date( "Y-m-d" );
@@ -64,9 +66,7 @@ class SellingController extends Controller
             $discount = $request->get( 'discount' );
 
             if( !empty( $product ) ):
-
                 foreach( $product as $key => $value ):
-
                     $product_id = $product[$key];
                     $price_sell = ProductHelp::get_product_data( $product_id, 'price_sell' );
                     $sub_total = $qty[ $key ] * $price_sell;
@@ -78,14 +78,24 @@ class SellingController extends Controller
                     $selling_detail->qty = $qty[ $key ];
                     $selling_detail->total = $sub_total;
                     $selling_detail->discount = $discount[ $key ];
-
                     $selling_detail->save();
-
                 endforeach;
-
             endif;
-
+        
+        else:
+            $error++;
         endif;
+
+        $result['status'] = "error";
+        $result['message'] = "Terjadi kesalahan! Silahkan coba lagi nanti atau kontak administrator";
+
+        if( $error == 0 ):
+            $result['status'] = "success";
+            $result['title'] = "Sukses!";
+            $result['message'] = "Transaksi berhasil disimpan";
+        endif;
+
+        return json_encode($result);
     }
 
     /**

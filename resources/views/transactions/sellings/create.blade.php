@@ -19,7 +19,7 @@
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h5 class="alert-heading">Terjadi kesalahan!</h5>
+                <h5 class="alert-heading"></h5>
                 <div class="box"></div>
             </div>
 
@@ -27,19 +27,19 @@
                 @csrf
 
                 <!-- Data Transaksi -->
-                <div class="row m-b-20">
+                <div class="row m-b-20 transactions-data">
                     <div class="col-md-12">
                         <h4>Data Transaksi</h4>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <label for="no_nota">Nomor Nota</label>
                         <input type="text" name="nota_no" value="" placeholder="Masukkan nomor nota" class="form-control">
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <label for="date">Tanggal</label>
                         <input type="date" name="date" value="" class="form-control date">
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <label for="customer">Pelanggan</label>
                         <select name="customer" id="customer" class="form-control customer">
                             <option value="">Pilih Pelanggan</option>
@@ -56,7 +56,7 @@
                     <div class="col-md-12">
                         <h4>Detail Transaksi</h4>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <label for="select_product">Produk</label>
                         <select name="select_product" id="select_product" class="form-control product">
                             <option value="">Pilih Produk</option>
@@ -65,17 +65,17 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <label for="select_qty">Jumlah</label>
                         <input type="text" name="select_qty" class="form-control qty only_number" value="0">
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <label for="select_discount">Potongan Harga</label>
                         <input type="text" name="select_discount" class="form-control discount only_number" value="0">
                     </div>
                 </div>
                 <div class="row m-b-20">
-                    <div class="col-md-9">
+                    <div class="col-md-12">
                         <input type="hidden" name="url_add_order" value="{{ route( 'sellings.add_order' ) }}">
                         <button type="button" class="btn btn-info btn-block btn-add-order">Tambah Ke Detail Order</button>
                     </div>
@@ -95,14 +95,22 @@
                                     <th width="25%">Produk</th>
                                     <th width="15%">Harga Produk</th>
                                     <th width="10%">Stok Produk</th>
-                                    <th width="10%">Jumlah</th>
-                                    <th>Potongan Harga</th>
+                                    <th width="80px">Jumlah</th>
+                                    <th width="130px">Potongan Harga</th>
                                     <th width="15%">Sub Total</th>
                                     <th>Tindakan</th>
                                 </tr>
                             </thead>
                             <tbody>
-
+                                <tr class="first_row" style="display: none;">
+                                    <td><input type="hidden" name="product[]"></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
