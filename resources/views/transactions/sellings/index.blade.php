@@ -38,8 +38,7 @@
                 <td>@currency($selling->total_selling)</td>
                 <td>{{ $selling->customers->name }}</td>
                 <td>
-                    <a href="{{ route( 'sellings.edit', [$selling->id] ) }}" class="btn btn-primary">Ubah</a>
-                    <a href="" class="btn btn-info">Detail</a>
+                    <a href="{{ route( 'sellings.show', $selling->id ) }}" class="btn btn-info">Detail</a>
                 </td>
             </tr>
         @endforeach

@@ -54,7 +54,7 @@ class SellingController extends Controller
 
         $selling = new \App\Selling;
         $selling->nota_number = $request->get( 'nota_no' );
-        $selling->date = date( "Y-m-d" );
+        $selling->date = $request->get( 'date' );
         $selling->total_selling = $request->get( 'total_trans' );
         $selling->customer_id = $request->get( 'customer' );
         
@@ -68,17 +68,16 @@ class SellingController extends Controller
             if( !empty( $product ) ):
                 foreach( $product as $key => $value ):
                     $product_id = $product[$key];
-                    $price_sell = ProductHelp::get_product_data( $product_id, 'price_sell' );
+                    $product_data = \App\Product::find( $product_id );
+                    $price_sell = $product_data->price_sell;
                     $sub_total = $qty[ $key ] * $price_sell;
 
-                    $selling_detail = new \App\SellingDetail;
-                    $selling_detail->selling_id = $selling->id;
-                    $selling_detail->product_id = $product_id;
-                    $selling_detail->price_sell = $price_sell;
-                    $selling_detail->qty = $qty[ $key ];
-                    $selling_detail->total = $sub_total;
-                    $selling_detail->discount = $discount[ $key ];
-                    $selling_detail->save();
+                    $product_data->sellings()->attach( $selling->id, array(
+                        'price_sell' => $price_sell,
+                        'qty' => $qty[ $key ],
+                        'total' => $sub_total,
+                        'discount' => $discount[ $key ]
+                     ) );
                 endforeach;
             endif;
         
@@ -106,7 +105,13 @@ class SellingController extends Controller
      */
     public function show($id)
     {
-        //
+        $sellings = \App\Selling::with( 'customers' )->findOrFail( $id );
+
+        $product_selling = \App\Selling::with( 'products' )->findOrFail( $id );
+
+        return view( 'transactions.sellings.detail', [ 
+            'sellings' => $product_selling,
+        ] );
     }
 
     /**

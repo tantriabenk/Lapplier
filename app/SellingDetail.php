@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class SellingDetail extends Model
 {
     public function products(){
-        return $this->belongsTo( 'App\Product' );
+        return $this->belongsToMany( 'App\Product' );
     }
 
     public function sellings(){

@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Selling extends Model
 {
-    public function selling_details(){
-        return $this->hasMany( 'App\SellingDetail' );
+    public function products(){
+        return $this->belongsToMany( 'App\Product' )->withPivot( 'qty', 'total', 'discount', 'price_sell' );
     }
 
     public function customers(){

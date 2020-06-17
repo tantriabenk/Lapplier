@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSellingDetailsTable extends Migration
+class ProductSelling extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSellingDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('selling_details', function (Blueprint $table) {
+        Schema::create('product_selling', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('selling_id')->unsigned()->nullable();
             $table->bigInteger('product_id')->unsigned()->nullable();
@@ -35,11 +35,11 @@ class CreateSellingDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::table('selling_details', function(Blueprint $table){
+        Schema::table('product_selling', function(Blueprint $table){
             $table->dropForeign(['selling_id']);
             $table->dropForeign(['product_id']);
         });
 
-        Schema::dropIfExists('selling_details');
+        Schema::dropIfExists('product_selling');
     }
 }

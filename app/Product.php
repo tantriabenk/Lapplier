@@ -9,7 +9,7 @@ class Product extends Model
 {
     use SoftDeletes;
 
-    public function selling_details(){
-        return $this->hasMany( 'App\SellingDetail' );
+    public function sellings(){
+        return $this->belongsToMany( 'App\Selling' );
     }
 }
