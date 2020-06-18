@@ -39,12 +39,24 @@ Route::group( ['middleware'=>['auth'] ], function(){
         Route::get( '/products/trash', 'ProductController@trash' )->name( 'products.trash' );
         Route::get( '/products/{id}/restore', 'ProductController@restore' )->name( 'products.restore' );
         Route::resource("products", "ProductController");
+
+        // Manage Suppliers
+        Route::get( '/suppliers/trash', 'SupplierController@trash' )->name( 'suppliers.trash' );
+        Route::get( '/suppliers/{id}/restore', 'SupplierController@restore' )->name( 'suppliers.restore' );
+        Route::resource( "suppliers", "SupplierController" );
     });
 
     Route::group( ['prefix' => 'transactions'], function(){
+
         // Selling Transactions
         Route::post( '/sellings/add_row', 'SellingController@add_row' )->name( 'sellings.add_row' );
         Route::post( '/sellings/add_order', 'SellingController@add_order' )->name( 'sellings.add_order' );
         Route::resource( "sellings", "SellingController" );
+
+        // Purchase Transactions
+        Route::post( '/purchases/add_row', 'PurchaseController@add_row' )->name( 'purchases.add_row' );
+        Route::post( '/purchases/add_order', 'PurchaseController@add_order' )->name( 'purchases.add_order' );
+        Route::resource( "purchases", "PurchaseController" );
+
     });
 });

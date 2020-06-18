@@ -76,9 +76,19 @@
                             <span class="oi oi-people"></span> Master Produk
                         </a>
                     </li>
+                    <li class="@if( request()->segment(2) == 'suppliers' ) current-menu-item @endif">
+                        <a href="{{ route( 'suppliers.index' ) }}">
+                            <span class="oi oi-people"></span> Master Pemasok
+                        </a>
+                    </li>
                     <li class="@if( request()->segment(2) == 'sellings' ) current-menu-item @endif">
                         <a href="{{ route( 'sellings.index' ) }}">
                             <span class="oi oi-people"></span> Transaksi Penjualan
+                        </a>
+                    </li>
+                    <li class="@if( request()->segment(2) == 'purchases' ) current-menu-item @endif">
+                        <a href="{{ route( 'purchases.index' ) }}">
+                            <span class="oi oi-people"></span> Transaksi Pembelian
                         </a>
                     </li>
                     <div class="d-block d-md-none">

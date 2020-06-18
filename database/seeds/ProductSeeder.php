@@ -18,6 +18,15 @@ class ProductSeeder extends Seeder
         $product->price_buy = 100000;
         $product->price_sell = 120000;
         $product->save();
+
+        $product = new \App\Product;
+        $product->product_name = "Ban";
+        $product->stock = 10;
+        $product->status = "Active";
+        $product->price_buy = 200000;
+        $product->price_sell = 250000;
+        $product->save();
+
         $this->command->info("Product berhasil diinsert");
     }
 }
