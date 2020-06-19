@@ -30,6 +30,7 @@ class PurchaseOrderRequest extends FormRequest
                 $rules = [
                     'product' => 'required',
                     'qty' => 'required|numeric|min:1',
+                    'price_buy' => 'required|numeric|min:100',
                 ];
             }
             
@@ -45,6 +46,9 @@ class PurchaseOrderRequest extends FormRequest
             'qty.required' => 'Form <b>jumlah</b> tidak boleh kosong',
             'qty.numeric' => 'Form <b>jumlah</b> hanya boleh berupa angka',
             'qty.min' => 'Form <b>jumlah</b> minimal 1',
+            'price_buy.required' => 'Form <b>harga beli</b> tidak boleh kosong',
+            'price_buy.numeric' => 'Form <b>harga beli</b> hanya boleh berupa angka',
+            'price_buy.min' => 'Form <b>harga beli</b> minimal Rp 100',
         ];
 
         return $messages;

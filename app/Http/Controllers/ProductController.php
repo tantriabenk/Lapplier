@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
+use ProductHelp;
 
 class ProductController extends Controller
 {
@@ -41,6 +42,8 @@ class ProductController extends Controller
      */
     public function create()
     {
+        echo ProductHelp::get_product_stock_recent(1);
+        exit;
         return view( 'master.products.create' );
     }
 

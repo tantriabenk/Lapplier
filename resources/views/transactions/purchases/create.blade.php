@@ -66,6 +66,10 @@
                         </select>
                     </div>
                     <div class="col-md-4">
+                        <label for="select_qty">Harga Beli</label>
+                        <input type="text" name="select_price" class="form-control price_buy only_number" value="0">
+                    </div>
+                    <div class="col-md-4">
                         <label for="select_qty">Jumlah</label>
                         <input type="text" name="select_qty" class="form-control qty only_number" value="0">
                     </div>
@@ -89,7 +93,7 @@
                             <thead>
                                 <tr>
                                     <th width="25%">Produk</th>
-                                    <th width="15%">Harga Produk</th>
+                                    <th width="15%">Harga Beli</th>
                                     <th width="15%">Jumlah</th>
                                     <th width="15%">Sub Total</th>
                                     <th width="15%">Tindakan</th>

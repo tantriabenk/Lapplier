@@ -22,7 +22,8 @@
         <tr>
             <th width="60px"><b>No</b></th>
             <th><b>Nama Produk</b></th>
-            <th><b>Stok</b></th>
+            <th><b>Stok Awal</b></th>
+            <th><b>Stok Saat Ini</b></th>
             <th><b>Status</b></th>
             <th><b>Harga Jual</b></th>
             <th><b>Harga Beli</b></th>
@@ -35,6 +36,7 @@
             <td>{{ $index+1 }}</td>
             <td>{{ $product->product_name }}</td>
             <td>{{ $product->stock }}</td>
+            <td>{{ ProductHelp::get_product_stock_recent( $product->id ) }}</td>
             <td>{{ $product->status }}</td>
             <td>@currency($product->price_buy)</td>
             <td>@currency($product->price_sell)</td>

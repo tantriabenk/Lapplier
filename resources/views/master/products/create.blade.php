@@ -24,7 +24,7 @@
             @enderror
             <br>
 
-            <label for="stock">Stok</label>
+            <label for="stock">Stok Awal</label>
             <input class="form-control @error( 'stock' ) is-invalid @enderror" placeholder="Stok" type="text" name="stock" id="stock" value="{{ old( 'stock' ) }}" />
             @error('stock')
                 <span class="invalid">{{ $message }}</span>

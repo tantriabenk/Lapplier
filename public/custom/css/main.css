@@ -76,3 +76,9 @@ span.invalid{
     right: 0;
     margin: 0 auto;
 }
+
+/* Custom Dropdown */
+.custom-dropdown{
+    position: absolute;
+    right: 50px;
+}

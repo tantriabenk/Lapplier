@@ -4,8 +4,7 @@
         <input type="hidden" name="product[]" value="{{ $products->id }}">
     </td>
     <td>
-        Rp {{ number_format($products->price_buy, 0) }}
-        <input type="hidden" name="price_buy" class="product_price_buy" value="{{ $products->price_buy }}">
+        Rp <input type="text" name="price_buy[]" class="product_price_buy only_number" value="{{ $price_buy }}" style="width: 80px;" min="1">
     </td>>
     <td>
         <input type="text" name="qty[]" class="qty_detil only_number" value="{{ $qty }}" style="width: 80px;" min="1">

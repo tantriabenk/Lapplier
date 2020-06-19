@@ -61,12 +61,13 @@ class PurchaseController extends Controller
             // purchase Detail Request
             $product = $request->get( 'product' );
             $qty = $request->get( 'qty' );
+            $price = $request->get( 'price_buy' );
 
             if( !empty( $product ) ):
                 foreach( $product as $key => $value ):
                     $product_id = $product[$key];
                     $product_data = \App\Product::find( $product_id );
-                    $price_buy = $product_data->price_buy;
+                    $price_buy = $price[ $key ];
                     $sub_total = $qty[ $key ] * $price_buy;
 
                     $product_data->purchases()->attach( $purchase->id, array(
@@ -148,14 +149,16 @@ class PurchaseController extends Controller
     public function add_order(PurchaseOrderRequest $request){
         $product_id = $request->product;
         $qty = $request->qty;
+        $price_buy = $request->price_buy;
 
         $products = \App\Product::findOrFail( $product_id );
 
-        $sub_total = ($products->price_sell*$qty);
+        $sub_total = ($price_buy*$qty);
 
         $datas['products'] = $products;
         $datas['qty'] = $qty;
         $datas['sub_total'] = $sub_total;
+        $datas['price_buy'] = $price_buy;
 
         $returnHTML = view( 'transactions.purchases.row_order', $datas )->render();
 

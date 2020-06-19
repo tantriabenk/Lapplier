@@ -23,9 +23,22 @@
     function change_qty(){
         $('.qty_detil').on("keyup", function(){
             const parent_tr = $(this).parents('tr');
-            var product_sell = jQuery(parent_tr).find('.product_price_buy').val();
-            var qty = $(this).val();
-            var sub_total = (qty*product_sell);
+            const price = jQuery(parent_tr).find('.product_price_buy').val();
+            const qty = $(this).val();
+            const sub_total = (qty*price);
+            jQuery(parent_tr).find('.sub_total').text(addCommas(sub_total));
+            jQuery(parent_tr).find('.sub_total_input').val(sub_total);
+            get_grand_total();
+        });
+    }
+
+    // Change price buy on transactions
+    function change_price(){
+        $('.product_price_buy').on("keyup", function(){
+            const parent_tr = $(this).parents('tr');
+            const qty = jQuery(parent_tr).find('.qty_detil').val();
+            const price = $(this).val();
+            const sub_total = (qty*price);
             jQuery(parent_tr).find('.sub_total').text(addCommas(sub_total));
             jQuery(parent_tr).find('.sub_total_input').val(sub_total);
             get_grand_total();
@@ -69,6 +82,7 @@
             const token = $('[name=_token]').val();
             const product = jQuery("[name=select_product]").val();
             const qty = jQuery("[name=select_qty]").val();
+            const price_buy = jQuery("[name=select_price]").val();
             const urlPost = jQuery("[name=url_add_order]").val();
             const total = $("[name=total_trans]").val();
             
@@ -78,6 +92,7 @@
                 data: {
                     product: product,
                     qty: qty,
+                    price_buy: price_buy
                 },
                 beforeSend: function () {
                     $('.loader').fadeIn("300");
@@ -96,11 +111,13 @@
                             // Reset Form order
                             $("[name=select_product]").prop('selectedIndex',0);
                             $("[name=select_qty]").val("0");
+                            $("[name=select_price]").val("0");
                             $('.total_transaction').text(addCommas(total_trans));
                         });
 
                         delete_row_order();
                         change_qty();
+                        change_price();
                         // change_discount();
                     });
                     

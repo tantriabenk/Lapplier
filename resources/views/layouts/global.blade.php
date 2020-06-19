@@ -26,10 +26,8 @@
         <button class="btn btn-link d-block d-md-none" datatoggle="collapse" data-target="#sidebar-nav" role="button">
             <span class="oi oi-menu"></span>
         </button>
-
-        <input class="border-dark bg-primary-darkest form-control d-none d-md-block w-50 ml-3 mr-2" type="text" placeholder="Search" arialabel="Search">
         
-        <div class="dropdown d-none d-md-block">
+        <div class="dropdown d-none d-md-block custom-dropdown">
             @if(\Auth::user())
                 <button class="btn btn-link btn-link-primary dropdown-toggle" id="navbar-dropdown" data-toggle="dropdown">
                     {{Auth::user()->name}}
@@ -54,8 +52,13 @@
                 <ul class="polished-sidebar-menu ml-0 pt-4 p-0 d-md-block">
                     <input class="border-dark form-control d-block d-md-none mb-4" type="text" placeholder="Search" aria-label="Search" />
                     <li>
-                        <a href="/home"><span class="oi oi-home"></span> Home</a>
+                        <a href="/home"><span class="oi oi-home"></span> Dashboard</a>
                     </li>
+                </ul>
+
+                <!-- Master -->
+                <h5 class="ml-0 pt-4 p-0 pl-lg-4 d-md-block">Master</h5>
+                <ul class="polished-sidebar-menu ml-0 p-0 d-md-block">
                     <li class="@if( request()->segment(2) == 'users' ) current-menu-item @endif">
                         <a href="{{ route( 'users.index' ) }}">
                             <span class="oi oi-people"></span> Master User
@@ -81,6 +84,11 @@
                             <span class="oi oi-people"></span> Master Pemasok
                         </a>
                     </li>
+                </ul>
+
+                <!-- Transactions -->
+                <h5 class="ml-0 pt-4 p-0 pl-lg-4 d-md-block">Transaksi</h5>
+                <ul class="polished-sidebar-menu ml-0 p-0 d-md-block">
                     <li class="@if( request()->segment(2) == 'sellings' ) current-menu-item @endif">
                         <a href="{{ route( 'sellings.index' ) }}">
                             <span class="oi oi-people"></span> Transaksi Penjualan
@@ -89,6 +97,16 @@
                     <li class="@if( request()->segment(2) == 'purchases' ) current-menu-item @endif">
                         <a href="{{ route( 'purchases.index' ) }}">
                             <span class="oi oi-people"></span> Transaksi Pembelian
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Report -->
+                <h5 class="ml-0 pt-4 p-0 pl-lg-4 d-md-block">Laporan</h5>
+                <ul class="polished-sidebar-menu ml-0 p-0 d-md-block">
+                    <li class="@if( request()->segment(2) == 'sellings' ) current-menu-item @endif">
+                        <a href="{{ route( 'sellings.index' ) }}">
+                            <span class="oi oi-people"></span> Laporan Penjualan
                         </a>
                     </li>
                     <div class="d-block d-md-none">
@@ -103,6 +121,7 @@
                         </li>
                     </div>
                 </ul>
+
             </div>
             <div class="col-lg-10 col-md-9 p-4">
                 <div class="row ">
