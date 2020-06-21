@@ -10,7 +10,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Lapplier @yield("title")</title>
     <link rel="stylesheet" href="{{ asset('polished/polished.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link rel="stylesheet" href="{{ asset('custom/css/main.css') }}">
+    
     <script type="text/javascript">
         document.documentElement.className = document.documentElement.className.replace('no-js', 'js') + (document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure ", "1.1 ") ? ' svg' : ' no-svg');
     </script>
@@ -89,12 +92,12 @@
                 <!-- Transactions -->
                 <h5 class="ml-0 pt-4 p-0 pl-lg-4 d-md-block">Transaksi</h5>
                 <ul class="polished-sidebar-menu ml-0 p-0 d-md-block">
-                    <li class="@if( request()->segment(2) == 'sellings' ) current-menu-item @endif">
+                    <li class="@if( request()->segment(1) == 'transactions' && request()->segment(2) == 'sellings' ) current-menu-item @endif">
                         <a href="{{ route( 'sellings.index' ) }}">
                             <span class="oi oi-people"></span> Transaksi Penjualan
                         </a>
                     </li>
-                    <li class="@if( request()->segment(2) == 'purchases' ) current-menu-item @endif">
+                    <li class="@if( request()->segment(1) == 'transactions' && request()->segment(2) == 'purchases' ) current-menu-item @endif">
                         <a href="{{ route( 'purchases.index' ) }}">
                             <span class="oi oi-people"></span> Transaksi Pembelian
                         </a>
@@ -104,8 +107,8 @@
                 <!-- Report -->
                 <h5 class="ml-0 pt-4 p-0 pl-lg-4 d-md-block">Laporan</h5>
                 <ul class="polished-sidebar-menu ml-0 p-0 d-md-block">
-                    <li class="@if( request()->segment(2) == 'sellings' ) current-menu-item @endif">
-                        <a href="{{ route( 'sellings.index' ) }}">
+                    <li class="@if( request()->segment(1) == 'reports' && request()->segment(2) == 'sellings' ) current-menu-item @endif">
+                        <a href="{{ route( 'reports.sellings.index' ) }}">
                             <span class="oi oi-people"></span> Laporan Penjualan
                         </a>
                     </li>
@@ -143,6 +146,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"></script>
     <script src="{{ asset('custom/js/main.js') }}"></script>
 
     @yield('script')

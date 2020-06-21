@@ -14,13 +14,13 @@ Route::get( '/' , function () {
 
 Auth::routes();
 Route::match( ["GET", "POST"], "/register" , function(){
-    return redirect("/login");
+    return redirect( "/login" );
 })->name( 'register' );
 
 Route::get( '/home', 'HomeController@index' )->name( 'home' );
 
 Route::group( ['middleware'=>['auth'] ], function(){
-    Route::group( ['prefix' => 'master'], function(){
+    Route::group( [ 'prefix' => 'master' ], function(){
         // Manage Users
         Route::resource( "users", "UserController" );
 
@@ -46,7 +46,7 @@ Route::group( ['middleware'=>['auth'] ], function(){
         Route::resource( "suppliers", "SupplierController" );
     });
 
-    Route::group( ['prefix' => 'transactions'], function(){
+    Route::group( [ 'prefix' => 'transactions' ], function(){
 
         // Selling Transactions
         Route::post( '/sellings/add_row', 'SellingController@add_row' )->name( 'sellings.add_row' );
@@ -57,6 +57,14 @@ Route::group( ['middleware'=>['auth'] ], function(){
         Route::post( '/purchases/add_row', 'PurchaseController@add_row' )->name( 'purchases.add_row' );
         Route::post( '/purchases/add_order', 'PurchaseController@add_order' )->name( 'purchases.add_order' );
         Route::resource( "purchases", "PurchaseController" );
+
+    });
+
+    Route::group( [ 'prefix' => 'reports' ], function(){
+
+        // Selling Report
+        Route::post( '/sellings/export', 'SellingReportController@export' )->name( 'reports.sellings.export' );
+        Route::resource( "sellings", "SellingReportController", ['names' => 'reports.sellings'] );
 
     });
 });

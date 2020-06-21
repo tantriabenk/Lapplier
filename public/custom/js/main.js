@@ -1,7 +1,12 @@
 jQuery(document).ready(function(){
-    only_number();
+	only_number();
+	initialize_selectize();
+	initialize_datepicker();
 });
 
+/**
+ * ====== Initialize Only Number ======
+ */
 function only_number(){
     // client-side validation of numeric inputs, optionally replacing separator sign(s).
 	$("input.only_number").on("keydown", function (e) {
@@ -35,4 +40,27 @@ function only_number(){
 			e.preventDefault();
 		}
 	});
+}
+
+
+/**
+ * ====== Initialize Selectize ======
+ */
+function initialize_selectize() {
+    $('.selectize').selectize();
+}
+
+/**
+ * ====== Initialize Datepicker ======
+ */
+function initialize_datepicker() {
+    if ($(".select_dates").length > 0) {
+        $(".select_dates").daterangepicker({
+            maxDate: '0',
+            // minDate: '-3w',
+            dateFormat: 'dd-mm-yy',
+            changeMonth: true,
+            changeYear: true,
+        });
+    }
 }
