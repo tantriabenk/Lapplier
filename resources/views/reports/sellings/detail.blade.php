@@ -6,11 +6,15 @@
 
 <div class="row m-b-40">
     <div class="col-md-9">
-        <h3 class="m-b-20">Laporan Penjualan</h3>
+        <h3 class="m-b-20">Laporan Rekapitulasi Penjualan</h3>
         <h6>Periode {{ $start }} - {{ $end }} </h6>
     </div>
     <div class="col-md-3 text-right">
-        <button class="btn btn-success">Export Laporan</button>
+        {!! Form::open( ['url' => route( 'reports.sellings.export_to_pdf' ), 'method' => 'post', 'target' => '_blank', 'class'  => 'form-basic', 'files' => 'true', 'name' => 'reports'] ) !!}
+            {!! Form::hidden( 'customer_id', $customer_id ) !!}
+            {!! Form::hidden( 'peiode', $periode ) !!}
+            {!! Form::submit('Export Ke PDF', [ 'class' => 'btn btn-success' ]) !!}
+        {!! Form::close() !!}
     </div>
 </div>
 

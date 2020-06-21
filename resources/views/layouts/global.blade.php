@@ -19,11 +19,11 @@
     </script>
 </head>
 
-<div class="loader">
-    <img src="{{ asset('custom/spinner.svg') }}" />
-</div>
-
 <body>
+    <div class="loader">
+        <img src="{{ asset('custom/spinner.svg') }}" />
+    </div>
+
     <nav class="navbar navbar-expand p-0">
         <a class="navbar-brand text-center col-xs-12 col-md-3 col-lg-2" href="index.html"> Lapplier </a>
         <button class="btn btn-link d-block d-md-none" datatoggle="collapse" data-target="#sidebar-nav" role="button">

@@ -63,6 +63,7 @@ Route::group( ['middleware'=>['auth'] ], function(){
     Route::group( [ 'prefix' => 'reports' ], function(){
 
         // Selling Report
+        Route::post( '/sellings/export_to_pdf', 'SellingReportController@export_to_pdf' )->name( 'reports.sellings.export_to_pdf' );
         Route::post( '/sellings/export', 'SellingReportController@export' )->name( 'reports.sellings.export' );
         Route::resource( "sellings", "SellingReportController", ['names' => 'reports.sellings'] );
 
