@@ -12,11 +12,16 @@
     <link rel="stylesheet" href="{{ asset('polished/polished.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+    @yield( 'css' )
+
     <link rel="stylesheet" href="{{ asset('custom/css/main.css') }}">
     
     <script type="text/javascript">
         document.documentElement.className = document.documentElement.className.replace('no-js', 'js') + (document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure ", "1.1 ") ? ' svg' : ' no-svg');
     </script>
+
+    @yield( 'js_top' )
 </head>
 
 <body>

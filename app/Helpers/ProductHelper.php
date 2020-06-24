@@ -38,4 +38,27 @@ class ProductHelper
         $recent_stock = $first_stock + $product_sum_purchase - $product_sum_selling;
         return $recent_stock;
     }
+
+    // Function for create label chart
+    public static function get_chart_product_stock()
+    {
+        $label_chart = array();
+        $product_stock = array();
+        $products = \App\Product::select( 'id', 'product_name' )->orderBy( 'product_name', 'ASC' )->get();
+
+        if( $products ):
+            foreach( $products as $product ):
+                $label_chart[] = $product->product_name;
+                $product_stock[] = (new static)->get_product_stock_recent( $product->id );
+            endforeach;
+        endif;
+
+        $result = [
+            'label_chart' => $label_chart,
+            'product_stock' => $product_stock,
+        ];
+
+        // return collect($product_stock)->sortDesc();
+        return $result;
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use ProductHelp;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // print_r(ProductHelp::get_chart_product_stock());
+        // exit;
         return view('home');
     }
 }

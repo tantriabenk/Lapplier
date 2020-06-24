@@ -42,8 +42,6 @@ class ProductController extends Controller
      */
     public function create()
     {
-        echo ProductHelp::get_product_stock_recent(1);
-        exit;
         return view( 'master.products.create' );
     }
 

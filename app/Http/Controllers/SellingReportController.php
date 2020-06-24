@@ -44,6 +44,7 @@ class SellingReportController extends Controller
 
         return view( 'reports.sellings.detail', [ 
             'sellings' => $sellings,
+            'selling_count' => $sellings->count(),
             'customer_id' =>  $customer_id,
             'periode' => $periode,
             'start' => date( "l jS \of F Y", strtotime( $start ) ),
