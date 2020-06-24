@@ -16,7 +16,7 @@ class SellingController extends Controller
      */
     public function index()
     {
-        $sellings = \App\Selling::with('customers')->paginate(10);
+        $sellings = \App\Selling::with( 'customers' )->paginate(10);
 
         return view( 'transactions.sellings.index', [ 'sellings' => $sellings ] );
     }
@@ -28,8 +28,8 @@ class SellingController extends Controller
      */
     public function create()
     {
-        $customers = \App\Customer::all()->where('deleted_at', '');
-        $products = \App\Product::all()->where('deleted_at', '');
+        $customers = \App\Customer::all()->where( 'deleted_at', '' );
+        $products = \App\Product::all()->where( 'deleted_at', '' );
         $row_number = 0;
         
         return view( 

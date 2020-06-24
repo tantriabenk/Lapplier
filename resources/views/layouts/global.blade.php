@@ -107,6 +107,11 @@
                             <span class="oi oi-people"></span> Transaksi Pembelian
                         </a>
                     </li>
+                    <li class="@if( request()->segment(1) == 'spendings' ) current-menu-item @endif">
+                        <a href="{{ route( 'spendings.index' ) }}">
+                            <span class="oi oi-people"></span> Pengeluaran
+                        </a>
+                    </li>
                 </ul>
 
                 <!-- Report -->

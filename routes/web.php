@@ -20,6 +20,12 @@ Route::match( ["GET", "POST"], "/register" , function(){
 Route::get( '/home', 'HomeController@index' )->name( 'home' );
 
 Route::group( ['middleware'=>['auth'] ], function(){
+
+    /**
+     * =======================================================
+     * Master Route
+     * =======================================================
+     */
     Route::group( [ 'prefix' => 'master' ], function(){
         // Manage Users
         Route::resource( "users", "UserController" );
@@ -46,6 +52,12 @@ Route::group( ['middleware'=>['auth'] ], function(){
         Route::resource( "suppliers", "SupplierController" );
     });
 
+
+    /**
+     * =======================================================
+     * Transactions Route
+     * =======================================================
+     */
     Route::group( [ 'prefix' => 'transactions' ], function(){
 
         // Selling Transactions
@@ -60,6 +72,12 @@ Route::group( ['middleware'=>['auth'] ], function(){
 
     });
 
+
+    /**
+     * =======================================================
+     * Report Route
+     * =======================================================
+     */
     Route::group( [ 'prefix' => 'reports' ], function(){
 
         // Selling Report
@@ -68,4 +86,13 @@ Route::group( ['middleware'=>['auth'] ], function(){
         Route::resource( "sellings", "SellingReportController", ['names' => 'reports.sellings'] );
 
     });
+
+
+    /**
+     * =======================================================
+     * Spending Route
+     * =======================================================
+     */
+    Route::resource( "spendings", "SpendingController", ['names' => 'spendings'] );
+
 });

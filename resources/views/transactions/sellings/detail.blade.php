@@ -82,20 +82,20 @@
                                 @endphp
                                 <tr>
                                     <td>{{ $selling_detail->product_name }}</td>
-                                    <td>Rp {{ number_format( $pivot_price_sell, 0 ) }}</td>
+                                    <td>@currency( $pivot_price_sell )</td>
                                     <td>{{ $pivot_qty }}</td>
-                                    <td>Rp {{ number_format( $sub_total_before_discount,0 ) }}</td>
-                                    <td>Rp {{ number_format( $pivot_discount,0 ) }}</td>
-                                    <td>Rp {{ number_format( $sub_total_after_discount,0 ) }}</td>
+                                    <td>@currency( $sub_total_before_discount )</td>
+                                    <td>@currency( $pivot_discount )</td>
+                                    <td>@currency( $sub_total_after_discount )</td>
                                 </tr>
                             @endforeach
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th colspan="3" style="text-align: right;"><b class="total_transactions">Total</b></th>
-                                <th><b class="total_transactions">Rp {{ number_format( $total_before_discount,0 ) }}</b></th>
-                                <th><b class="total_transactions">Rp {{ number_format( $total_discount,0 ) }}</b></th>
-                                <th><b class="total_transactions">Rp {{ number_format( $total_after_discount,0 ) }}</b></th>
+                                <th colspan="3" class="text-right"><b class="total_transactions">Total</b></th>
+                                <th><b class="total_transactions">@currency( $total_before_discount )</b></th>
+                                <th><b class="total_transactions">@currency( $total_discount )</b></th>
+                                <th><b class="total_transactions">@currency( $total_after_discount )</b></th>
                             </tr>
                         </tfoot>
                     </table>

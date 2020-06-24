@@ -66,19 +66,19 @@
                                 <tr>
                                     <td>{{ $no++ }}</td>
                                     <td>{{ $selling_detail->product_name }}</td>
-                                    <td>Rp {{ number_format( $pivot_price_sell, 0 ) }}</td>
+                                    <td>@currency( $pivot_price_sell )</td>
                                     <td>{{ $pivot_qty }}</td>
-                                    <td>Rp {{ number_format( $sub_total_before_discount ) }}</td>
-                                    <td>Rp {{ number_format( $pivot_discount ) }}</td>
-                                    <td>Rp {{ number_format( $sub_total_before_discount ) }}</td>
+                                    <td>@currency( $sub_total_before_discount )</td>
+                                    <td>@currency( $pivot_discount )</td>
+                                    <td>@currency( $sub_total_before_discount )</td>
                                 </tr>
                             @endforeach
 
                             <tr>
                                 <td colspan="4" class="text-right"><b>Total</b></td>
-                                <td>Rp {{ number_format( $total_before_discount ) }}</td>
-                                <td>Rp {{ number_format( $total_discount ) }}</td>
-                                <td>Rp {{ number_format( $total_after_discount ) }}</td>
+                                <td>@currency( $total_before_discount )</td>
+                                <td>@currency( $total_discount )</td>
+                                <td>@currency( $total_after_discount )</td>
                             </tr>
                         </table>
                     </div>

@@ -1,12 +1,12 @@
 @extends("layouts.global")
 
-@section("title") Transaksi Penjualan @endsection
+@section("title") Pengeluaran @endsection
 
 @section("content")
 
 <div class="row">
     <div class="col-md-12">
-        <h2 class="m-b-20">Transaksi Penjualan</h2>
+        <h2 class="m-b-20">Pengeluaran</h2>
     </div>
 </div>
 
@@ -29,24 +29,15 @@
                 <!-- Data Transaksi -->
                 <div class="row m-b-20 transactions-data">
                     <div class="col-md-12">
-                        <h4>Data Transaksi</h4>
+                        <h4>Data Pengeluaran</h4>
                     </div>
                     <div class="col-md-4">
-                        <label for="no_nota">Nomor Nota</label>
-                        <input type="text" name="nota_no" value="" placeholder="Masukkan nomor nota" class="form-control">
+                        <label for="no_nota">Nama Petugas</label>
+                        <input type="text" name="officer" value="" placeholder="Masukkan nama petugas" class="form-control">
                     </div>
                     <div class="col-md-4">
                         <label for="date">Tanggal</label>
                         <input type="date" name="date" value="" class="form-control date">
-                    </div>
-                    <div class="col-md-4">
-                        <label for="customer">Pelanggan</label>
-                        <select name="customer" id="customer" class="form-control customer">
-                            <option value="">Pilih Pelanggan</option>
-                            @foreach( $customers as $customer )
-                                <option value="{{ $customer->id }}">{{ $customer->name }}</option>
-                            @endforeach
-                        </select>
                     </div>
                 </div>
 
@@ -54,29 +45,20 @@
                 <!-- Detail Transaksi -->
                 <div class="row m-b-20 detail-transaksi">
                     <div class="col-md-12">
-                        <h4>Detail Transaksi</h4>
+                        <h4>Detail Pengeluaran</h4>
                     </div>
                     <div class="col-md-4">
-                        <label for="select_product">Produk</label>
-                        <select name="select_product" id="select_product" class="form-control product">
-                            <option value="">Pilih Produk</option>
-                            @foreach( $products as $product )
-                                <option value="{{ $product->id }}">{{ $product->product_name }}</option>
-                            @endforeach
-                        </select>
+                        <label for="description_order">Deskripsi</label>
+                        <input type="text" name="description_order" class="form-control" value="0">
                     </div>
                     <div class="col-md-4">
-                        <label for="select_qty">Jumlah</label>
-                        <input type="text" name="select_qty" class="form-control qty only_number" value="0">
-                    </div>
-                    <div class="col-md-4">
-                        <label for="select_discount">Potongan Harga</label>
-                        <input type="text" name="select_discount" class="form-control discount only_number" value="0">
+                        <label for="amount_order">Biaya</label>
+                        <input type="text" name="amount_order" class="form-control only_number" value="0">
                     </div>
                 </div>
                 <div class="row m-b-20">
                     <div class="col-md-12">
-                        <input type="hidden" name="url_add_order" value="{{ route( 'sellings.add_order' ) }}">
+                        <input type="hidden" name="url_add_order" value="{{ route( 'purchases.add_order' ) }}">
                         <button type="button" class="btn btn-info btn-block btn-add-order">Tambah Ke Detail Order</button>
                     </div>
                 </div>
@@ -92,21 +74,13 @@
                         <table class="table table-bordered table-transactions">
                             <thead>
                                 <tr>
-                                    <th width="25%">Produk</th>
-                                    <th width="15%">Harga Produk</th>
-                                    <th width="10%">Stok Produk</th>
-                                    <th width="80px">Jumlah</th>
-                                    <th width="130px">Potongan Harga</th>
-                                    <th width="15%">Sub Total</th>
-                                    <th>Tindakan</th>
+                                    <th width="25%">Deskripsi</th>
+                                    <th width="15%">Biaya</th>
+                                    <th width="15%">Tindakan</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr class="first_row" style="display: none;">
-                                    <td><input type="hidden" name="product[]"></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -114,7 +88,7 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th colspan="5" class="text-right"><b class="total_transactions">Total</b></th>
+                                    <th class="text-right"><b class="total_transactions">Total</b></th>
                                     <th>
                                         <b class="total_transactions">Rp <span class="total_transaction">0</span></b>
                                         <input type="hidden" name="total_trans" value="0" />
@@ -122,10 +96,10 @@
                                     <th></th>
                                 </tr>
                                 <tr>
-                                    <th colspan="5"></th>
+                                    <th colspan="1"></th>
                                     <th colspan="2">
-                                        <input type="hidden" name="url_store_transaksi" value="{{ route( 'sellings.store' ) }}">
-                                        <input type="hidden" name="url_index" value="{{ route( 'sellings.index' ) }}">
+                                        <input type="hidden" name="url_store_transaksi" value="{{ route( 'purchases.store' ) }}">
+                                        <input type="hidden" name="url_index" value="{{ route( 'purchases.index' ) }}">
                                         <button class="btn btn-success btn-block" type="submit">SIMPAN TRANSAKSI</button>
                                     </th>
                                 </tr>
@@ -140,4 +114,4 @@
 </div>
 @endsection
 
-@include('transactions.sellings.script')
+@include('transactions.purchases.script')

@@ -110,7 +110,7 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th colspan="3" style="text-align: right;"><b class="total_transactions">Total</b></th>
+                                    <th colspan="3" class="text-right"><b class="total_transactions">Total</b></th>
                                     <th>
                                         <b class="total_transactions">Rp <span class="total_transaction">0</span></b>
                                         <input type="hidden" name="total_trans" value="0" />
