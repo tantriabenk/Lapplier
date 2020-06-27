@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SpendingRequest extends FormRequest
+class SpendingOrderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,16 +25,14 @@ class SpendingRequest extends FormRequest
     {
         $rules = array();
         switch( $this->method() ) {
+
             case 'POST': {
                 $rules = [
-                    'officer' => 'required',
-                    'date' => 'required',
+                    'description_order' => 'required',
+                    'amount_order' => 'required|numeric|min:1',
                 ];
-
-                foreach( $this->get( 'description' ) as $key => $val ):
-                    $rules[ 'description.' . $key ] = [ 'required' ];
-                endforeach;
             }
+            
         }
 
         return $rules;
@@ -43,15 +41,12 @@ class SpendingRequest extends FormRequest
     public function messages()
     {
         $messages = [
-            'officer.required' => 'Form <b>petugas</b> tidak boleh kosong',
-            'date.required' => 'Form <b>tanggal</b> tidak boleh kosong',
+            'description_order.required' => 'Form <b>deskripsi</b> tidak boleh kosong',
+            'amount_order.required' => 'Form <b>biaya</b> tidak boleh kosong',
+            'amount_order.numeric' => 'Form <b>biaya</b> hanya boleh berupa angka',
+            'amount_order.min' => 'Form <b>biaya</b> minimal 1',
         ];
 
-        foreach( $this->get( 'description' ) as $key => $val ):
-            $row = $key+1;
-            $messages[ 'description.' . $key . '.required' ] = '<b>Detail Order</b> belum terisi';
-        endforeach;
-        
         return $messages;
     }
 }

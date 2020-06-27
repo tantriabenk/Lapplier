@@ -1,12 +1,12 @@
 @extends("layouts.global")
 
-@section("title") Detail Transaksi Pembelian @endsection
+@section("title") Detail Pengeluaran @endsection
 
 @section("content")
 
 <div class="row">
     <div class="col-md-12">
-        <h2 class="m-b-20">Detail Transaksi Pembelian</h2>
+        <h2 class="m-b-20">Detail Pengeluaran</h2>
     </div>
 </div>
 
@@ -32,60 +32,52 @@
                         <h4>Data Transaksi</h4>
                     </div>
                     <div class="col-md-4">
-                        <label for="no_nota">Nomor Nota</label>
-                        <input type="text" readonly name="nota_no" value="{{ $purchases->no_faktur }}" class="form-control">
+                        <label for="officer">Petugas</label>
+                        <input type="text" readonly name="officer" value="{{ $spendings->officer }}" class="form-control">
                     </div>
                     <div class="col-md-4">
                         <label for="date">Tanggal</label>
-                        <input type="text" readonly name="date" value="{{ $purchases->date }}" class="form-control">
-                    </div>
-                    <div class="col-md-4">
-                        <label for="customer">Pelanggan</label>
-                        <input type="text" readonly name="customer" value="{{ $purchases->suppliers->name }}" class="form-control">
+                        <input type="text" readonly name="date" value="{{ $spendings->date }}" class="form-control">
                     </div>
                 </div>
 
 
                 <!-- Detail Order -->
                 <div class="row m-b-20">
-                    <div class="col-md-12">
+                    <div class="col-md-8">
                         <h4>Detail Order</h4>
                     </div>
-                    
-                    <div class="col-md-12">
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
                         <table class="table table-bordered table-transactions">
                             <thead>
                                 <tr>
-                                    <th width="25%">Produk</th>
-                                    <th width="15%">Harga Produk</th>
-                                    <th width="80px">Jumlah</th>
-                                    <th width="15%">Sub Total</th>
+                                    <th width="70%">Deskripsi</th>
+                                    <th width="30%">Biaya</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @php
                                     $total = 0;
                                 @endphp
-                                
-                                @foreach( $purchases->products as $purchase_detail )
-                                    @php
-                                        $pivot_price_buy = $purchase_detail->pivot->price;
-                                        $pivot_qty = $purchase_detail->pivot->qty;
-                                        $sub_total = $pivot_price_buy * $pivot_qty;
 
-                                        $total += $sub_total;
+                                @foreach( $spendings->spending_details as $spending_detail )
+                                    @php
+                                        $description = $spending_detail->description;
+                                        $amount = $spending_detail->amount;
+
+                                        $total += $amount;
                                     @endphp
                                     <tr>
-                                        <td>{{ $purchase_detail->product_name }}</td>
-                                        <td>@currency( $pivot_price_buy )</td>
-                                        <td>{{ $pivot_qty }}</td>
-                                        <td>@currency( $sub_total )</td>
+                                        <td>{{ $description }}</td>
+                                        <td>@currency( $amount )</td>
                                     </tr>
                                 @endforeach
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th colspan="3" class="text-right"><b class="total_transactions">Total</b></th>
+                                    <th class="text-right"><b class="total_transactions">Total</b></th>
                                     <th><b class="total_transactions">@currency( $total )</b></th>
                                 </tr>
                             </tfoot>

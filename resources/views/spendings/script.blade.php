@@ -19,18 +19,6 @@
         return x1 + x2;
     }
 
-    //  Change Qty on transactions
-    function change_qty(){
-        $('.qty_detil').on("keyup", function(){
-            const parent_tr = $(this).parents('tr');
-            const price = jQuery(parent_tr).find('.product_price_buy').val();
-            const qty = $(this).val();
-            const sub_total = (qty*price);
-            jQuery(parent_tr).find('.sub_total').text(addCommas(sub_total));
-            jQuery(parent_tr).find('.sub_total_input').val(sub_total);
-            get_grand_total();
-        });
-    }
 
     // Change price buy on transactions
     function change_price(){
@@ -39,20 +27,6 @@
             const qty = jQuery(parent_tr).find('.qty_detil').val();
             const price = $(this).val();
             const sub_total = (qty*price);
-            jQuery(parent_tr).find('.sub_total').text(addCommas(sub_total));
-            jQuery(parent_tr).find('.sub_total_input').val(sub_total);
-            get_grand_total();
-        });
-    }
-
-    //  Change discount on transactions
-    function change_discount(){
-        $('.discount').on("keyup", function(){
-            const parent_tr = $(this).parents('tr');
-            var product_sell = jQuery(parent_tr).find('.product_price_buy').val();
-            var discount = $(this).val();
-            var qty = $(parent_tr).find('.qty_detil').val();
-            var sub_total = (qty*product_sell)-discount;
             jQuery(parent_tr).find('.sub_total').text(addCommas(sub_total));
             jQuery(parent_tr).find('.sub_total_input').val(sub_total);
             get_grand_total();
@@ -80,9 +54,8 @@
             $('.detail-transaksi .form-control').removeClass("is-invalid");
 
             const token = $('[name=_token]').val();
-            const product = jQuery("[name=select_product]").val();
-            const qty = jQuery("[name=select_qty]").val();
-            const price_buy = jQuery("[name=select_price]").val();
+            const description_order = jQuery("[name=description_order]").val();
+            const amount_order = jQuery("[name=amount_order]").val();
             const urlPost = jQuery("[name=url_add_order]").val();
             const total = $("[name=total_trans]").val();
             
@@ -90,9 +63,8 @@
                 url: urlPost,
                 method: 'post',
                 data: {
-                    product: product,
-                    qty: qty,
-                    price_buy: price_buy
+                    description_order: description_order,
+                    amount_order: amount_order,
                 },
                 beforeSend: function () {
                     $('.loader').fadeIn("300");
@@ -100,25 +72,22 @@
                 success: function(data){
                     e.stopPropagation();
                     const res = JSON.parse(data);
-                    const sub_total = res.sub_total;
+                    const amount = res.amount;
                     $('.table-transactions > tbody tr.first_row').remove();
 
                     $('.loader').fadeOut(300, function(){
                         $('.table-transactions > tbody').append(res.html).ready(function () {
-                            const total_trans = parseInt(total)+parseInt(sub_total);
+                            const total_trans = parseInt(total)+parseInt(amount);
                             $("[name=total_trans]").val(total_trans);
 
                             // Reset Form order
-                            $("[name=select_product]").prop('selectedIndex',0);
-                            $("[name=select_qty]").val("0");
-                            $("[name=select_price]").val("0");
+                            $("[name=description_order]").val("");
+                            $("[name=amount_order]").val("0");
                             $('.total_transaction').text(addCommas(total_trans));
                         });
 
                         delete_row_order();
-                        change_qty();
                         change_price();
-                        // change_discount();
                     });
                     
                     return false;
@@ -152,8 +121,8 @@
         jQuery('.delete_row_order').unbind("click").click(function(){
             const row = $(this).parents('tr');
             const current_total = $("[name=total_trans]").val();
-            const sub_total = $(row).find(".sub_total_input").val();
-            const total_trans = current_total - sub_total;
+            const amount_order = $(row).find(".amount_order").val();
+            const total_trans = current_total - amount_order;
 
             $('.total_transaction').text(addCommas(total_trans));
             $("[name=total_trans]").val(total_trans);
@@ -192,7 +161,7 @@
                         }
 
                         $(".transactions-data .form-control").val("");
-                        $(".customer").prop('selectedIndex',0);
+                        $(".officer").val("");
                         $('.table-transactions > tbody > tr').remove();
                         $('.total_transaction').text("0");
                         $("[name=total_trans]").val("0");

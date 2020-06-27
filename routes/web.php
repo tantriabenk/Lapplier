@@ -93,6 +93,7 @@ Route::group( ['middleware'=>['auth'] ], function(){
      * Spending Route
      * =======================================================
      */
+    Route::post( '/spendings/add_order', 'SpendingController@add_order' )->name( 'spendings.add_order' );
     Route::resource( "spendings", "SpendingController", ['names' => 'spendings'] );
 
 });

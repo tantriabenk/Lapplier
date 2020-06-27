@@ -33,7 +33,7 @@
                     </div>
                     <div class="col-md-4">
                         <label for="no_nota">Nama Petugas</label>
-                        <input type="text" name="officer" value="" placeholder="Masukkan nama petugas" class="form-control">
+                        <input type="text" name="officer" value="" placeholder="Masukkan nama petugas" class="form-control officer">
                     </div>
                     <div class="col-md-4">
                         <label for="date">Tanggal</label>
@@ -49,7 +49,7 @@
                     </div>
                     <div class="col-md-4">
                         <label for="description_order">Deskripsi</label>
-                        <input type="text" name="description_order" class="form-control" value="0">
+                        <input type="text" name="description_order" class="form-control" placeholder="Masukkan deskripsi" value="">
                     </div>
                     <div class="col-md-4">
                         <label for="amount_order">Biaya</label>
@@ -58,7 +58,7 @@
                 </div>
                 <div class="row m-b-20">
                     <div class="col-md-12">
-                        <input type="hidden" name="url_add_order" value="{{ route( 'purchases.add_order' ) }}">
+                        <input type="hidden" name="url_add_order" value="{{ route( 'spendings.add_order' ) }}">
                         <button type="button" class="btn btn-info btn-block btn-add-order">Tambah Ke Detail Order</button>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
                             </thead>
                             <tbody>
                                 <tr class="first_row" style="display: none;">
-                                    <td></td>
+                                    <td><input type="hidden" name="description[]"></td>
                                     <td></td>
                                     <td></td>
                                 </tr>
@@ -98,8 +98,8 @@
                                 <tr>
                                     <th colspan="1"></th>
                                     <th colspan="2">
-                                        <input type="hidden" name="url_store_transaksi" value="{{ route( 'purchases.store' ) }}">
-                                        <input type="hidden" name="url_index" value="{{ route( 'purchases.index' ) }}">
+                                        <input type="hidden" name="url_store_transaksi" value="{{ route( 'spendings.store' ) }}">
+                                        <input type="hidden" name="url_index" value="{{ route( 'spendings.index' ) }}">
                                         <button class="btn btn-success btn-block" type="submit">SIMPAN TRANSAKSI</button>
                                     </th>
                                 </tr>
@@ -114,4 +114,4 @@
 </div>
 @endsection
 
-@include('transactions.purchases.script')
+@include('spendings.script')
