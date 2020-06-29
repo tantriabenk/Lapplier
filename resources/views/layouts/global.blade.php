@@ -122,6 +122,13 @@
                             <span class="oi oi-people"></span> Laporan Penjualan
                         </a>
                     </li>
+
+                    <li class="@if( request()->segment(1) == 'reports' && request()->segment(2) == 'purchases' ) current-menu-item @endif">
+                        <a href="{{ route( 'reports.purchases.index' ) }}">
+                            <span class="oi oi-people"></span> Laporan Pembelian
+                        </a>
+                    </li>
+
                     <div class="d-block d-md-none">
                         <div class="dropdown-divider"></div>
                         <li><a href="#"> Profile</a></li>

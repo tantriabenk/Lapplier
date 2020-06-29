@@ -85,6 +85,11 @@ Route::group( ['middleware'=>['auth'] ], function(){
         Route::post( '/sellings/export', 'SellingReportController@export' )->name( 'reports.sellings.export' );
         Route::resource( "sellings", "SellingReportController", ['names' => 'reports.sellings'] );
 
+        // Purchase Report
+        Route::post( '/purchases/export_to_pdf', 'PurchaseReportController@export_to_pdf' )->name( 'reports.purchases.export_to_pdf' );
+        Route::post( '/purchases/export', 'PurchaseReportController@export' )->name( 'reports.purchases.export' );
+        Route::resource( "purchases", "PurchaseReportController", ['names' => 'reports.purchases'] );
+
     });
 
 
