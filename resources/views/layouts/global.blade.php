@@ -129,6 +129,12 @@
                         </a>
                     </li>
 
+                    <li class="@if( request()->segment(1) == 'reports' && request()->segment(2) == 'income_statement' ) current-menu-item @endif">
+                        <a href="{{ route( 'reports.income.index' ) }}">
+                            <span class="oi oi-people"></span> Laporan Laba Rugi
+                        </a>
+                    </li>
+
                     <div class="d-block d-md-none">
                         <div class="dropdown-divider"></div>
                         <li><a href="#"> Profile</a></li>

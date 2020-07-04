@@ -1,6 +1,6 @@
 @extends("layouts.global")
 
-@section("title") Detail Transaksi Penjualan @endsection
+@section("title") Laporan Rekapitulasi Penjualan @endsection
 
 @section("content")
 

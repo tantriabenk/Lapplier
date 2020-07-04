@@ -80,15 +80,19 @@ Route::group( ['middleware'=>['auth'] ], function(){
      */
     Route::group( [ 'prefix' => 'reports' ], function(){
 
-        // Selling Report
+        // Selling Report (Penjualan)
         Route::post( '/sellings/export_to_pdf', 'SellingReportController@export_to_pdf' )->name( 'reports.sellings.export_to_pdf' );
         Route::post( '/sellings/export', 'SellingReportController@export' )->name( 'reports.sellings.export' );
         Route::resource( "sellings", "SellingReportController", ['names' => 'reports.sellings'] );
 
-        // Purchase Report
+        // Purchase Report (Pembelian)
         Route::post( '/purchases/export_to_pdf', 'PurchaseReportController@export_to_pdf' )->name( 'reports.purchases.export_to_pdf' );
         Route::post( '/purchases/export', 'PurchaseReportController@export' )->name( 'reports.purchases.export' );
         Route::resource( "purchases", "PurchaseReportController", ['names' => 'reports.purchases'] );
+
+        // Income Statement (Laporan Laba Rugi)
+        Route::post( '/income_statement/export', 'IncomeStatementController@export' )->name( 'reports.income.export' );
+        Route::resource( "income_statement", "IncomeStatementController", ['names' => 'reports.income'] );
 
     });
 

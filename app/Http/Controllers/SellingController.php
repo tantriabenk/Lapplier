@@ -71,12 +71,14 @@ class SellingController extends Controller
                     $product_data = \App\Product::find( $product_id );
                     $price_sell = $product_data->price_sell;
                     $sub_total = $qty[ $key ] * $price_sell;
+                    $total_after_discount = $sub_total - $discount[ $key ];
 
                     $product_data->sellings()->attach( $selling->id, array(
                         'price_sell' => $price_sell,
                         'qty' => $qty[ $key ],
                         'total' => $sub_total,
-                        'discount' => $discount[ $key ]
+                        'discount' => $discount[ $key ],
+                        'total_after_discount' => $total_after_discount
                      ) );
                 endforeach;
             endif;
@@ -105,8 +107,6 @@ class SellingController extends Controller
      */
     public function show($id)
     {
-        $sellings = \App\Selling::with( 'customers' )->findOrFail( $id );
-
         $product_selling = \App\Selling::with( 'products' )->findOrFail( $id );
 
         return view( 'transactions.sellings.detail', [ 
