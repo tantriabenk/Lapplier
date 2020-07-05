@@ -91,6 +91,7 @@ Route::group( ['middleware'=>['auth'] ], function(){
         Route::resource( "purchases", "PurchaseReportController", ['names' => 'reports.purchases'] );
 
         // Income Statement (Laporan Laba Rugi)
+        Route::post( '/income_statement/export_to_pdf', 'IncomeStatementController@export_to_pdf' )->name( 'reports.income.export_to_pdf' );
         Route::post( '/income_statement/export', 'IncomeStatementController@export' )->name( 'reports.income.export' );
         Route::resource( "income_statement", "IncomeStatementController", ['names' => 'reports.income'] );
 

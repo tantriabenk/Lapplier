@@ -18,72 +18,78 @@
     <div class="row">
         <div class="col-md-12">
             <div class="text-center">
-                <h3 class="m-b-20">Laporan Rekapitulasi Penjualan</h3>
+                <h3 class="m-b-20">Laporan Laba Rugi</h3>
                 <h6>Periode {{ $start }} - {{ $end }} </h6>
             </div>
-            @foreach( $sellings as $selling )
-                <div class="row m-b-20">
-                    <div class="col-md-12">
-                        <table>
-                            <tr>
-                                <td><b>Nomor Nota: {{ $selling->nota_number }}</b></td>
-                                <td style="padding: 0px 20px;"></td>
-                                <td><b>Tanggal: {{ date( "d F Y", strtotime( $selling->date ) ) }}</b></td>
-                                <td style="padding: 0px 20px;"></td>
-                                <td><b>Customer: {{ $selling->customers->name }} / {{ $selling->customers->store_name }}</b></td>
-                            </tr>
-                        </table>
-                        <table class="table table-bordered">
-                            <tr>
-                                <td>No</td>
-                                <td>Produk</td>
-                                <td>Harga Produk</td>
-                                <td>Jumlah</td>
-                                <td>Sub Total Sebelum Diskon</td>
-                                <td>Diskon</td>
-                                <td>Sub Total Setelah Diskon</td>
-                            </tr>
-
-                            @php
-                                $no = 1;
-                                $total_after_discount = 0;
-                                $total_before_discount = 0;
-                                $total_discount = 0;
-                            @endphp
-
-                            @foreach( $selling->products as $selling_detail )
-                                @php
-                                    $pivot_price_sell = $selling_detail->pivot->price_sell;
-                                    $pivot_qty = $selling_detail->pivot->qty;
-                                    $pivot_discount = $selling_detail->pivot->discount;
-                                    $sub_total_before_discount = $pivot_price_sell * $pivot_qty;
-                                    $sub_total_after_discount = $sub_total_before_discount - $pivot_discount;
-
-                                    $total_after_discount += $sub_total_after_discount;
-                                    $total_before_discount += $sub_total_before_discount;
-                                    $total_discount += $pivot_discount;
-                                @endphp
-                                <tr>
-                                    <td>{{ $no++ }}</td>
-                                    <td>{{ $selling_detail->product_name }}</td>
-                                    <td>@currency( $pivot_price_sell )</td>
-                                    <td>{{ $pivot_qty }}</td>
-                                    <td>@currency( $sub_total_before_discount )</td>
-                                    <td>@currency( $pivot_discount )</td>
-                                    <td>@currency( $sub_total_before_discount )</td>
-                                </tr>
-                            @endforeach
-
-                            <tr>
-                                <td colspan="4" class="text-right"><b>Total</b></td>
-                                <td>@currency( $total_before_discount )</td>
-                                <td>@currency( $total_discount )</td>
-                                <td>@currency( $total_after_discount )</td>
-                            </tr>
-                        </table>
-                    </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <table width="100%">
+                        <tr>
+                            <td width="60%"><h5>Total Penjualan</h5></td>
+                            <td><h5>@currency( $total_selling )</h5></td>
+                        </tr>
+                        <tr>
+                            <td><h5>Total Pembelian</h5></td>
+                            <td><h5>@currency( $total_purchase )</h5></td>
+                        </tr>
+                        <tr>
+                            <td><h5>{{ $text_laba_rugi_kotor }}</h5></td>
+                            <td><h5>@currency( $laba_rugi_kotor )</h5></td>
+                        </tr>
+                        <tr>
+                            <td coslpan="2"><h5>Biaya - Biaya Pengeluaran</h5></td>
+                            <td></td>
+                        </tr>
+                    </table>
                 </div>
-            @endforeach 
+            </div>
+            <div class="row m-b-20">
+                <div class="col-md-5">
+                    <table width="100%" border="1" cellpadding="5">
+                        <tr style="font-weight: bold;">
+                            <td width="20%">Tanggal</td>
+                            <td>Deskripsi</td>
+                            <td width="30%">Biaya</td>
+                        </tr>
+                        @php
+                            $total_pengeluaran = 0;
+                        @endphp
+                        @foreach( $spendings as $spending )
+                            @foreach( $spending->spending_details as $spending_detail )
+                                <tr>
+                                    <td>{{ $spending->date }}</td>
+                                    <td>{{ $spending_detail->description }}</td>
+                                    <td>@currency( $spending_detail->amount )</td>
+                                </tr>
+                                @php
+                                    $total_pengeluaran += $spending_detail->amount;
+                                @endphp
+                            @endforeach
+                        @endforeach
+                        <tr style="font-weight: bold;">
+                            <td colspan="2" class="text-right">Total Pengeluaran: </td>
+                            <td>@currency( $total_pengeluaran )</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Laba Bersih -->
+            @php
+                $laba_bersih = $laba_rugi_kotor - $total_pengeluaran;
+                $text_laba_bersih = ($laba_bersih < 0) ? 'Rugi Bersih' : 'Laba Bersih';
+            @endphp
+            <div class="row">
+                <div class="col-md-6">
+                    <table width="100%">
+                        <tr>
+                            <td width="60%"><h5>{{ $text_laba_bersih }}</h5></td>
+                            <td><h5>@currency( $laba_bersih )</h5></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </body>
