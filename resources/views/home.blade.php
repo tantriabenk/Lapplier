@@ -20,6 +20,16 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">Produk Paling Laris</div>
+
+                <div class="card-body">
+                    <canvas id="product-best-seller" width="100%"></canvas>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -30,10 +40,41 @@
         var myChart = new Chart(ctx, {
             type: 'horizontalBar',
             data: {
-                labels: {!! json_encode( $chart_product['label_chart'] ) !!},
+                labels: {!! json_encode( $chart_product['label'] ) !!},
                 datasets: [{
                     label: 'Stok produk saat ini',
-                    data: {!! json_encode( $chart_product['product_stock'] ) !!},
+                    data: {!! json_encode( $chart_product['value'] ) !!},
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+        @php $best_seller = ProductHelp::get_best_seller(); @endphp
+
+        var ctx = document.getElementById( 'product-best-seller' );
+        var myChart = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: {
+                labels: {!! json_encode( $best_seller['label'] ) !!},
+                datasets: [{
+                    label: 'Produk Best Seller',
+                    data: {!! json_encode( $best_seller['value'] ) !!},
                     backgroundColor: [
                         'rgba(255, 99, 132, 1)',
                         'rgba(54, 162, 235, 1)',

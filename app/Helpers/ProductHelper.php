@@ -42,23 +42,50 @@ class ProductHelper
     // Function for create label chart
     public static function get_chart_product_stock()
     {
-        $label_chart = array();
-        $product_stock = array();
+        $label = array();
+        $value = array();
         $products = \App\Product::select( 'id', 'product_name' )->orderBy( 'product_name', 'ASC' )->get();
 
         if( $products ):
             foreach( $products as $product ):
-                $label_chart[] = $product->product_name;
-                $product_stock[] = (new static)->get_product_stock_recent( $product->id );
+                $label[] = $product->product_name;
+                $value[] = (new static)->get_product_stock_recent( $product->id );
             endforeach;
         endif;
 
         $result = [
-            'label_chart' => $label_chart,
-            'product_stock' => $product_stock,
+            'label' => $label,
+            'value' => $value,
         ];
 
         // return collect($product_stock)->sortDesc();
+        return $result;
+    }
+
+    // Function untuk mendapatkan produk yang paling laris
+    public static function get_best_seller()
+    {
+        $label = array();
+        $value = array();
+        $datas = DB::table( 'products AS a' )
+            ->join( 'product_selling AS b', 'b.product_id', '=', 'a.id' )
+            ->select( 'a.product_name', \DB::raw('SUM(b.qty) as total_qty') )
+            ->orderBy( 'total_qty', 'DESC' )
+            ->groupby( 'a.product_name' )
+            ->get();
+
+        if( $datas ):
+            foreach( $datas as $data ):
+                $label[] = $data->product_name;
+                $value[] = $data->total_qty;
+            endforeach;
+        endif;
+
+        $result = [
+            'label' => $label,
+            'value' => $value,
+        ];
+
         return $result;
     }
 }
