@@ -61,27 +61,7 @@ class SellingController extends Controller
         if( $selling->save() ):
 
             // Selling Detail Request
-            $product = $request->get( 'product' );
-            $qty = $request->get( 'qty' );
-            $discount = $request->get( 'discount' );
-
-            if( !empty( $product ) ):
-                foreach( $product as $key => $value ):
-                    $product_id = $product[$key];
-                    $product_data = \App\Product::find( $product_id );
-                    $price_sell = $product_data->price_sell;
-                    $sub_total = $qty[ $key ] * $price_sell;
-                    $total_after_discount = $sub_total - $discount[ $key ];
-
-                    $product_data->sellings()->attach( $selling->id, array(
-                        'price_sell' => $price_sell,
-                        'qty' => $qty[ $key ],
-                        'total' => $sub_total,
-                        'discount' => $discount[ $key ],
-                        'total_after_discount' => $total_after_discount
-                     ) );
-                endforeach;
-            endif;
+            $this->add_data_to_detail_transactions( $request, $selling );
         
         else:
             $error++;
@@ -128,7 +108,7 @@ class SellingController extends Controller
         $row_number = 0;
         
         return view( 
-            'transactions.sellings.create', 
+            'transactions.sellings.edit', 
             [ 
                 'customers' => $customers,
                 'products' => $products,
@@ -145,9 +125,36 @@ class SellingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SellingRequest $request, $id)
     {
-        //
+        $error = 0;
+
+        $selling = \App\Selling::findOrFail( $id );
+        $selling->nota_number = $request->get( 'nota_no' );
+        $selling->date = $request->get( 'date' );
+        $selling->total_selling = $request->get( 'total_trans' );
+        $selling->customer_id = $request->get( 'customer' );
+        
+        if( $selling->save() ):
+
+            $selling->products()->detach();
+
+            $this->add_data_to_detail_transactions( $request, $selling );
+        
+        else:
+            $error++;
+        endif;
+
+        $result['status'] = "error";
+        $result['message'] = "Terjadi kesalahan! Silahkan coba lagi nanti atau kontak administrator";
+
+        if( $error == 0 ):
+            $result['status'] = "success";
+            $result['title'] = "Sukses!";
+            $result['message'] = "Transaksi berhasil disimpan";
+        endif;
+
+        return json_encode($result);
     }
 
     /**
@@ -198,5 +205,30 @@ class SellingController extends Controller
         $result['sub_total'] = $sub_total;
 
         return json_encode($result);
+    }
+
+    private function add_data_to_detail_transactions( $request, $selling ){
+        // Selling Detail Request
+        $product = $request->get( 'product' );
+        $qty = $request->get( 'qty' );
+        $discount = $request->get( 'discount' );
+
+        if( !empty( $product ) ):
+            foreach( $product as $key => $value ):
+                $product_id = $product[$key];
+                $product_data = \App\Product::find( $product_id );
+                $price_sell = $product_data->price_sell;
+                $sub_total = $qty[ $key ] * $price_sell;
+                $total_after_discount = $sub_total - $discount[ $key ];
+
+                $product_data->sellings()->attach( $selling->id, array(
+                    'price_sell' => $price_sell,
+                    'qty' => $qty[ $key ],
+                    'total' => $sub_total,
+                    'discount' => $discount[ $key ],
+                    'total_after_discount' => $total_after_discount
+                ) );
+            endforeach;
+        endif;
     }
 }

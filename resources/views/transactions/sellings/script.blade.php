@@ -88,6 +88,7 @@
                 success: function(data){
                     e.stopPropagation();
                     const res = JSON.parse(data);
+                    console.log(res);
                     const sub_total = res.sub_total;
                     $('.table-transactions > tbody tr.first_row').remove();
 
@@ -220,6 +221,7 @@
     jQuery(document).ready(function(){
         form_transactions();
         add_to_order();
+        delete_row_order();
     });
 </script>
 @endsection
