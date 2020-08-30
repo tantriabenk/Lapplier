@@ -13,22 +13,8 @@ class UserController extends Controller
      */
     public function index( Request $request )
     {
-        $users = \App\User::paginate( 10 );
-
-        $filterKeyword = $request->get( 'keyword' );
-        $status = $request->get( 'status' );
-        if( $filterKeyword ):
-            if( $status ):
-                $users = \App\User::where( 'email', 'LIKE', "%$filterKeyword%" )
-                    ->where( 'status', $status )
-                    ->paginate( 10 );
-            else:
-                $users = \App\User::where( 'email', 'LIKE', "%$filterKeyword%" )->paginate( 10 );
-            endif;
-        elseif( $status ):
-            $users = \App\User::where( 'status', $status )->paginate( 10 );
-        endif;
-
+        $users = \App\User::all();
+        
         return view( 'master.users.index', [ 'users' => $users ] );
     }
 
