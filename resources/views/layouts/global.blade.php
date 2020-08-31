@@ -14,6 +14,12 @@
 
     @yield( 'css' )
 
+    @if( request()->segment(1) != 'home' )
+        <!-- DataTables -->
+        <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    @endif
+
     <!-- Tempusdominus Bbootstrap 4 -->
     <link rel="stylesheet"
         href="{{ asset('assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
@@ -54,10 +60,10 @@
                         <i class="far fa-user"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-user mr-2"></i> Keluar
-                        </a>
+                        <form action="{{route("logout")}}" method="POST">
+                            @csrf
+                            <button class="dropdown-item" style="cursor:pointer">Keluar</button>
+                        </form>
                     </div>
                 </li>
             </ul>
@@ -82,7 +88,7 @@
                         <li class="nav-item has-treeview">
                             <a href="{{ route( 'home' ) }}" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>Dashboard</p>
+                                <p>Beranda</p>
                             </a>
                         </li>
                         <li class="nav-item has-treeview @if( request()->segment(1) == 'master' ) menu-open @endif">
@@ -92,33 +98,31 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route( 'users.index' ) }}"
-                                        class="nav-link @if( request()->segment(2) == 'users' ) active @endif">
+                                    <a href="{{ route( 'users.index' ) }}" class="nav-link @if( request()->segment(2) == 'users' ) active @endif">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Master Petugas</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route( 'customers.index' ) }}"
-                                        class="nav-link @if( request()->segment(2) == 'customers' ) active @endif">
+                                    <a href="{{ route( 'customers.index' ) }}" class="nav-link @if( request()->segment(2) == 'customers' ) active @endif">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Master Pelanggan</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route( 'merks.index' ) }}" class="nav-link">
+                                    <a href="{{ route( 'merks.index' ) }}" class="nav-link @if( request()->segment(2) == 'merks' ) active @endif">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Master Merek</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route( 'products.index' ) }}" class="nav-link">
+                                    <a href="{{ route( 'products.index' ) }}" class="nav-link @if( request()->segment(2) == 'products' ) active @endif">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Master Produk</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route( 'suppliers.index' ) }}" class="nav-link">
+                                    <a href="{{ route( 'suppliers.index' ) }}" class="nav-link @if( request()->segment(2) == 'suppliers' ) active @endif">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Master Pemasok</p>
                                     </a>
@@ -209,6 +213,26 @@
     <script src="{{ asset('assets/dist/js/demo.js') }}"></script>
 
     @yield('script')
+
+    @if( request()->segment(1) != 'home' )
+        <!-- DataTables -->
+        <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+        <script src="{{ asset('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+        <script src="{{ asset('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+        <script>
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+        </script>
+    @endif
+
 </body>
 
 </html>

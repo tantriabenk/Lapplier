@@ -34,7 +34,6 @@ class CustomerRequest extends FormRequest
 
             case 'POST': {
                 return [
-                    'name' => 'required',
                     'store_name' => 'required',
                     'phone_number' => 'required|numeric',
                     'status' => 'required|in:Active,Inactive'
@@ -46,7 +45,6 @@ class CustomerRequest extends FormRequest
             case 'PATCH': {
                 return [
                     'id' => 'required|exists:customers,id',
-                    'name' => 'required',
                     'store_name' => 'required',
                     'phone_number' => 'numeric',
                     'status' => 'required|in:Active,Inactive'

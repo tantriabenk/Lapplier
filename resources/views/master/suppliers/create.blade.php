@@ -1,58 +1,75 @@
 @extends("layouts.global")
-
-@section("title") Master Supplier @endsection
-
+@section('pageTitle') Master Pemasok - Tambah Pemasok @endsection
+@section("title") Master Pemasok @endsection
 @section("content")
 
 <div class="row">
-    <div class="col-md-11">
-        <h2>Master Supplier</h2>
-    </div>
-    <div class="col-md-1">
-        <a href="{{ route( 'suppliers.index' ) }}" class="btn btn-danger btn-block">Kembali</a>
-    </div>
-</div>
-
-<div class="row">
     <div class="col-md-12">
+        <div class="card card-primary">
 
-        @if( session( 'status' ) )
-            <div class="alert alert-success">
-                {{ session( 'status' ) }}
+            <div class="card-header text-right">
+                <h3 class="card-title">Tambah Pemasok</h3>
+                <a href="{{ route( 'suppliers.index' ) }}" class="btn btn-warning"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
             </div>
-        @endif
 
-        <form enctype="multipart/form-data" class="bg-white shadow-sm p-3" action="{{ route( 'suppliers.store' ) }}" method="POST">
-            @csrf
+            <form enctype="multipart/form-data" action="{{ route( 'suppliers.store' ) }}" method="POST">
+                @csrf
 
-            <label for="name">Nama</label>
-            <input class="form-control @error( 'name' ) is-invalid @enderror" placeholder="Masukkan nama" type="text" name="name" id="name" value="{{ old( 'name' ) }}" />
-            @error( 'name' )
-                <span class="invalid">{{ $message }}</span>
-            @enderror
-            <br>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="name">Nama</label>
+                                <input class="form-control @error( 'name' ) is-invalid @enderror" placeholder="Masukkan nama" type="text" name="name" id="name" value="{{ old( 'name' ) }}" />
+                                @error( 'name' )
+                                    <span class="invalid">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="name">Nomor Handphone</label>
+                                <input class="form-control @error( 'phone_number' ) is-invalid @enderror" placeholder="Masukkan nomor handphone" type="text" name="phone_number" id="phone_number" value="{{ old( 'phone_number' ) }}" />
+                                @error( 'phone_number' )
+                                    <span class="invalid">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="address">Alamat</label>
+                                <textarea class="form-control @error( 'address' ) is-invalid @enderror" placeholder="Masukkan alamat toko" name="address" id="address">{{ old( 'address' ) }}</textarea>
+                            </div>
+                        </div>
+                    </div>
 
-            <label for="name">Nomor Handphone</label>
-            <input class="form-control @error( 'phone_number' ) is-invalid @enderror" placeholder="Masukkan nomor handphone" type="text" name="phone_number" id="phone_number" value="{{ old( 'phone_number' ) }}" />
-            @error( 'phone_number' )
-                <span class="invalid">{{ $message }}</span>
-            @enderror
-            <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="status">Status</label><br/>
+                                <div class="icheck-primary d-inline mr-3">
+                                    <input type="radio" id="active" name="status" value="Active" checked>
+                                    <label for="active">Aktif</label>
+                                </div>
+                                <div class="icheck-primary d-inline">
+                                    <input type="radio" id="inactive" name="status" value="Inactive">
+                                    <label for="inactive">Tidak Aktif</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        
+                </div>
 
-            <label for="address">Alamat</label>
-            <textarea class="form-control @error( 'address' ) is-invalid @enderror" placeholder="Masukkan alamat toko" name="address" id="address">{{ old( 'address' ) }}</textarea>
-            <br>
+                <div class="card-footer">
+                    <input class="btn btn-primary" type="submit" value="Simpan" />
+                </div>
+            </form>
 
-            <label for="status">Status</label>
-            <br>
-            <input checked value="Active" name="status" type="radio" class="form-control" id="active">
-            <label for="active">Active</label>
-            <input value="Inactive" name="status" type="radio" class="form-control" id="inactive">
-            <label for="inactive">Inactive</label>
-            <br><br>
-
-            <input class="btn btn-primary" type="submit" value="Simpan" />
-        </form>
+        </div>
     </div>
 </div>
 

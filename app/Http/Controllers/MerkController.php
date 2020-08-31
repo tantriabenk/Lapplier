@@ -14,22 +14,7 @@ class MerkController extends Controller
      */
     public function index( Request $request )
     {
-        $merks = \App\Merk::paginate( 10 );
-
-        $filterKeyword = $request->get( 'keyword' );
-        $status = $request->get( 'status' );
-
-        if( $filterKeyword ):
-            if( $status ):
-                $merks = \App\Merk::where( 'merk_name', 'LIKE', "%$filterKeyword%" )
-                    ->where( 'status', $status )
-                    ->paginate( 10 );
-            else:
-                $merks = \App\Merk::where( 'merk_name', 'LIKE', "%$filterKeyword%" )->paginate( 10 );
-            endif;
-        elseif( $status ):
-            $merks = \App\Merk::where( 'status', $status )->paginate( 10 );
-        endif;
+        $merks = \App\Merk::orderBy( 'id', 'DESC' )->get();
 
         return view( 'master.merks.index', [ 'merks' => $merks ] );
     }
@@ -124,7 +109,7 @@ class MerkController extends Controller
 
     public function trash()
     {
-        $deleted_merk = \App\Merk::onlyTrashed()->paginate( 10 );
+        $deleted_merk = \App\Merk::onlyTrashed()->get();
 
         return view( 'master.merks.trash', ['merks' => $deleted_merk] );
     }

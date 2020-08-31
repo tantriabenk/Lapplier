@@ -224,10 +224,11 @@ function get_month_name_indonesia($monthNum)
 }
 
 
-function set_store_name_by_parameter($store_parameter)
-{
-    $result = ucwords(str_replace('-', ' ',$store_parameter));
-
-    return "Warung ".$result;
+function status_indonesia( $data ) {
+    if( $data == "Active" ):
+        return "Aktif";
+    else:
+        return "Tidak Aktif";
+    endif;
 }
 ?>

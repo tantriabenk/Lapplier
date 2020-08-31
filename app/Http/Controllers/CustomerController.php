@@ -14,23 +14,7 @@ class CustomerController extends Controller
      */
     public function index( Request $request )
     {
-        $customers = \App\Customer::paginate( 10 );
-
-        $filterKeyword = $request->get( 'keyword' );
-        $status = $request->get( 'status' );
-
-        if( $filterKeyword ):
-            if( $status ):
-                $customers = \App\Customer::where( 'name', 'LIKE', "%$filterKeyword%" )
-                    ->where( 'status', $status )
-                    ->paginate( 10 );
-            else:
-                $customers = \App\Customer::where( 'name', 'LIKE', "%$filterKeyword%" )->paginate( 10 );
-            endif;
-        elseif( $status ):
-            $customers = \App\Customer::where( 'status', $status )->paginate( 10 );
-        endif;
-
+        $customers = \App\Customer::orderBy( 'id', 'DESC' )->get();
 
         return view( 'master.customers.index', [ 'customers' => $customers ] );
     }
@@ -133,7 +117,7 @@ class CustomerController extends Controller
     }
 
     public function trash(){
-        $deleted_customers = \App\Customer::onlyTrashed()->paginate( 10 );
+        $deleted_customers = \App\Customer::onlyTrashed()->get();
 
         return view( 'master.customers.trash', ['customers' => $deleted_customers] );
     }

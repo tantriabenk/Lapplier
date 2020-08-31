@@ -42,7 +42,15 @@ class ProductRequest extends FormRequest
                 ];
             }
 
-            case 'PUT':
+            case 'PUT': {
+                return [
+                    'product_name' => 'required',
+                    'stock' => 'numeric|required',
+                    'status' => 'required|in:Active,Inactive',
+                    'price_buy' => 'required|numeric',
+                    'price_sell' => 'required|numeric'
+                ];
+            }
 
             case 'PATCH': {
                 return [

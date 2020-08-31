@@ -14,24 +14,8 @@ class SupplierController extends Controller
      */
     public function index(Request $request)
     {
-        $suppliers = \App\Supplier::paginate( 10 );
-
-        $filterKeyword = $request->get( 'keyword' );
-        $status = $request->get( 'status' );
-
-        if( $filterKeyword ):
-            if( $status ):
-                $suppliers = \App\Supplier::where( 'name', 'LIKE', "%$filterKeyword%" )
-                    ->where( 'status', $status )
-                    ->paginate( 10 );
-            else:
-                $suppliers = \App\Supplier::where( 'name', 'LIKE', "%$filterKeyword%" )->paginate( 10 );
-            endif;
-        elseif( $status ):
-            $suppliers = \App\Supplier::where( 'status', $status )->paginate( 10 );
-        endif;
-
-
+        $suppliers = \App\Supplier::orderBy( 'id', 'DESC' )->get();
+        
         return view( 'master.suppliers.index', [ 'suppliers' => $suppliers ] );
     }
 
@@ -130,7 +114,7 @@ class SupplierController extends Controller
     }
 
     public function trash(){
-        $deleted_suppliers = \App\Supplier::onlyTrashed()->paginate( 10 );
+        $deleted_suppliers = \App\Supplier::onlyTrashed()->get();
 
         return view( 'master.suppliers.trash', ['suppliers' => $deleted_suppliers] );
     }

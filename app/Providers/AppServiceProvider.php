@@ -15,6 +15,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         require_once __DIR__ . '/../Helpers/ProductHelper.php';
+        require_once __DIR__ . '/../Helpers/GlobalFunctions.php';
     }
 
     /**
@@ -26,6 +27,14 @@ class AppServiceProvider extends ServiceProvider
     {
         Blade::directive( 'currency' , function ( $expression ) {
             return "Rp <?php echo number_format( $expression, 0, ',', '.' ); ?>";
+        });
+
+        Blade::directive( 'status_indonesia' , function ( $expression ) {
+            if( $expression == "Active" ):
+                return "Aktif";
+            else:
+                return "Tidak Aktif";
+            endif;
         });
     }
 }

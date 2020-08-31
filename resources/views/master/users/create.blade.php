@@ -1,9 +1,6 @@
 @extends("layouts.global")
-
 @section('pageTitle') Master Petugas - Tambah Petugas @endsection
-
 @section("title") Tambah Petugas @endsection
-
 @section( "content" )
 
 <div class="row">

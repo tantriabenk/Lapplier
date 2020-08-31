@@ -15,22 +15,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $products = \App\Product::paginate( 10 );
-
-        $filterKeyword = $request->get( 'keyword' );
-        $status = $request->get( 'status' );
-
-        if( $filterKeyword ):
-            if( $status ):
-                $products = \App\Product::where( 'product_name', 'LIKE', "%$filterKeyword%" )
-                    ->where( 'status', $status )
-                    ->paginate( 10 );
-            else:
-                $products = \App\Product::where( 'product_name', 'LIKE', "%$filterKeyword%" )->paginate( 10 );
-            endif;
-        elseif( $status ):
-            $products = \App\Product::where( 'status', $status )->paginate( 10 );
-        endif;
+        $products = \App\Product::orderBy( 'id', 'DESC' )->get();
 
         return view( 'master.products.index', [ 'products' => $products ] );
     }
@@ -106,7 +91,6 @@ class ProductController extends Controller
         $product->price_buy = $request->get( 'price_buy' );
         $product->price_sell = $request->get( 'price_sell' );
         $product->updated_by = \Auth::user()->id;
-
         $product->save();
 
         return redirect()->route( 'products.edit', [$id] )->with( 'status', 'Data produk berhasil diubah' );
@@ -128,7 +112,7 @@ class ProductController extends Controller
 
     public function trash()
     {
-        $deleted_products = \App\Product::onlyTrashed()->paginate( 10 );
+        $deleted_products = \App\Product::onlyTrashed()->get();
 
         return view( 'master.products.trash', ['products' => $deleted_products] );
     }
