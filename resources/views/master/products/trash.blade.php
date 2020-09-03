@@ -32,7 +32,7 @@
                             <td>@currency($product->price_buy)</td>
                             <td>@currency($product->price_sell)</td>
                             <td>
-                                <a href="{{ route( 'products.restore', [$product->id] ) }}" class="btn btn-success">Restore</a>
+                                <a href="{{ route( 'products.restore', [$product->id] ) }}" class="btn btn-success"><i class="fas fa-trash-restore"></i> Restore</a>
                             </td>
                         </tr>
                         @endforeach

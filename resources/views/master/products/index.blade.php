@@ -43,12 +43,15 @@
                             <td>@currency($product->price_sell)</td>
                             <td>
                                 <a class="btn btn-info text-white btn-sm" href="{{ route( 'products.edit', [$product->id] ) }}"><i class="fas fa-pen-square"></i> Ubah</a>
+
+                                @if( $product->status == "Inactive" )
                                 <form onsubmit="return confirm('Apakah yakin ingin menghapus data produk?')" class="d-inline"
                                     action="{{ route( 'products.destroy', [$product->id] ) }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="_method" value="DELETE">
                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Hapus</button>
                                 </form>
+                                @endif
                             </td>
                         </tr>
                         @endforeach

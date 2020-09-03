@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
     @yield( 'css' )
 
@@ -20,27 +22,25 @@
         <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     @endif
 
-    <!-- Tempusdominus Bbootstrap 4 -->
-    <link rel="stylesheet"
-        href="{{ asset('assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
-    <!-- JQVMap -->
-    <link rel="stylesheet" href="{{ asset('assets/plugins/jqvmap/jqvmap.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
-    <!-- Daterange picker -->
-    <link rel="stylesheet" href="{{ asset('assets/plugins/daterangepicker/daterangepicker.css') }}">
-    <!-- summernote -->
-    <link rel="stylesheet" href="{{ asset('assets/plugins/summernote/summernote-bs4.css') }}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ asset('assets/custom/main.css') }}">
+
     @yield( 'js_top' )
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
+    <div class="loader">
+        <img src="{{ asset('custom/spinner.svg') }}" />
+    </div>
+
     <div class="wrapper">
 
         <!-- Navbar -->
@@ -86,7 +86,7 @@
                         data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
                         <li class="nav-item has-treeview">
-                            <a href="{{ route( 'home' ) }}" class="nav-link">
+                            <a href="{{ route( 'home' ) }}" class="nav-link @if( request()->segment(1) == 'home' ) active @endif">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>Beranda</p>
                             </a>
@@ -125,6 +125,59 @@
                                     <a href="{{ route( 'suppliers.index' ) }}" class="nav-link @if( request()->segment(2) == 'suppliers' ) active @endif">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Master Pemasok</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-treeview @if( request()->segment(1) == 'transactions' ) menu-open @endif">
+                            <a href="#" class="nav-link @if( request()->segment(1) == 'transactions' ) active @endif">
+                            <i class="nav-icon fas fa-file-invoice"></i>
+                                <p>Transaksi <i class="fas fa-angle-left right"></i></p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route( 'sellings.index' ) }}" class="nav-link @if( request()->segment(1) == 'transactions' && request()->segment(2) == 'sellings' ) active @endif">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Penjualan</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route( 'purchases.index' ) }}" class="nav-link @if( request()->segment(1) == 'transactions' && request()->segment(2) == 'purchases' ) active @endif">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Pembelian</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-treeview">
+                            <a href="{{ route( 'spendings.index' ) }}" class="nav-link @if( request()->segment(1) == 'spendings' ) active @endif">
+                                <i class="nav-icon fas fa-file-invoice"></i>
+                                <p>Pengeluaran</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item has-treeview @if( request()->segment(1) == 'reports' ) menu-open @endif">
+                            <a href="#" class="nav-link @if( request()->segment(1) == 'reports' ) active @endif">
+                            <i class="nav-icon fas fa-file-invoice"></i>
+                                <p>Laporan <i class="fas fa-angle-left right"></i></p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route( 'reports.sellings.index' ) }}" class="nav-link @if( request()->segment(1) == 'reports' && request()->segment(2) == 'sellings' ) active @endif">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Penjualan</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route( 'reports.purchases.index' ) }}" class="nav-link @if( request()->segment(1) == 'reports' && request()->segment(2) == 'purchases' ) active @endif">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Pembelian</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route( 'reports.income.index' ) }}" class="nav-link @if( request()->segment(1) == 'reports' && request()->segment(2) == 'income_statement' ) active @endif">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Laba Rugi</p>
                                     </a>
                                 </li>
                             </ul>
@@ -183,26 +236,11 @@
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
         $.widget.bridge('uibutton', $.ui.button)
-
     </script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- ChartJS -->
     <script src="{{ asset('assets/plugins/chart.js/Chart.min.js') }}"></script>
-    <!-- Sparkline -->
-    <script src="{{ asset('assets/plugins/sparklines/sparkline.js') }}"></script>
-    <!-- JQVMap -->
-    <script src="{{ asset('assets/plugins/jqvmap/jquery.vmap.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
-    <!-- jQuery Knob Chart -->
-    <script src="{{ asset('assets/plugins/jquery-knob/jquery.knob.min.js') }}"></script>
-    <!-- daterangepicker -->
-    <script src="{{ asset('assets/plugins/moment/moment.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/daterangepicker/daterangepicker.js') }}"></script>
-    <!-- Tempusdominus Bootstrap 4 -->
-    <script src="{{ asset('assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
-    <!-- Summernote -->
-    <script src="{{ asset('assets/plugins/summernote/summernote-bs4.min.js') }}"></script>
     <!-- overlayScrollbars -->
     <script src="{{ asset('assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- AdminLTE App -->
@@ -211,6 +249,11 @@
     <script src="{{ asset('assets/dist/js/pages/dashboard.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('assets/dist/js/demo.js') }}"></script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"></script>
+    <script src="{{ asset('custom/js/main.js') }}"></script>
 
     @yield('script')
 

@@ -22,6 +22,7 @@
     //  Change Qty on transactions
     function change_qty(){
         $('.qty_detil').on("keyup", function(){
+            console.log("ok");
             const parent_tr = $(this).parents('tr');
             var product_sell = jQuery(parent_tr).find('.product_price_sell').val();
             var qty = $(this).val();
@@ -222,6 +223,8 @@
         form_transactions();
         add_to_order();
         delete_row_order();
+        change_qty();
+        change_discount();
     });
 </script>
 @endsection

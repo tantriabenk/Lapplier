@@ -14,7 +14,7 @@
                 {!! Form::open( ['url' => route( 'reports.sellings.export_to_pdf' ), 'method' => 'post', 'target' => '_blank', 'class'  => 'form-basic', 'files' => 'true', 'name' => 'reports'] ) !!}
                     {!! Form::hidden( 'customer_id', $customer_id ) !!}
                     {!! Form::hidden( 'peiode', $periode ) !!}
-                    {!! Form::submit('Export Ke PDF', [ 'class' => 'btn btn-success' ]) !!}
+                    {!! Form::submit('Unduh PDF', [ 'class' => 'btn btn-success' ]) !!}
                 {!! Form::close() !!}
             </div>
         </div>
@@ -25,7 +25,7 @@
                     <div class="row m-b-10">
                         <div class="col-md-3"><b>Nomor Nota: {{ $selling->nota_number }}</b></div>
                         <div class="col-md-3"><b>Tanggal: {{ date( "d F Y", strtotime( $selling->date ) ) }}</b></div>
-                        <div class="col-md-3"><b>Customer: {{ $selling->customers->name }} / {{ $selling->customers->store_name }}</b></div>
+                        <div class="col-md-3"><b>Pelanggan: {{ $selling->customers->name }} / {{ $selling->customers->store_name }}</b></div>
                     </div>
                     <div class="row m-b-20">
                         <div class="col-md-12">

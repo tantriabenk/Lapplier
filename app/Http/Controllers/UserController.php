@@ -44,6 +44,7 @@ class UserController extends Controller
         $new_user->address = $request->get( 'address' );
         $new_user->phone = $request->get( 'phone' );
         $new_user->email = $request->get( 'email' );
+        $new_user->status = $request->get( 'status' );
         $new_user->password = \Hash::make( $request->get( 'password' ) );
 
         if( $request->file( 'avatar' ) ):
@@ -53,7 +54,7 @@ class UserController extends Controller
 
         $new_user->save();
 
-        return redirect()->route( 'users.create' )->with( 'status', 'User berhasil disimpan' );
+        return redirect()->route( 'users.create' )->with( 'status', 'Petugas berhasil disimpan' );
     }
 
     /**
@@ -107,7 +108,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect()->route( 'users.edit', [$id] )->with( 'status', 'User berhasil diubah' );
+        return redirect()->route( 'users.edit', [$id] )->with( 'status', 'Petugas berhasil diubah' );
     }
 
     /**
@@ -122,5 +123,24 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()->route( 'users.index' )->with( 'status', 'User berhasil dihapus' );
+    }
+
+    public function trash()
+    {
+        $deleted_users = \App\User::onlyTrashed()->get();
+
+        return view( 'master.users.trash', ['users' => $deleted_users] );
+    }
+
+    public function restore($id){
+        $user = \App\User::withTrashed()->findOrFail($id);
+
+        if( $user->trashed() ):
+            $user->restore();
+        else:
+            return redirect()->route( 'users.index' )->with( 'status', 'Data petugas tidak ada di tong sampah' );
+        endif;
+
+        return redirect()->route( 'users.index' )->with( 'status', 'Data petugas berhasil di restore' );
     }
 }

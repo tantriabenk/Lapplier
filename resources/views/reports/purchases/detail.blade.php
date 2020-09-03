@@ -14,7 +14,7 @@
                 {!! Form::open( ['url' => route( 'reports.purchases.export_to_pdf' ), 'method' => 'post', 'target' => '_blank', 'class'  => 'form-basic', 'files' => 'true', 'name' => 'reports'] ) !!}
                     {!! Form::hidden( 'supplier_id', $supplier_id ) !!}
                     {!! Form::hidden( 'peiode', $periode ) !!}
-                    {!! Form::submit('Export Ke PDF', [ 'class' => 'btn btn-success' ]) !!}
+                    {!! Form::submit('Unduh PDF', [ 'class' => 'btn btn-success' ]) !!}
                 {!! Form::close() !!}
             </div>
         </div>

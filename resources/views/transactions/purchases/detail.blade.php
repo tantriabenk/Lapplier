@@ -1,33 +1,18 @@
 @extends("layouts.global")
-
+@section('pageTitle') Detail Transaksi Pembelian @endsection
 @section("title") Detail Transaksi Pembelian @endsection
-
 @section("content")
 
 <div class="row">
     <div class="col-md-12">
-        <h2 class="m-b-20">Detail Transaksi Pembelian</h2>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-12">
-        
-        <div class="bg-white shadow-sm p-3">
-
-            <div class="alert" id="response">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h5 class="alert-heading"></h5>
-                <div class="box"></div>
+        <div class="card card-primary">
+            <div class="card-header text-right">
+                <h3 class="card-title">Data Transaksi Pembelian</h3>
+                <a href="{{ route( 'purchases.index' ) }}" class="btn btn-warning"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
             </div>
-
-            <form method="POST" name="transactions">
-                @csrf
-
+            <div class="card-body">
                 <!-- Data Transaksi -->
-                <div class="row m-b-20 transactions-data">
+                <div class="row mb-4 transactions-data">
                     <div class="col-md-12">
                         <h4>Data Transaksi</h4>
                     </div>
@@ -45,9 +30,8 @@
                     </div>
                 </div>
 
-
                 <!-- Detail Order -->
-                <div class="row m-b-20">
+                <div class="row mb-4">
                     <div class="col-md-12">
                         <h4>Detail Order</h4>
                     </div>
@@ -92,6 +76,32 @@
                         </table>
                     </div>
                 </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        
+        <div class="bg-white shadow-sm p-3">
+
+            <div class="alert" id="response">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="alert-heading"></h5>
+                <div class="box"></div>
+            </div>
+
+            <form method="POST" name="transactions">
+                @csrf
+
+                
+
+
+                
 
             </form>
         </div>

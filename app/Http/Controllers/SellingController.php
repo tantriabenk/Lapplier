@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\SellingRequest;
+use App\Http\Requests\NewSellingRequest;
 use App\Http\Requests\SellingOrderRequest;
 use ProductHelp;
 
@@ -48,7 +48,7 @@ class SellingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SellingRequest $request)
+    public function store(NewSellingRequest $request)
     {
         $error = 0;
 
@@ -125,7 +125,7 @@ class SellingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(SellingRequest $request, $id)
+    public function update(NewSellingRequest $request, $id)
     {
         $error = 0;
 

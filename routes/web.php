@@ -28,6 +28,8 @@ Route::group( ['middleware'=>['auth'] ], function(){
      */
     Route::group( [ 'prefix' => 'master' ], function(){
         // Manage Users
+        Route::get( '/users/trash', 'UserController@trash' )->name( 'users.trash' );
+        Route::get( '/users/{id}/restore', 'UserController@restore' )->name( 'users.restore' );
         Route::resource( "users", "UserController" );
 
         // Manage Merek

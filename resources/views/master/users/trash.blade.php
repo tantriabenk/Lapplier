@@ -15,7 +15,7 @@
             <div class="card-header text-right">
                 <h3 class="card-title">Data Petugas</h3>
                 <a href="{{ route( 'users.create' ) }}" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah Petugas</a>
-                <a href="{{ route( 'users.trash' ) }}" class="btn btn-danger"><i class="fas fa-trash"></i> Data Sampah</a>
+                <a href="{{ route( 'users.index' ) }}" class="btn btn-warning"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
             </div>
             <div class="card-body">
                 <table id="example2" class="table table-bordered table-hover">
@@ -46,18 +46,7 @@
                             </td>
                             <td> {{ status_indonesia( $user->status ) }}</td>
                             <td>
-                                <a class="btn btn-info text-white btn-sm" href="{{ route( 'users.edit', [$user->id] ) }}"><i class="fas fa-pen-square"></i> Ubah</a>
-
-                                @if( $user->status == "Inactive" )
-                                <form onsubmit="return confirm('Hapus user secara permanent?')" class="d-inline"
-                                    action="{{ route( 'users.destroy', [$user->id] ) }}" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Hapus</button>
-                                </form>
-                                @endif
-
-                                <a href="{{ route( 'users.show', [$user->id] ) }}" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> Detail</a>
+                                <a href="{{ route( 'users.restore', [$user->id] ) }}" class="btn btn-success"><i class="fas fa-trash-restore"></i> Restore</a>
                             </td>
                         </tr>
                         @endforeach

@@ -41,7 +41,7 @@
                             <td>{{ $supplier->address }}</td>
                             <td>{{ status_indonesia( $status ) }}</td>
                             <td>
-                                <a class="btn btn-info text-white btn-sm" href="{{ route( 'suppliers.edit', [$supplier->id] ) }}">Ubah</a>
+                                <a class="btn btn-info text-white btn-sm" href="{{ route( 'suppliers.edit', [$supplier->id] ) }}"><i class="fas fa-pen-square"></i> Ubah</a>
 
                                 @if( $supplier->status == "Inactive" )
                                     <form onsubmit="return confirm('Pindahkan data pelanggan ke tong sampah?')" class="d-inline"

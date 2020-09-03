@@ -32,7 +32,7 @@
                             <td>{{ $supplier->address }}</td>
                             <td>{{ status_indonesia( $supplier->status ) }}</td>
                             <td>
-                                <a href="{{ route( 'suppliers.restore', [$supplier->id] ) }}" class="btn btn-success">Restore</a>
+                                <a href="{{ route( 'suppliers.restore', [$supplier->id] ) }}" class="btn btn-success"><i class="fas fa-trash-restore"></i> Restore</a>
                             </td>
                         </tr>
                         @endforeach

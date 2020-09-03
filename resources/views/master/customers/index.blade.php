@@ -36,7 +36,7 @@
                             {{-- <td>{{ $customer->name }}</td> --}}
                             <td>{{ $customer->store_name }}</td>
                             <td>{{ $customer->phone_number }}</td>
-                            <td>{[ status_indonesia( $customer->status ) }}</td>
+                            <td>{{ status_indonesia( $customer->status ) }}</td>
                             <td>
                                 <a class="btn btn-info text-white btn-sm" href="{{ route( 'customers.edit', [$customer->id] ) }}"><i class="fas fa-pen-square"></i> Ubah</a>
 

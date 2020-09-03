@@ -15,7 +15,7 @@
 
             <div class="card-header text-right">
                 <h3 class="card-title">Tambah Petugas</h3>
-                <a href="{{ route( 'users.index' ) }}" class="btn btn-danger">Kembali</a>
+                <a href="{{ route( 'users.index' ) }}" class="btn btn-warning"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
             </div>
 
             <form enctype="multipart/form-data" action="{{ route( 'users.store' ) }}" method="POST">
@@ -81,6 +81,22 @@
                             <div class="form-group">
                                 <label for="password_confirmation">Konfirmasi Password</label>
                                 <input class="form-control" placeholder="konfirmasi password" type="password" name="password_confirmation" id="password_confirmation" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="status">Status</label><br/>
+                                <div class="icheck-primary d-inline mr-3">
+                                    <input type="radio" id="active" name="status" value="Active" checked>
+                                    <label for="active">Aktif</label>
+                                </div>
+                                <div class="icheck-primary d-inline">
+                                    <input type="radio" id="inactive" name="status" value="Inactive">
+                                    <label for="inactive">Tidak Aktif</label>
+                                </div>
                             </div>
                         </div>
                     </div>

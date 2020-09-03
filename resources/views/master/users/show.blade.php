@@ -1,9 +1,6 @@
 @extends("layouts.global")
-
 @section('pageTitle') Master Petugas - Detail Petugas @endsection
-
 @section("title") Detail Petugas @endsection
-
 @section( "content" )
 
 <div class="row">
@@ -12,7 +9,7 @@
 
             <div class="card-header text-right">
                 <h3 class="card-title">Detail Petugas</h3>
-                <a href="{{ route( 'users.index' ) }}" class="btn btn-danger">Kembali</a>
+                <a href="{{ route( 'users.index' ) }}" class="btn btn-warning"><i class="fas fa-arrow-circle-left"></i> Kembali</a>
             </div>
 
             <div class="card-body">
@@ -58,13 +55,18 @@
                     @if($user->avatar)
                         <img src="{{asset('storage/'. $user->avatar)}}" width="128px" />
                     @else
-                        No avatar
+                        Tidak ada foto
                     @endif
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email</label><br/>
                     {{ $user->email }}
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Status</label><br/>
+                    {{ status_indonesia( $user->status ) }}
                 </div> 
             </div>
         </div>

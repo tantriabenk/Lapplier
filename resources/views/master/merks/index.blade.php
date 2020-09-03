@@ -34,7 +34,7 @@
                             <td>{{ $merk->merk_name }}</td>
                             <td>{{ $merk->slug }}</td>
                             <td>
-                                <a class="btn btn-info text-white btn-sm" href="{{ route( 'merks.edit', [$merk->id] ) }}">Ubah</a>
+                                <a class="btn btn-info text-white btn-sm" href="{{ route( 'merks.edit', [$merk->id] ) }}"><i class="fas fa-pen-square"></i> Ubah</a>
                                 <form onsubmit="return confirm('Pindahkan data merk ke tong sampah?')" class="d-inline"
                                     action="{{ route( 'merks.destroy', [$merk->id] ) }}" method="POST">
                                     @csrf

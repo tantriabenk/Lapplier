@@ -28,7 +28,7 @@
                             <td>{{ $merk->merk_name }}</td>
                             <td>{{ $merk->slug }}</td>
                             <td>
-                                <a href="{{ route( 'merks.restore', [$merk->id] ) }}" class="btn btn-success">Restore</a>
+                                <a href="{{ route( 'merks.restore', [$merk->id] ) }}" class="btn btn-success"><i class="fas fa-trash-restore"></i> Restore</a>
                             </td>
                         </tr>
                         @endforeach

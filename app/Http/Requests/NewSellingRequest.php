@@ -3,10 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Rules\CheckStockProducts;
-use App\Rules\CustomTransProductRule;
 
-class SellingRequest extends FormRequest
+class NewSellingRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,7 +26,6 @@ class SellingRequest extends FormRequest
         $rules = array();
         switch( $this->method() ) {
             case 'POST': {
-
                 $rules = [
                     'customer' => 'required',
                     'date' => 'required',
@@ -36,10 +33,6 @@ class SellingRequest extends FormRequest
 
                 foreach( $this->get( 'product' ) as $key => $val ):
                     $rules[ 'product.' . $key ] = [ 'required' ];
-                endforeach;
-
-                foreach( $this->get( 'qty' ) as $key => $val ):
-                    $rules[ 'qty.' . $key ] = [ 'required' ];
                 endforeach;
             }
         }
@@ -56,14 +49,9 @@ class SellingRequest extends FormRequest
 
         foreach( $this->get( 'product' ) as $key => $val ):
             $row = $key+1;
-            $messages[ 'product.' . $key . '.required' ] = 'Form produk pada baris ' .$row . ' belum dipilih';
+            $messages[ 'product.' . $key . '.required' ] = '<b>Detail Order</b> belum terisi';
         endforeach;
-
-        foreach( $this->get( 'qty' ) as $key => $val ):
-            $row = $key+1;
-            $messages[ 'qty.' . $key . '.required' ] = 'Form jumlah pada baris ' .$row . ' belum dimasukkan';
-        endforeach;
-
+        
         return $messages;
     }
 }
