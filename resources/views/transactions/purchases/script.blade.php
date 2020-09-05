@@ -45,20 +45,6 @@
         });
     }
 
-    //  Change discount on transactions
-    function change_discount(){
-        $('.discount').on("keyup", function(){
-            const parent_tr = $(this).parents('tr');
-            var product_sell = jQuery(parent_tr).find('.product_price_buy').val();
-            var discount = $(this).val();
-            var qty = $(parent_tr).find('.qty_detil').val();
-            var sub_total = (qty*product_sell)-discount;
-            jQuery(parent_tr).find('.sub_total').text(addCommas(sub_total));
-            jQuery(parent_tr).find('.sub_total_input').val(sub_total);
-            get_grand_total();
-        });
-    }
-
     // Get Grand Total
     function get_grand_total(){
         var values = $("input[name='sub_total[]']").map(function(){return $(this).val();}).get();
@@ -233,6 +219,9 @@
     jQuery(document).ready(function(){
         form_transactions();
         add_to_order();
+        delete_row_order();
+        change_qty();
+        change_price();
     });
 </script>
 @endsection

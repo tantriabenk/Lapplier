@@ -229,6 +229,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'ProductHelp' => App\Helpers\ProductHelper::class,
+        'DashboardHelp' => App\Helpers\DashboardHelper::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
 
     ],

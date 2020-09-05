@@ -38,6 +38,7 @@
                                 <td>{{ $purchase->suppliers->name }}</td>
                                 <td>
                                     <a href="{{ route( 'purchases.show', $purchase->id ) }}" class="btn btn-info"><i class="fas fa-eye"></i> Detail</a>
+                                    <a href="{{ route( 'purchases.edit', $purchase->id ) }}" class="btn btn-warning"><i class="fas fa-pen-square"></i> Ubah</a>
                                 </td>
                             </tr>
                         @endforeach

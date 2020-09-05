@@ -10,14 +10,16 @@
 
 <div class="row">
     <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">Export Laporan Laba Rugi</div>
+        <div class="card card-primary">
+            <div class="card-header">Laporan Laba Rugi</div>
             <div class="card-body">
                 {!! Form::open( ['url' => route( 'reports.income.export' ), 'method' => 'post', 'class'  => 'form-basic', 'files' => 'true', 'name' => 'reports'] ) !!}
-                    <div class="row m-b-20">
+                    <div class="row mb-1">
                         <div class="col-md-12">
-                            {!! Form::label( 'peiode', 'Pilih Periode' ) !!}  
-                            {!! Form::text( 'peiode', null, [ 'class' => 'form-control field-required select_dates', 'autocomplete' => 'off', 'placeholder' => 'Pilih Bulan & Tahun', 'required']) !!}
+                            <div class="form-group">
+                                {!! Form::label( 'peiode', 'Pilih Periode' ) !!}  
+                                {!! Form::text( 'peiode', null, [ 'class' => 'form-control field-required select_dates', 'autocomplete' => 'off', 'placeholder' => 'Pilih Bulan & Tahun', 'required']) !!}
+                            </div>
                         </div>
                     </div>
                     <div class="row">

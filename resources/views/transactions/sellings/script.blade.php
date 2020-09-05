@@ -22,10 +22,22 @@
     //  Change Qty on transactions
     function change_qty(){
         $('.qty_detil').on("keyup", function(){
-            console.log("ok");
             const parent_tr = $(this).parents('tr');
             var product_sell = jQuery(parent_tr).find('.product_price_sell').val();
             var qty = $(this).val();
+            var discount = $(parent_tr).find('.discount').val();
+            var sub_total = (qty*product_sell)-discount;
+            jQuery(parent_tr).find('.sub_total').text(addCommas(sub_total));
+            jQuery(parent_tr).find('.sub_total_input').val(sub_total);
+            get_grand_total();
+        });
+    }
+
+    function change_price_sell(){
+        $('.product_price_sell').on("keyup", function(){
+            const parent_tr = $(this).parents('tr');
+            var product_sell = $(this).val();
+            var qty = $(parent_tr).find('.qty_detil').val();
             var discount = $(parent_tr).find('.discount').val();
             var sub_total = (qty*product_sell)-discount;
             jQuery(parent_tr).find('.sub_total').text(addCommas(sub_total));
@@ -89,7 +101,6 @@
                 success: function(data){
                     e.stopPropagation();
                     const res = JSON.parse(data);
-                    console.log(res);
                     const sub_total = res.sub_total;
                     $('.table-transactions > tbody tr.first_row').remove();
 
@@ -108,6 +119,7 @@
                         delete_row_order();
                         change_qty();
                         change_discount();
+                        change_price_sell();
                     });
                     
                     return false;
@@ -225,6 +237,7 @@
         delete_row_order();
         change_qty();
         change_discount();
+        change_price_sell();
     });
 </script>
 @endsection

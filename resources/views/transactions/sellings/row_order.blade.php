@@ -3,11 +3,10 @@
         {{ $products->product_name }}
         <input type="hidden" name="product[]" value="{{ $products->id }}">
     </td>
-    <td>
-        @currency( $products->price_sell )
-        <input type="hidden" name="price_sell" class="product_price_sell" value="{{ $products->price_sell }}">
-    </td>
     <td>{{ ProductHelp::get_product_stock_recent( $products->id ) }}</td>
+    <td>
+        <input type="text" name="price_sell[]" class="product_price_sell" value="{{ $products->price_sell }}">
+    </td>
     <td>
         <input type="text" name="qty[]" class="qty_detil only_number" value="{{ $qty }}" style="width: 80px;" min="1">
     </td>

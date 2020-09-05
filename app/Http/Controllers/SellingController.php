@@ -16,7 +16,7 @@ class SellingController extends Controller
      */
     public function index()
     {
-        $sellings = \App\Selling::with( 'customers' )->paginate(10);
+        $sellings = \App\Selling::with( 'customers' )->orderBy( 'id', 'DESC' )->get();
 
         return view( 'transactions.sellings.index', [ 'sellings' => $sellings ] );
     }
@@ -211,13 +211,14 @@ class SellingController extends Controller
         // Selling Detail Request
         $product = $request->get( 'product' );
         $qty = $request->get( 'qty' );
+        $price_sell_input = $request->get( 'price_sell' );
         $discount = $request->get( 'discount' );
 
         if( !empty( $product ) ):
             foreach( $product as $key => $value ):
                 $product_id = $product[$key];
                 $product_data = \App\Product::find( $product_id );
-                $price_sell = $product_data->price_sell;
+                $price_sell = $price_sell_input[ $key ];
                 $sub_total = $qty[ $key ] * $price_sell;
                 $total_after_discount = $sub_total - $discount[ $key ];
 

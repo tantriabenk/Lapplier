@@ -107,8 +107,8 @@
                                 <thead>
                                     <tr>
                                         <th width="25%">Produk</th>
-                                        <th width="15%">Harga Produk</th>
                                         <th width="10%">Stok Produk</th>
+                                        <th width="15%">Harga Produk</th>
                                         <th width="80px">Jumlah</th>
                                         <th width="130px">Potongan Harga</th>
                                         <th width="15%">Sub Total</th>

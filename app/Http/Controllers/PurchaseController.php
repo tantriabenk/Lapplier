@@ -50,34 +50,14 @@ class PurchaseController extends Controller
     {
         $error = 0;
 
-        $purchase = new \App\purchase;
+        $purchase = new \App\Purchase;
         $purchase->no_faktur = $request->get( 'no_faktur' );
         $purchase->date = $request->get( 'date' );
         $purchase->total_purchase = $request->get( 'total_trans' );
         $purchase->supplier_id = $request->get( 'supplier' );
         
         if( $purchase->save() ):
-
-            // purchase Detail Request
-            $product = $request->get( 'product' );
-            $qty = $request->get( 'qty' );
-            $price = $request->get( 'price_buy' );
-
-            if( !empty( $product ) ):
-                foreach( $product as $key => $value ):
-                    $product_id = $product[$key];
-                    $product_data = \App\Product::find( $product_id );
-                    $price_buy = $price[ $key ];
-                    $sub_total = $qty[ $key ] * $price_buy;
-
-                    $product_data->purchases()->attach( $purchase->id, array(
-                        'price' => $price_buy,
-                        'qty' => $qty[ $key ],
-                        'total' => $sub_total,
-                     ) );
-                endforeach;
-            endif;
-        
+            $this->add_data_to_detail_transactions( $request, $purchase );
         else:
             $error++;
         endif;
@@ -119,7 +99,20 @@ class PurchaseController extends Controller
      */
     public function edit($id)
     {
-        //
+        $purchases = \App\Purchase::findOrFail( $id );
+        $suppliers = \App\Supplier::all()->where('deleted_at', '');
+        $products = \App\Product::all()->where('deleted_at', '');
+        $row_number = 0;
+        
+        return view( 
+            'transactions.purchases.edit', 
+            [ 
+                'suppliers' => $suppliers,
+                'products' => $products,
+                'purchases' => $purchases,
+                'row_number' => $row_number
+            ]
+        );
     }
 
     /**
@@ -129,9 +122,33 @@ class PurchaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PurchaseRequest $request, $id)
     {
-        //
+        $error = 0;
+
+        $purchase = \App\Purchase::findOrFail( $id );
+        $purchase->no_faktur = $request->get( 'no_faktur' );
+        $purchase->date = $request->get( 'date' );
+        $purchase->total_purchase = $request->get( 'total_trans' );
+        $purchase->supplier_id = $request->get( 'supplier' );
+
+        if( $purchase->save() ):
+            $purchase->products()->detach();
+            $this->add_data_to_detail_transactions( $request, $purchase );
+        else:
+            $error++;
+        endif;
+
+        $result['status'] = "error";
+        $result['message'] = "Terjadi kesalahan! Silahkan coba lagi nanti atau kontak administrator";
+
+        if( $error == 0 ):
+            $result['status'] = "success";
+            $result['title'] = "Sukses!";
+            $result['message'] = "Transaksi berhasil disimpan";
+        endif;
+
+        return json_encode($result);
     }
 
     /**
@@ -166,5 +183,27 @@ class PurchaseController extends Controller
         $result['sub_total'] = $sub_total;
 
         return json_encode($result);
+    }
+
+    private function add_data_to_detail_transactions( $request, $purchase ){
+        // purchase Detail Request
+        $product = $request->get( 'product' );
+        $qty = $request->get( 'qty' );
+        $price = $request->get( 'price_buy' );
+
+        if( !empty( $product ) ):
+            foreach( $product as $key => $value ):
+                $product_id = $product[$key];
+                $product_data = \App\Product::find( $product_id );
+                $price_buy = $price[ $key ];
+                $sub_total = $qty[ $key ] * $price_buy;
+
+                $product_data->purchases()->attach( $purchase->id, array(
+                    'price' => $price_buy,
+                    'qty' => $qty[ $key ],
+                    'total' => $sub_total,
+                ) );
+            endforeach;
+        endif;
     }
 }
