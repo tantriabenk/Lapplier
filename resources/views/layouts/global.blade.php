@@ -249,7 +249,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"></script>
-    <script src="{{ asset('custom/js/main.js') }}"></script>
+    <script src="{{ asset('custom/js/main.js?v=1.0.1') }}"></script>
 
     @yield('script')
 

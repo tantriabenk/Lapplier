@@ -30,7 +30,7 @@
                                 <td style="padding: 0px 20px;"></td>
                                 <td><b>Tanggal: {{ date( "d F Y", strtotime( $selling->date ) ) }}</b></td>
                                 <td style="padding: 0px 20px;"></td>
-                                <td><b>Customer: {{ $selling->customers->name }} / {{ $selling->customers->store_name }}</b></td>
+                                <td><b>Customer: {{ $selling->customers->store_name }}</b></td>
                             </tr>
                         </table>
                         <table class="table table-bordered">

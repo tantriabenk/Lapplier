@@ -25,7 +25,7 @@
                     <div class="row m-b-10">
                         <div class="col-md-3"><b>Nomor Nota: {{ $selling->nota_number }}</b></div>
                         <div class="col-md-3"><b>Tanggal: {{ date( "d F Y", strtotime( $selling->date ) ) }}</b></div>
-                        <div class="col-md-3"><b>Pelanggan: {{ $selling->customers->name }} / {{ $selling->customers->store_name }}</b></div>
+                        <div class="col-md-3"><b>Pelanggan: {{ $selling->customers->store_name }}</b></div>
                     </div>
                     <div class="row m-b-20">
                         <div class="col-md-12">
@@ -74,7 +74,7 @@
                                     <td colspan="4" class="text-right"><b>Total</b></td>
                                     <td>@currency( $total_before_discount )</td>
                                     <td>@currency( $total_discount )</td>
-                                    <td>@currency( $total_after_discount )}</td>
+                                    <td>@currency( $total_after_discount )</td>
                                 </tr>
                             </table>
                         </div>

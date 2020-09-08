@@ -133,7 +133,7 @@
                                             <td></td>
                                         </tr>
                                     @else
-                                        @foreach( $sellings->products as $selling_detail )
+                                        @foreach($sellings->products as $selling_detail )
                                             @php
                                                 $product_id = $selling_detail->pivot->product_id;
                                                 $pivot_price_sell = $selling_detail->pivot->price_sell;
@@ -153,7 +153,7 @@
                                                 </td>
                                                 <td>{{ ProductHelp::get_product_stock_recent( $product_id ) }}</td>
                                                 <td>
-                                                    <input type="text" name="price_sell[]" class="product_price_sell" value="{{ $pivot_price_sell }}">
+                                                    <input type="text" name="price_sell[]" class="product_price_sell" value="{{ intval($pivot_price_sell) }}">
                                                 </td>
                                                 <td>
                                                     <input type="text" name="qty[]" class="qty_detil only_number" value="{{ $pivot_qty }}" style="width: 80px;" min="1">

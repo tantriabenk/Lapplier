@@ -56,7 +56,6 @@ function initialize_selectize() {
 function initialize_datepicker() {
     if ($(".select_dates").length > 0) {
         $(".select_dates").daterangepicker({
-            maxDate: '0',
             // minDate: '-3w',
             dateFormat: 'dd-mm-yy',
             changeMonth: true,
